@@ -5,7 +5,8 @@
          xmlns="http://www.w3.org/2000/svg">
 
       <template v-for="c in courses">
-        <course :key="c.name"
+        <course :key="c.id"
+                :id="c.id"
                 :name="c.name"
                 :pageMargins="pageMargins"
                 :startX="c.startX"
@@ -19,6 +20,7 @@
 </template>
 <script>
 import Course from './Course.vue';
+import CourseList from '../course-list.json';
 
 export default {
   name: 'Page',
@@ -29,13 +31,7 @@ export default {
   data() {
     return {
       pageMargins: 35,
-      courses: [
-        {
-          name: 'WSD',
-          startX: 100,
-          startY: 100,
-        }
-      ]
+      courses: CourseList,
     }
   },
   created() {},

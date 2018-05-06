@@ -34,12 +34,19 @@
   </svg>
 </template>
 <script>
+import { getCoursePosition,
+         setCoursePosition } from '../utils.js';
+
 export default {
   name: 'Course',
   props: {
     pageMargins: {
       type: Number,
-      requireD: true,
+      required: true,
+    },
+    id: {
+      type: String,
+      required: true,
     },
     startX: {
       type: Number,
@@ -67,8 +74,14 @@ export default {
     }
   },
   created() {
-    this.currX = this.startX;
-    this.currY = this.startY;
+    const savedPos = getCoursePosition(this.id);
+    if (savedPos) {
+      this.currX = savedPos.x;
+      this.currY = savedPos.y;
+    } else {
+      this.currX = this.startX;
+      this.currY = this.startY;
+    }
   },
   mounted() {
 
@@ -101,6 +114,7 @@ export default {
         console.log('window: mouseup');
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
+        setCoursePosition(this.id, this.currX, this.currY);
       };
 
       window.addEventListener('mouseup', mouseUpHandler);
