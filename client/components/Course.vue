@@ -5,13 +5,31 @@
        :y="currY"
        xmlns="http://www.w3.org/2000/svg">
 
-    <circle id="dragCircle"
+    <circle id="drag-circle"
             ref="dragCircle"
-            :cx="dragCircleX" :cy="dragCircleY" r="10" fill="red"></circle>
+            :cx="dragCircleX"
+            :cy="dragCircleY"
+            r="10" fill="red"></circle>
+    <!-- this is the background of the course -->
+    <rect id="background-rect"
+          x="0"
+          y="30"
+          rx="10"
+          ry="10"
+          width="250"
+          :height="bgRectHeight + 40"
+          fill="white"></rect>
 
-    <rect x="0" y="30" rx="10" ry="10" width="250" height="150" fill="white"></rect>
+    <!-- this is a group that has all the contents inside the course element -->
+    <g id="g-content"
+       ref="gContent">
 
-    <text x="25" y="65" font-size="20"> {{ name }} </text>
+      <text id="course-name"
+            x="25"
+            y="65"
+            font-size="20"> {{ name }} </text>
+
+    </g>
 
   </svg>
 </template>
@@ -45,6 +63,7 @@ export default {
       mouseIsDown: false,
       currX: 0,
       currY: 0,
+      bgRectHeight: 250,
     }
   },
   created() {
@@ -52,12 +71,17 @@ export default {
     this.currY = this.startY;
   },
   mounted() {
-    console.log(this.$refs)
-    console.log(this.$refs['dragCircle'])
+
+    // because of the limitations of SVG sizing
+    // the background rect has to be manually sized
+    // based on the contents of the content g
+    const g = this.$refs.gContent;
+    const gBounding = g.getBoundingClientRect();
+    this.bgRectHeight = gBounding.height;
+
     const drag = this.$refs['dragCircle'];
-    drag.addEventListener('mousedown', (evt) => {
+    drag.addEventListener('mousedown', () => {
       console.log('mouseIsDown')
-      this.mouseIsDown = true;
 
       // this is called at every mouse movement event
       // this updates the location of the course element
@@ -73,7 +97,7 @@ export default {
 
       // removes this course component's global mouse movement
       // event listeners after mouseup event
-      const mouseUpHandler = (evt) => {
+      const mouseUpHandler = () => {
         console.log('window: mouseup');
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
@@ -96,7 +120,11 @@ export default {
 </script>
 <style scoped>
 
-#dragCircle {
+#drag-circle {
   cursor: move;
+}
+
+#course-name {
+  user-select: none;
 }
 </style>
