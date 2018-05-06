@@ -5,7 +5,8 @@
          xmlns="http://www.w3.org/2000/svg">
 
       <template v-for="c in courses">
-        <course :name="c.name"
+        <course :key="c.name"
+                :name="c.name"
                 :pageMargins="pageMargins"
                 :startX="c.startX"
                 :startY="c.startY"
