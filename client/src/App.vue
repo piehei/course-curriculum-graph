@@ -31,12 +31,12 @@
   </div>
 </template>
 <script>
-import Course from './Course.vue';
-import Movable from './Movable.vue';
-import CourseContent from './CourseContent.vue';
-import CourseList from '../course-list.json';
+import Course from './components/Course.vue';
+import Movable from './components/Movable.vue';
+import CourseContent from './components/CourseContent.vue';
+import CourseList from './course-list.json';
 
-import { getCoursePosition } from '../utils.js';
+import { getCoursePosition } from './utils.js';
 
 const CourseListFromDisk = () => {
 
