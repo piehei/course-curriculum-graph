@@ -34,30 +34,6 @@
 import Course from './components/Course.vue';
 import Movable from './components/Movable.vue';
 import CourseContent from './components/CourseContent.vue';
-import CourseList from './course-list.json';
-
-import { getCoursePosition } from './utils.js';
-
-const CourseListFromDisk = () => {
-
-  CourseList.forEach(course => {
-    console.log(course);
-    const coursePos = getCoursePosition(course.id);
-    if (coursePos) {
-      course.x = coursePos.x;
-      course.y = coursePos.y;
-    }
-    course.topics.forEach(topic => {
-      const topicPos = getCoursePosition(topic.id);
-      if (topicPos) {
-        topic.x = topicPos.x;
-        topic.y = topicPos.y;
-      }
-    })
-  })
-
-  return CourseList;
-};
 
 export default {
   name: 'Page',
@@ -70,7 +46,7 @@ export default {
   data() {
     return {
       pageMargins: 35,
-      courses: CourseListFromDisk(),
+      courses: this.$store.state.courseList,
     }
   },
   created() {},

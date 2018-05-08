@@ -7,8 +7,6 @@
           r="10" fill="red"></circle>
 </template>
 <script>
-import { setCoursePosition } from '../utils.js';
-
 export default {
   name: 'handle',
   props: {
@@ -67,7 +65,11 @@ export default {
         console.log('window: mouseup');
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
-        setCoursePosition(this.id, this.currX, this.currY);
+        this.$store.commit('SAVE_OBJECT_POSITION', {
+          objectId: this.id,
+          posX: this.currX,
+          posY: this.currY }
+        );
       };
 
       window.addEventListener('mouseup', mouseUpHandler);
