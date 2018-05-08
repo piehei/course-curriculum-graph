@@ -8,17 +8,27 @@
     <handle
       :parent-delta-x="parentX"
       :parent-delta-y="parentY"
-      :dragCircleX="100"
+      :dragCircleX="125"
       :dragCircleY="20"
       :curr-x.sync="currX"
       :curr-y.sync="currY"
       :id="id"
       ></handle>
     <g>
-      <rect x="0" y="35" width="100%" height="100%" fill="green"></rect>
+      <rect x="0"
+            y="35"
+            rx="10"
+            ry="10"
+            width="250"
+            height="40"
+            stroke="grey"
+            stroke-width="1"
+            fill="white">
+      </rect>
+
       <text id="course-name"
             x="50"
-            y="50%"
+            y="55"
             width="100"
             height="20"
             fill="red"

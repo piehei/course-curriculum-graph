@@ -86,9 +86,7 @@ export default {
     left: 10px;
     right: 10px;
     bottom: 10px;
-    background: lightgrey;
     padding: 25px;
   }
-
 
 </style>

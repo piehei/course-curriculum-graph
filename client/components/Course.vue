@@ -21,6 +21,8 @@
             ry="10"
             width="250"
             :height="bgRectHeight + 40"
+            stroke="black"
+            stroke-width="2"
             fill="white"></rect>
 
       <!-- this is a group that has all the contents inside the course element -->
