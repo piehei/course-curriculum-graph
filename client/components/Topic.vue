@@ -4,6 +4,7 @@
        :height="height"
        :x="currX"
        :y="currY"
+
         >
     <handle
       :parent-delta-x="parentX"
@@ -15,6 +16,11 @@
       :id="id"
       ></handle>
     <g>
+
+    <text x="25"
+          y="25"
+          font-size="14">Topic</text>
+
       <rect x="0"
             y="35"
             rx="10"

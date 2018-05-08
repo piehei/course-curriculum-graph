@@ -88,5 +88,7 @@ export default {
     bottom: 10px;
     padding: 25px;
   }
-
+  svg {
+    user-select: none;
+  }
 </style>

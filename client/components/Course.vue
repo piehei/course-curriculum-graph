@@ -13,6 +13,12 @@
          :parent-delta-y="pageMargins"
          :id="id"
          ></handle>
+
+        <text id="course-name"
+              x="25"
+              y="25"
+              font-size="14">Course</text>
+
       <!-- this is the background of the course -->
       <rect id="background-rect"
             x="0"
@@ -25,6 +31,7 @@
             stroke-width="2"
             fill="white"></rect>
 
+
       <!-- this is a group that has all the contents inside the course element -->
       <g id="g-content"
          ref="gContent">
@@ -33,8 +40,8 @@
               x="25"
               y="65"
               font-size="20"> {{ name }} </text>
-
       </g>
+
     </svg>
 
     <template v-for="topic in topicsList">
