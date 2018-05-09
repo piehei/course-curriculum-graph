@@ -55,6 +55,11 @@ export default {
         this.currY = evt.clientY - this.dragCircleY - this.parentDeltaY;
         this.$emit('update:currX', this.currX);
         this.$emit('update:currY', this.currY);
+        this.$store.commit('SAVE_OBJECT_POSITION', {
+          objectId: this.id,
+          posX: this.currX,
+          posY: this.currY }
+        );
       }
 
       window.addEventListener('mousemove', mouseMoveHandler);
