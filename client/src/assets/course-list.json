@@ -37,6 +37,12 @@
         "name": "What is programming...",
         "x": 100,
         "y": 100
+      },
+      {
+        "id": "2002",
+        "name": "Function ipsum generators",
+        "x": 100,
+        "y": 100
       }
     ]
   }

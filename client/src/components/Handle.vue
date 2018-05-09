@@ -11,7 +11,7 @@
           :cx="dragCircleX"
           :cy="dragCircleY"
           r="10" fill="red"></circle> -->
-    <font-awesome-icon :icon="icon" size="lg" transform="shrink-x6"></font-awesome-icon>
+          <font-awesome-icon :icon="icon" size="lg" :transform="{ rotate: 45 }"></font-awesome-icon>
   </svg>
 </template>
 <script>
@@ -101,6 +101,7 @@ export default {
 <style scoped>
 #drag-circle {
   cursor: move;
+  pointer-events: bounding-box;
 }
 
 </style>

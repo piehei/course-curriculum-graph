@@ -118,7 +118,7 @@ export default {
   },
   computed: {
     dragCircleX () {
-      return this.width / 2;
+      return this.width - 20;
     },
     dragCircleY () {
       return 5;

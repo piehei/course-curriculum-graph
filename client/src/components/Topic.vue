@@ -9,8 +9,8 @@
     <handle
       :parent-delta-x="parentX"
       :parent-delta-y="parentY"
-      :dragCircleX="125"
-      :dragCircleY="7"
+      :dragCircleX="227"
+      :dragCircleY="8"
       :curr-x.sync="currX"
       :curr-y.sync="currY"
       :id="id"

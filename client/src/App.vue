@@ -64,7 +64,11 @@ export default {
       connections: this.$store.getters.baseConnections,
     }
   },
-  created() {},
+  created() {
+    if (!this.$store.state.stateTouched) {
+      this.$store.commit('ORGANIZE_OBJECTS');
+    }
+  },
   computed: {},
   methods: {
 
