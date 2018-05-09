@@ -1,5 +1,10 @@
 <template>
   <div id="page-outer-container">
+    <button id="reset-state"
+            @click="resetState">
+      Reset
+    </button>
+
 
     <svg width="100%" height="100%"
          xmlns="http://www.w3.org/2000/svg">
@@ -63,6 +68,11 @@ export default {
   computed: {},
   methods: {
 
+    resetState() {
+      localStorage.clear();
+      window.location.reload();
+    },
+
     visible(connection) {
       return true; // this.$store.getters.connectionEndMoving(connection);
     },
@@ -80,6 +90,13 @@ export default {
     bottom: 10px;
     padding: 25px;
   }
+
+  #reset-state {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+  }
+
   svg {
     user-select: none;
   }
