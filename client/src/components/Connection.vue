@@ -5,7 +5,8 @@
         :y1="posFrom.y + deltaY"
         :x2="posTo.x + deltaX"
         :y2="posTo.y + deltaY"
-        stroke="red">
+        stroke="red"
+        stroke-width="2">
   </line>
 
 

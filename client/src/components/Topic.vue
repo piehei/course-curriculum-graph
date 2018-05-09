@@ -10,7 +10,7 @@
       :parent-delta-x="parentX"
       :parent-delta-y="parentY"
       :dragCircleX="125"
-      :dragCircleY="20"
+      :dragCircleY="7"
       :curr-x.sync="currX"
       :curr-y.sync="currY"
       :id="id"

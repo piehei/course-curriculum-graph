@@ -1,12 +1,23 @@
 
 <template>
+  <svg id="drag-circle"
+       ref="dragCircle"
+       width="20"
+       height="25"
+       :x="dragCircleX" :y="dragCircleY">
+    <!--
   <circle id="drag-circle"
           ref="dragCircle"
           :cx="dragCircleX"
           :cy="dragCircleY"
-          r="10" fill="red"></circle>
+          r="10" fill="red"></circle> -->
+    <font-awesome-icon :icon="icon" size="lg" transform="shrink-x6"></font-awesome-icon>
+  </svg>
 </template>
 <script>
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faArrowsAlt from '@fortawesome/fontawesome-free-solid/faArrowsAlt'
+
 export default {
   name: 'handle',
   props: {
@@ -31,11 +42,14 @@ export default {
       required: true,
     },
   },
-  components: {},
+  components: {
+    FontAwesomeIcon,
+  },
   data() {
     return {
       currX: 0,
       currY: 0,
+      icon: faArrowsAlt,
     }
   },
   created() {},

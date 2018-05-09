@@ -121,7 +121,7 @@ export default {
       return this.width / 2;
     },
     dragCircleY () {
-      return 15;
+      return 5;
     }
   },
   methods: {},
