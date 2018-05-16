@@ -21,7 +21,7 @@
 
 
       <template v-for="c in courses">
-       <course :key="c.id"
+        <course :key="c.id"
                 :id="c.id"
                 :name="c.name"
                 :pageMargins="pageMargins"
@@ -29,17 +29,6 @@
                 :startY="c.y"
                 :topicsList="c.topics"
                 ></course>
-
-         <!-- <movable :key="c.id"
-                :id="c.id"
-                :name="c.name"
-                :pageMargins="pageMargins"
-                :startX="c.startX"
-                :startY="c.startY"
-                >
-          <course-content></course-content>
-        </movable>
-         -->
       </template>
 
     </svg>
