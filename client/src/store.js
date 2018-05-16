@@ -34,7 +34,11 @@ const ORGANIZE_OBJECTS = (state) => {
 };
 
 
+const SAVE_OBJECT_CONTAINER_SIZE = (state, { id, width, height, top }) => {
 
+  Vue.set(state.meta, id, { width, height, top });
+
+};
 
 
 const SAVE_OBJECT_POSITION = (state, { posX, posY, objectId }) => {
@@ -74,6 +78,26 @@ const BASE_CONNECTIONS = (state) => {
   return baseList;
 };
 
+const CONTAINER_SIZE_BY_ID = (state) => (objectId) => {
+  if (objectId in state.meta) {
+    return state.meta[objectId];
+  }
+  return { width: 0, height: 0, top: 0 };
+};
+
+const CONTAINER_MIDDLE_POINT_BY_ID = (state, getters) => (id) => {
+
+  const size = getters.containerSize(id);
+  const pos = getters.posById(id);
+
+  return {
+    x: pos.x + size.width / 2,
+    y: pos.y + size.height / 2 + size.top,
+  }
+
+};
+
+
 const POS_BY_ID = (state) => (objectId) => {
   console.log(objectId);
   let match = {};
@@ -102,6 +126,7 @@ export default new Vuex.Store({
 
   state: {
     courseList: CourseList,
+    meta: {},
     stateTouched: false,
     connections: [
       { id: 1, from: "1001", to: "2001" },
@@ -111,6 +136,7 @@ export default new Vuex.Store({
   mutations: {
     SAVE_OBJECT_POSITION,
     ORGANIZE_OBJECTS,
+    SAVE_OBJECT_CONTAINER_SIZE,
   },
 
   actions: {},
@@ -118,6 +144,8 @@ export default new Vuex.Store({
   getters: {
     baseConnections: BASE_CONNECTIONS,
     posById: POS_BY_ID,
+    containerSize: CONTAINER_SIZE_BY_ID,
+    middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
   },
 
   plugins: [

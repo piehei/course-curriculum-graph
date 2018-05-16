@@ -4,6 +4,7 @@
        ref="dragCircle"
        width="20"
        height="25"
+       fill="white"
        :x="dragCircleX" :y="dragCircleY">
     <!--
   <circle id="drag-circle"

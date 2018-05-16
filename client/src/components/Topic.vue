@@ -21,7 +21,8 @@
           y="25"
           font-size="14">Topic</text>
 
-      <rect x="0"
+      <rect ref="container"
+            x="0"
             y="35"
             rx="10"
             ry="10"
@@ -84,8 +85,24 @@ export default {
       currY: this.y,
     };
   },
-  created() {},
-  computed: {},
+  mounted() {
+    const c = this.$refs.container;
+    const cBounding = c.getBBox();
+    this.containerWidth = cBounding.width;
+    this.containerHeight = cBounding.height;
+    this.$store.commit('SAVE_OBJECT_CONTAINER_SIZE',
+      { id: this.id, width: this.containerWidth, height: this.containerHeight, top: cBounding.y });
+  },
+  computed: {
+
+    middlePoint() {
+      return {
+        x: this.parentX + this.x,
+        y: this.parentY + this.y,
+      };
+    },
+
+  },
   methods: {},
 }
 </script>

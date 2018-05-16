@@ -21,6 +21,7 @@
 
       <!-- this is the background of the course -->
       <rect id="background-rect"
+            ref="container"
             x="0"
             y="30"
             rx="10"
@@ -96,6 +97,8 @@ export default {
     return {
       width: 250,
       height: 250,
+      containerWidth: 0,
+      containerHeight: 0,
       mouseIsDown: false,
       currX: 0,
       currY: 0,
@@ -115,6 +118,14 @@ export default {
     const gBounding = g.getBoundingClientRect();
     this.bgRectHeight = gBounding.height;
 
+    this.$nextTick(() => {
+      const c = this.$refs.container;
+      const cBounding = c.getBBox();
+      this.containerWidth = cBounding.width;
+      this.containerHeight = cBounding.height;
+      this.$store.commit('SAVE_OBJECT_CONTAINER_SIZE',
+        { id: this.id, width: this.containerWidth, height: this.containerHeight, top: cBounding.y });
+    })
   },
   computed: {
     dragCircleX () {
