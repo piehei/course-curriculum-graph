@@ -2,6 +2,8 @@
 
 This web app shows a graph of university courses, topics included in the courses, and lets students rate the topics, reflect on them, and connect topics of different courses. This is an MVP for University of Helsinki.
 
+Not necessarily up-to-date version of the app: https://ccgraph.surge.sh
+
 Some features:
 * shows student a graph of courses the student is taking
 * shows topics / course curriculum / bla associated with the courses
