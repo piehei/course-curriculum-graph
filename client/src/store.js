@@ -45,19 +45,44 @@ const SAVE_OBJECT_POSITION = (state, { posX, posY, objectId }) => {
 
   state.stateTouched = true;
 
+  let lowestPointId = "";
+  let lowestPoint = 0;
+
   state.courseList.forEach(course => {
     if (course.id === objectId) {
       course.x = posX;
       course.y = posY;
+    }
+    if (course.y > lowestPoint) {
+      lowestPoint = course.y;
+      lowestPointId = course.id;
     }
     course.topics.forEach(topic => {
       if (topic.id === objectId) {
         topic.x = posX;
         topic.y = posY;
       }
+      if (topic.y > lowestPoint) {
+        lowestPoint = topic.y;
+        lowestPointId = topic.id;
+      }
     });
   });
 
+
+  // TODO: fix this somehow
+  if (posY > state.lowestPoint) {
+    state.lowestId = objectId;
+    state.lowestPoint = posY;
+  }
+
+  if (posY < lowestPoint) {
+    state.lowestId = lowestPointId;
+  }
+
+  if (posY < state.lowestPoint && objectId === state.lowestId) {
+    state.lowestPoint = posY;
+  }
 };
 
 
@@ -130,6 +155,8 @@ export default new Vuex.Store({
     connections: [
       { id: 1, from: "1001", to: "2001" },
     ],
+    lowestPoint: 0,
+    lowestId: "",
   },
 
   mutations: {

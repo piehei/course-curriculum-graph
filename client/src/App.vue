@@ -1,5 +1,6 @@
 <template>
-  <div id="page-outer-container">
+  <div id="page-outer-container"
+       :style="scrollingStyles">
 
     <div style="position:absolute;top:10px;right:10px;">
       <a href="https://github.com/piehei/course-curriculum-graph" target="_BLANK">Source code</a>
@@ -68,6 +69,19 @@ export default {
       const between = this.$store.state.connections;
       return base.concat(between);
     },
+    scrollingStyles() {
+
+      // dirty hack; this has to be rethought
+
+      const lp = this.$store.state.lowestPoint;
+      if (lp < window.innerHeight - 200) {
+        return "bottom:10px";
+      }
+
+      const delta = this.$store.state.lowestPoint - window.innerHeight;
+      const negativeBottom = -(delta + 200);
+      return `bottom:${negativeBottom}px`;
+    },
   },
   methods: {
 
@@ -90,7 +104,7 @@ export default {
     top: 10px;
     left: 10px;
     right: 10px;
-    bottom: 10px;
+    bottom: -100px;
     padding: 25px;
   }
 

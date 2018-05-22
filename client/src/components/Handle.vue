@@ -67,7 +67,7 @@ export default {
         //console.log('window: mousemove');
         // this takes care of placing the element at the cursor location
         this.currX = evt.clientX - this.dragCircleX - this.parentDeltaX;
-        this.currY = evt.clientY - this.dragCircleY - this.parentDeltaY;
+        this.currY = window.scrollY + evt.clientY - this.dragCircleY - this.parentDeltaY;
         this.$emit('update:currX', this.currX);
         this.$emit('update:currY', this.currY);
         this.$store.commit('SAVE_OBJECT_POSITION', {
