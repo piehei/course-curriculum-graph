@@ -9,7 +9,7 @@ import CourseList from './assets/course-list.json';
 
 const ORGANIZE_OBJECTS = (state) => {
 
-  let lastTopicY = 0;
+  let lastTopicY = -125;
 
   state.courseList.forEach((course, courseCount) => {
 
@@ -30,9 +30,30 @@ const ORGANIZE_OBJECTS = (state) => {
 
   });
 
-
+  const { point, id } = LOWEST_POINT_AND_ID(state.courseList);
+  state.lowestId = id;
+  state.lowestPoint = point;
 };
 
+const LOWEST_POINT_AND_ID = (courseList) => {
+  let lowestPointId = "";
+  let lowestPoint = 0;
+
+  courseList.forEach(course => {
+    if (course.y > lowestPoint) {
+      lowestPoint = course.y;
+      lowestPointId = course.id;
+    }
+    course.topics.forEach(topic => {
+      if (topic.y > lowestPoint) {
+        lowestPoint = topic.y;
+        lowestPointId = topic.id;
+      }
+    });
+  });
+
+  return { point: lowestPoint, id: lowestPointId };
+};
 
 const SAVE_OBJECT_CONTAINER_SIZE = (state, { id, width, height, top }) => {
 

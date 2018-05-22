@@ -64,6 +64,9 @@ export default {
       // this updates the location of the course element
       // to the current mouse location
       const mouseMoveHandler = (evt) => {
+        if (evt.clientY < 35) {
+          return;
+        }
         //console.log('window: mousemove');
         // this takes care of placing the element at the cursor location
         this.currX = evt.clientX - this.dragCircleX - this.parentDeltaX;
