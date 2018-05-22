@@ -1,8 +1,13 @@
 <template>
   <div id="page-outer-container">
+
+    <div style="position:absolute;top:10px;right:10px;">
+      <a href="https://github.com/piehei/course-curriculum-graph" target="_BLANK">Source code</a>
+    </div>
+
     <button id="reset-state"
             @click="resetState">
-      Reset
+      Reset state
     </button>
 
 
