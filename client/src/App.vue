@@ -50,7 +50,6 @@ export default {
     return {
       pageMargins: 35,
       courses: this.$store.state.courseList,
-      connections: this.$store.getters.baseConnections,
     }
   },
   created() {
@@ -58,7 +57,13 @@ export default {
       this.$store.commit('ORGANIZE_OBJECTS');
     }
   },
-  computed: {},
+  computed: {
+    connections() {
+      const base = this.$store.getters.baseConnections;
+      const between = this.$store.state.connections;
+      return base.concat(between);
+    },
+  },
   methods: {
 
     resetState() {

@@ -99,7 +99,6 @@ const CONTAINER_MIDDLE_POINT_BY_ID = (state, getters) => (id) => {
 
 
 const POS_BY_ID = (state) => (objectId) => {
-  console.log(objectId);
   let match = {};
   state.courseList.forEach(course => {
     if (course.id === objectId) {

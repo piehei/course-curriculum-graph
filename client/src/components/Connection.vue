@@ -32,8 +32,8 @@ export default {
     return {
       deltaX: 125,
       deltaY: 60,
-      rand1: Math.floor(Math.random() * 12),
-      rand2: Math.floor(Math.random() * 13),
+      rand1: Math.floor(Math.random() * 4),
+      rand2: Math.floor(Math.random() * 5),
     };
   },
   created() {},
