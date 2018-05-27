@@ -6,8 +6,18 @@ Vue.use(Vuex);
 
 import CourseList from './assets/course-list.json';
 
-const COMMIT_INITIAL_NODE_LIST = (state) => {
- console.log('lol');
+
+const COMMIT_INITIAL_NODE_LIST = (nodeList) => {
+
+  nodeList.forEach(node => {
+    if ('PARENT' in node) {
+      node.type = 'CHILD';
+    } else {
+      node.type = 'PARENT';
+    }
+  })
+
+  return nodeList;
 };
 
 const CHILDREN_BY_PARENT_ID = (state, id) => {
@@ -70,6 +80,11 @@ const SAVE_OBJECT_CONTAINER_SIZE = (state, { id, width, height, top }) => {
 
 };
 
+const MOVE_OBJECT_BY = (state, { deltaX, deltaY, objectId }) => {
+  const node = state.nodeList.filter(node => node.id === objectId)[0];
+  node.x += deltaX;
+  node.y += deltaY;
+};
 
 const SAVE_OBJECT_POSITION = (state, { posX, posY, objectId }) => {
 
@@ -153,7 +168,7 @@ const POS_BY_ID = (state) => (objectId) => {
 export default new Vuex.Store({
 
   state: {
-    nodeList: CourseList,
+    nodeList: COMMIT_INITIAL_NODE_LIST(CourseList),
     meta: {},
     stateTouched: false,
     connections: [
@@ -167,6 +182,7 @@ export default new Vuex.Store({
     SAVE_OBJECT_POSITION,
     ORGANIZE_OBJECTS,
     SAVE_OBJECT_CONTAINER_SIZE,
+    MOVE_OBJECT_BY,
   },
 
   actions: {},

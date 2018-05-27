@@ -28,13 +28,13 @@
 
       <template v-for="c in courses">
         <node
-                :key="c.id"
-                :id="c.id"
-                :name="c.name"
-                :pageMargins="pageMargins"
-                :startX="c.x"
-                :startY="c.y"
-                :topicsList="c.topics"
+              :key="c.id"
+              :id="c.id"
+              :name="c.name"
+              :pageMargins="pageMargins"
+              :x="c.x"
+              :y="c.y"
+              :type="c.type"
                 ></node>
       </template>
 

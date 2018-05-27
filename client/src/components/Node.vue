@@ -3,21 +3,12 @@
        height="100%"
        x="0"
        y="0">
-    <svg :x="currX" :y="currY">
-      <handle
-         :drag-circle-x="dragCircleX"
-         :drag-circle-y="dragCircleY"
-         :curr-x.sync="currX"
-         :curr-y.sync="currY"
-         :parent-delta-x="pageMargins"
-         :parent-delta-y="pageMargins"
-         :id="id"
-         ></handle>
+    <svg :x="x" :y="y">
 
         <text id="course-name"
               x="25"
               y="25"
-              font-size="14">Course</text>
+              font-size="14">{{ type === 'PARENT' ? 'Course' : 'Topic' }}</text>
 
       <!-- this is the background of the course -->
       <rect id="background-rect"
@@ -28,9 +19,20 @@
             ry="10"
             width="250"
             :height="bgRectHeight + 40"
-            stroke="black"
+            :stroke=" type === 'PARENT' ? 'blue' : 'orange'"
             stroke-width="2"
             fill="white"></rect>
+      <handle
+         :drag-rect-x="4"
+         :drag-rect-y="34"
+         :width="250 - 8"
+         :height="bgRectHeight + 40 - 8"
+         :curr-x="x"
+         :curr-y="y"
+         :parent-delta-x="pageMargins"
+         :parent-delta-y="pageMargins"
+         :id="id"
+         ></handle>
 
 
       <!-- this is a group that has all the contents inside the course element -->
@@ -38,6 +40,7 @@
          ref="gContent">
 
         <text id="course-name"
+              style="pointer-events:none;"
               x="25"
               y="65"
               font-size="20"> {{ name }} </text>
@@ -60,15 +63,19 @@ export default {
       type: String,
       required: true,
     },
-    startX: {
+    x: {
       type: Number,
       required: true,
     },
-    startY: {
+    y: {
       type: Number,
       required: true,
     },
     name: {
+      type: String,
+      required: true,
+    },
+    type: {
       type: String,
       required: true,
     },
@@ -83,14 +90,8 @@ export default {
       containerWidth: 0,
       containerHeight: 0,
       mouseIsDown: false,
-      currX: 0,
-      currY: 0,
       bgRectHeight: 250,
     }
-  },
-  created() {
-    this.currX = this.startX;
-    this.currY = this.startY;
   },
   mounted() {
 
@@ -116,7 +117,7 @@ export default {
     },
     dragCircleY () {
       return 5;
-    }
+    },
   },
   methods: {},
 }
