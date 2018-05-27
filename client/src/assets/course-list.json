@@ -1,35 +1,42 @@
 [
   {
     "id": "1000",
-    "name": "WSD"
+    "name": "WSD",
+    "type": "PARENT"
   },
   {
     "id": "1001",
     "name": "CSS",
+    "type": "CHILD",
     "PARENT": "1000"
   },
   {
     "id": "1002",
     "name": "JavaScript",
+    "type": "CHILD",
     "PARENT": "1000"
   },
   {
     "id": "1003",
     "name": "HTML templates",
+    "type": "CHILD",
     "PARENT": "1000"
   },
   {
     "id": "2000",
-    "name": "Programming 1"
+    "name": "Programming 1",
+    "type": "PARENT"
   },
   {
     "id": "2001",
     "name": "What is programming...",
+    "type": "CHILD",
     "PARENT": "2000"
   },
   {
     "id": "2002",
     "name": "Function ipsum generators",
+    "type": "CHILD",
     "PARENT": "2000"
   }
 ]

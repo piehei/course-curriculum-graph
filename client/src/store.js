@@ -4,21 +4,8 @@ import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
-import CourseList from './assets/course-list.json';
+import courseList from './assets/course-list.json';
 
-
-const COMMIT_INITIAL_NODE_LIST = (nodeList) => {
-
-  nodeList.forEach(node => {
-    if ('PARENT' in node) {
-      node.type = 'CHILD';
-    } else {
-      node.type = 'PARENT';
-    }
-  })
-
-  return nodeList;
-};
 
 const CHILDREN_BY_PARENT_ID = (state, id) => {
 
@@ -81,6 +68,7 @@ const SAVE_OBJECT_CONTAINER_SIZE = (state, { id, width, height, top }) => {
 };
 
 const MOVE_OBJECT_BY = (state, { deltaX, deltaY, objectId }) => {
+  state.stateTouched = true;
   const node = state.nodeList.filter(node => node.id === objectId)[0];
   node.x += deltaX;
   node.y += deltaY;
@@ -168,7 +156,7 @@ const POS_BY_ID = (state) => (objectId) => {
 export default new Vuex.Store({
 
   state: {
-    nodeList: COMMIT_INITIAL_NODE_LIST(CourseList),
+    nodeList: courseList,
     meta: {},
     stateTouched: false,
     connections: [
