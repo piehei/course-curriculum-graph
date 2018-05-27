@@ -1,19 +1,13 @@
 
 <template>
-  <svg id="drag-circle"
-       ref="dragCircle"
-       width="20"
-       height="25"
+  <rect id="drag-rect"
+       ref="dragRect"
+       :width="width"
+       :height="height"
        fill="white"
-       :x="dragCircleX" :y="dragCircleY">
-    <!--
-  <circle id="drag-circle"
-          ref="dragCircle"
-          :cx="dragCircleX"
-          :cy="dragCircleY"
-          r="10" fill="red"></circle> -->
-          <font-awesome-icon :icon="icon" size="lg" :transform="{ rotate: 45 }"></font-awesome-icon>
-  </svg>
+       :x="dragRectX" :y="dragRectY">
+  <!-- <font-awesome-icon :icon="icon" size="lg" :transform="{ rotate: 45 }"></font-awesome-icon> -->
+  </rect>
 </template>
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
@@ -26,11 +20,11 @@ export default {
       type: String,
       required: true,
     },
-    dragCircleX: {
+    dragRectX: {
       type: Number,
       required: true,
     },
-    dragCircleY: {
+    dragRectY: {
       type: Number,
       required: true,
     },
@@ -39,6 +33,14 @@ export default {
       required: true,
     },
     parentDeltaY: {
+      type: Number,
+      required: true,
+    },
+    width: {
+      type: Number,
+      required: true,
+    },
+    height: {
       type: Number,
       required: true,
     },
@@ -51,14 +53,21 @@ export default {
       currX: 0,
       currY: 0,
       icon: faArrowsAlt,
+      lastMousePos: {
+        x: 0,
+        y: 0,
+      },
     }
   },
   created() {},
   mounted() {
     console.log('mounting...');
-    const drag = this.$refs['dragCircle'];
-    drag.addEventListener('mousedown', () => {
+    const drag = this.$refs['dragRect'];
+    drag.addEventListener('mousedown', (mouseDownEvt) => {
       console.log('mouseIsDown')
+
+      this.lastMousePos.x = mouseDownEvt.clientX;
+      this.lastMousePos.y = mouseDownEvt.clientY;
 
       // this is called at every mouse movement event
       // this updates the location of the course element
@@ -67,16 +76,18 @@ export default {
         if (evt.clientY < 35) {
           return;
         }
-        //console.log('window: mousemove');
-        // this takes care of placing the element at the cursor location
-        this.currX = evt.clientX - this.dragCircleX - this.parentDeltaX;
-        this.currY = window.scrollY + evt.clientY - this.dragCircleY - this.parentDeltaY;
-        this.$emit('update:currX', this.currX);
-        this.$emit('update:currY', this.currY);
-        this.$store.commit('SAVE_OBJECT_POSITION', {
+
+        const deltaX = evt.clientX - this.lastMousePos.x;
+        const deltaY = evt.clientY - this.lastMousePos.y;
+        //if (Math.abs(deltaX) < 4 || Math.abs(deltaY) < 4) return;
+
+        this.lastMousePos.x = evt.clientX;
+        this.lastMousePos.y = evt.clientY;
+
+        this.$store.commit('MOVE_OBJECT_BY', {
           objectId: this.id,
-          posX: this.currX,
-          posY: this.currY }
+          deltaX: deltaX,
+          deltaY: deltaY }
         );
       }
 
@@ -88,11 +99,6 @@ export default {
         console.log('window: mouseup');
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
-        this.$store.commit('SAVE_OBJECT_POSITION', {
-          objectId: this.id,
-          posX: this.currX,
-          posY: this.currY }
-        );
       };
 
       window.addEventListener('mouseup', mouseUpHandler);
@@ -103,7 +109,7 @@ export default {
 }
 </script>
 <style scoped>
-#drag-circle {
+#drag-rect {
   cursor: move;
   pointer-events: bounding-box;
 }
