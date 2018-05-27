@@ -1,51 +1,36 @@
 [
-
   {
     "id": "1000",
-    "name": "WSD",
-    "x": 100,
-    "y": 100,
-    "topics": [
-      {
-        "id": "1001",
-        "name": "CSS",
-        "x": 100,
-        "y": 100
-      },
-      {
-        "id": "1002",
-        "name": "JavaScript",
-        "x": 100,
-        "y": 100
-      },
-      {
-        "id": "1003",
-        "name": "HTML templates",
-        "x": 100,
-        "y": 100
-      }
-    ]
+    "name": "WSD"
+  },
+  {
+    "id": "1001",
+    "name": "CSS",
+    "PARENT": "1000"
+  },
+  {
+    "id": "1002",
+    "name": "JavaScript",
+    "PARENT": "1000"
+  },
+  {
+    "id": "1003",
+    "name": "HTML templates",
+    "PARENT": "1000"
   },
   {
     "id": "2000",
-    "name": "Programmin 1",
-    "x": 200,
-    "y": 200,
-    "topics": [
-      {
-        "id": "2001",
-        "name": "What is programming...",
-        "x": 100,
-        "y": 100
-      },
-      {
-        "id": "2002",
-        "name": "Function ipsum generators",
-        "x": 100,
-        "y": 100
-      }
-    ]
+    "name": "Programming 1"
+  },
+  {
+    "id": "2001",
+    "name": "What is programming...",
+    "PARENT": "2000"
+  },
+  {
+    "id": "2002",
+    "name": "Function ipsum generators",
+    "PARENT": "2000"
   }
-
 ]
 

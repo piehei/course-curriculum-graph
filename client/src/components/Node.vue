@@ -42,26 +42,15 @@
               y="65"
               font-size="20"> {{ name }} </text>
       </g>
-
     </svg>
-
-    <template v-for="topic in topicsList">
-      <topic :name="topic.name"
-             :parent-x="pageMargins"
-             :parent-y="pageMargins"
-             :id="topic.id"
-             :x="topic.x"
-             :y="topic.y"></topic>
-    </template>
 
   </svg>
 </template>
 <script>
-import Topic from './Topic.vue';
 import Handle from './Handle.vue';
 
 export default {
-  name: 'Course',
+  name: 'Box',
   props: {
     pageMargins: {
       type: Number,
@@ -83,14 +72,8 @@ export default {
       type: String,
       required: true,
     },
-    topicsList: {
-      type: Array,
-      required: true,
-    },
-
   },
   components: {
-    topic: Topic,
     handle: Handle,
   },
   data() {

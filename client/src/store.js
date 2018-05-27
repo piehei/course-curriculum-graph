@@ -6,50 +6,59 @@ Vue.use(Vuex);
 
 import CourseList from './assets/course-list.json';
 
+const COMMIT_INITIAL_NODE_LIST = (state) => {
+ console.log('lol');
+};
+
+const CHILDREN_BY_PARENT_ID = (state, id) => {
+
+  return state.nodeList.filter(node => {
+    return 'PARENT' in node && node['PARENT'] === id
+  })
+}
 
 const ORGANIZE_OBJECTS = (state) => {
 
-  let lastTopicY = -125;
+  let lastChildY= -125;
 
-  state.courseList.forEach((course, courseCount) => {
+  state.nodeList.forEach(node => {
 
-    course.x = 100;
-    course.y = lastTopicY + 150;
+    if ('PARENT' in node) return;
 
-    let verticalTopicSpace = 0;
-    course.topics.forEach((topic, index) => {
 
-      topic.x = course.x + 300;
-      topic.y = course.y + index * 100;
-      lastTopicY = topic.y;
-      verticalTopicSpace = index * 100;
+    node.x = 100;
+    node.y = lastChildY += 150;
 
-    });
+    let verticalChildSpace = 0;
+    const children = CHILDREN_BY_PARENT_ID(state, node.id);
+    console.log(children)
+    children.forEach((child, index) => {
 
-    course.y += verticalTopicSpace / 2 - 5;
+       child.x = node.x + 300;
+       child.y = node.y + index * 100;
+       lastChildY = child.y;
+       verticalChildSpace = index * 100;
+
+     });
+
+    node.y += verticalChildSpace / 2 - 5;
 
   });
 
-  const { point, id } = LOWEST_POINT_AND_ID(state.courseList);
-  state.lowestId = id;
-  state.lowestPoint = point;
+  // const { point, id } = LOWEST_POINT_AND_ID(state.courseList);
+  // state.lowestId = id;
+  // state.lowestPoint = point;
 };
 
-const LOWEST_POINT_AND_ID = (courseList) => {
+const LOWEST_POINT_AND_ID = (nodeList) => {
   let lowestPointId = "";
   let lowestPoint = 0;
 
-  courseList.forEach(course => {
-    if (course.y > lowestPoint) {
-      lowestPoint = course.y;
-      lowestPointId = course.id;
+  nodeList.forEach(node => {
+    if (node.y > lowestPoint) {
+      lowestPoint = node.y;
+      lowestPointId = node.id;
     }
-    course.topics.forEach(topic => {
-      if (topic.y > lowestPoint) {
-        lowestPoint = topic.y;
-        lowestPointId = topic.id;
-      }
-    });
   });
 
   return { point: lowestPoint, id: lowestPointId };
@@ -69,27 +78,15 @@ const SAVE_OBJECT_POSITION = (state, { posX, posY, objectId }) => {
   let lowestPointId = "";
   let lowestPoint = 0;
 
-  state.courseList.forEach(course => {
-    if (course.id === objectId) {
-      course.x = posX;
-      course.y = posY;
-    }
-    if (course.y > lowestPoint) {
-      lowestPoint = course.y;
-      lowestPointId = course.id;
-    }
-    course.topics.forEach(topic => {
-      if (topic.id === objectId) {
-        topic.x = posX;
-        topic.y = posY;
-      }
-      if (topic.y > lowestPoint) {
-        lowestPoint = topic.y;
-        lowestPointId = topic.id;
-      }
-    });
-  });
+  const node = state.nodeList.filter(node => node.id === objectId)[0];
 
+  node.x = posX;
+  node.y = posY;
+
+  if (node.y > lowestPoint) {
+    lowestPoint = node.y;
+    lowestPointId = node.id;
+  }
 
   // TODO: fix this somehow
   if (posY > state.lowestPoint) {
@@ -112,8 +109,8 @@ const BASE_CONNECTIONS = (state) => {
 
   const baseList = [];
 
-  state.courseList.forEach(course => {
-    course.topics.forEach(topic => {
+  state.nodeList.forEach(course => {
+    CHILDREN_BY_PARENT_ID(state, course.id).forEach(topic => {
       baseList.push({
         from: course.id,
         to: topic.id,
@@ -145,32 +142,18 @@ const CONTAINER_MIDDLE_POINT_BY_ID = (state, getters) => (id) => {
 
 
 const POS_BY_ID = (state) => (objectId) => {
-  let match = {};
-  state.courseList.forEach(course => {
-    if (course.id === objectId) {
-      match = {
-        x: course.x,
-        y: course.y,
-      };
-    }
-    course.topics.forEach(topic => {
-      if (topic.id === objectId) {
-        match = {
-          x: topic.x,
-          y: topic.y,
-        };
-      }
-    });
-  });
-
-  return match;
+  const node = state.nodeList.filter(node => node.id === objectId)[0];
+  return {
+    x: node.x,
+    y: node.y
+  };
 };
 
 
 export default new Vuex.Store({
 
   state: {
-    courseList: CourseList,
+    nodeList: CourseList,
     meta: {},
     stateTouched: false,
     connections: [

@@ -27,14 +27,15 @@
 
 
       <template v-for="c in courses">
-        <course :key="c.id"
+        <node
+                :key="c.id"
                 :id="c.id"
                 :name="c.name"
                 :pageMargins="pageMargins"
                 :startX="c.x"
                 :startY="c.y"
                 :topicsList="c.topics"
-                ></course>
+                ></node>
       </template>
 
     </svg>
@@ -42,20 +43,20 @@
   </div>
 </template>
 <script>
-import Course from './components/Course.vue';
+import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
 
 export default {
   name: 'Page',
   props: [],
   components: {
-    course: Course,
+    node: Node,
     connection: Connection,
   },
   data() {
     return {
       pageMargins: 35,
-      courses: this.$store.state.courseList,
+      courses: this.$store.state.nodeList,
     }
   },
   created() {
