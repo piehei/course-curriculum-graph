@@ -10,7 +10,7 @@ import courseList from './assets/course-list.json';
 const CHILDREN_BY_PARENT_ID = (state, id) => {
 
   return state.nodeList.filter(node => {
-    return 'PARENT' in node && node['PARENT'] === id
+    return 'parent' in node && node['parent'] === id
   })
 }
 
@@ -20,7 +20,7 @@ const ORGANIZE_OBJECTS = (state) => {
 
   state.nodeList.forEach(node => {
 
-    if ('PARENT' in node) return;
+    if ('parent' in node) return;
 
 
     node.x = 100;
