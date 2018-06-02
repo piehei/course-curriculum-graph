@@ -70,11 +70,16 @@ export default new Vuex.Store({
     nodeList: courseList,
     meta: {},
     stateTouched: false,
+    useCurves: true,
     connections: [
       { id: 1, from: "1001", to: "2001" },
     ],
     lowestPoint: 0,
     lowestId: "",
+    UI: {
+      pathShape: 'curve',
+      possiblePathShapes: ['curve', 'path', 'line'],
+    }
   },
 
   mutations: {

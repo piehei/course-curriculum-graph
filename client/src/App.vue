@@ -6,11 +6,24 @@
       <a href="https://github.com/piehei/course-curriculum-graph" target="_BLANK">Source code</a>
     </div>
 
-    <button id="reset-state"
-            @click="resetState">
-      Reset state
-    </button>
+    <div id="buttons">
+      <button @click="resetState">
+        Reset state
+      </button>
 
+      <br><br>
+
+      Line shape:
+      <br>
+
+      <select v-model="pathShape">
+        <option disabled value="">Please select one</option>
+        <option v-for="shape in possiblePathShapes">
+          {{ shape }}
+        </option>
+      </select>
+
+    </div>
 
     <svg width="100%" height="100%"
          xmlns="http://www.w3.org/2000/svg">
@@ -21,7 +34,6 @@
           :from="c.from"
           :to="c.to"
           :key="c.from + c.to"
-          v-if="visible(c)"
           ></connection>
       </template>
 
@@ -65,6 +77,17 @@ export default {
     }
   },
   computed: {
+    pathShape: {
+      get() {
+        return this.$store.state.UI.pathShape;
+      },
+      set(val) {
+        this.$store.commit('CHANGE_PATH_SHAPE', val);
+      },
+    },
+    possiblePathShapes() {
+      return this.$store.state.UI.possiblePathShapes;
+    },
     connections() {
       const base = this.$store.getters.baseConnections;
       const between = this.$store.state.connections;
@@ -90,11 +113,11 @@ export default {
       this.$store.commit('RESET_STATE');
     },
 
-    visible(connection) {
-      return true; // this.$store.getters.connectionEndMoving(connection);
+    toggleCurve() {
+      this.$store.commit('TOGGLE_CURVES');
     },
 
-},
+  },
 }
 </script>
 <style scoped>
@@ -108,7 +131,7 @@ export default {
     padding: 25px;
   }
 
-  #reset-state {
+  #buttons {
     position: absolute;
     left: 10px;
     top: 10px;
