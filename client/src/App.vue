@@ -87,8 +87,7 @@ export default {
   methods: {
 
     resetState() {
-      localStorage.clear();
-      window.location.reload();
+      this.$store.commit('RESET_STATE');
     },
 
     visible(connection) {
