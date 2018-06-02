@@ -18,7 +18,8 @@
 
       <select v-model="pathShape">
         <option disabled value="">Please select one</option>
-        <option v-for="shape in possiblePathShapes">
+        <option v-for="shape in possiblePathShapes"
+                :key="shape">
           {{ shape }}
         </option>
       </select>

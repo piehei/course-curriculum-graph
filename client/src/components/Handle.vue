@@ -61,10 +61,9 @@ export default {
   },
   created() {},
   mounted() {
-    console.log('mounting...');
     const drag = this.$refs['dragRect'];
     drag.addEventListener('mousedown', (mouseDownEvt) => {
-      console.log('mouseIsDown')
+      // console.log('mouseIsDown')
 
       this.lastMousePos.x = mouseDownEvt.clientX;
       this.lastMousePos.y = mouseDownEvt.clientY;
@@ -96,7 +95,7 @@ export default {
       // removes this course component's global mouse movement
       // event listeners after mouseup event
       const mouseUpHandler = () => {
-        console.log('window: mouseup');
+        // console.log('window: mouseup');
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
       };

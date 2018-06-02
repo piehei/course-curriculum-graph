@@ -1,6 +1,6 @@
 import Vue from 'vue';
 
-import courseList from '../assets/course-list.json';
+// import courseList from '../assets/course-list.json';
 
 import { CHILDREN_BY_PARENT_ID } from './index';
 
@@ -24,7 +24,6 @@ export const ORGANIZE_OBJECTS = (state) => {
 
     let verticalChildSpace = 0;
     const children = CHILDREN_BY_PARENT_ID(state, node.id);
-    console.log(children)
     children.forEach((child, index) => {
 
        child.x = node.x + 300;
