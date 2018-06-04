@@ -45,16 +45,25 @@ export default {
       const sign = x1 > x2 ? -1 : 1
 
       if (shape === 'curve') {
+        // curve is consctructed as follows:
+        // M x1 x2 Q x y x2 y2
+        // where x y stands for the slope
+        // here we make the slope steeper(?) if the nodes are very adjancent to eache other
         return `M ${x1} ${y1}
-                Q ${x1 + (x2-x1)/2} ${y1 + (y1 > y2 ? -100 : 100) + (y2-y1)/2}
+                Q ${x1 + (x2-x1)/2 + (Math.abs(x1-x2) < 50 ? 50 : 0)} ${y1 + (y1 > y2 ? -100 : 100) + (y2-y1)/2}
                 ${x2} ${y2}`
+
       } else if (shape === 'path') {
+
         return `M ${x1 + rand1} ${y1 - rand2}
                  l ${ sign * Math.abs(x1 - x2 + rand1) / 2 } 0
                  l 0 ${y2 - y1 + rand2}
                  L ${x2 - rand1} ${y2 + rand2}`;
+
       } else {
+
         return `M ${x1} ${y1} L ${x2} ${y2}`;
+
       }
     },
     posFrom() {
