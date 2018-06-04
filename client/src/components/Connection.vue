@@ -5,7 +5,7 @@
   <path :d="pathString"
 
         fill="transparent"
-        :stroke="userAdded ? '#9e9e9e' : 'green'"
+        :stroke="userAdded ? 'green' : '#9e9e9e'"
         stroke-width="3px"
         :stroke-dasharray="dashParams">
   </path>
@@ -23,7 +23,11 @@ export default {
     to: {
       type: String,
       required: true,
-    }
+    },
+    userAdded: {
+      type: Boolean,
+      required: true,
+    },
   },
   components: {},
   data() {
@@ -92,9 +96,6 @@ export default {
     },
     dashParams() {
       return "10px 3px";
-    },
-    userAdded() {
-      return this.to[0] === this.from[0];
     },
   },
   methods: {

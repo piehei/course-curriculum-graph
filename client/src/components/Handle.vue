@@ -61,7 +61,15 @@ export default {
   },
   created() {},
   mounted() {
+
     const drag = this.$refs['dragRect'];
+
+    drag.addEventListener('click', (evt) => {
+      if (!evt.ctrlKey) return;
+      console.log(evt)
+      this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
+    });
+
     drag.addEventListener('mousedown', (mouseDownEvt) => {
       // console.log('mouseIsDown')
 
@@ -108,6 +116,7 @@ export default {
 }
 </script>
 <style scoped>
+
 #drag-rect {
   cursor: move;
   pointer-events: bounding-box;

@@ -16,7 +16,9 @@ export const CHILDREN_BY_PARENT_ID = (state, id) => {
 
 
 
-
+const USER_ADDED_CONNECTIONS = (state) => {
+  return state.userLog.filter(e => e.type === 'connection');
+};
 
 
 const BASE_CONNECTIONS = (state) => {
@@ -79,7 +81,13 @@ export default new Vuex.Store({
     UI: {
       pathShape: 'curve',
       possiblePathShapes: ['curve', 'path', 'line'],
-    }
+    },
+    userLog: [
+      { type: 'connection',
+        from: '2002',
+        to: '1001',
+        timestamp: (new Date()).getTime() }
+    ]
   },
 
   mutations: {
@@ -93,6 +101,7 @@ export default new Vuex.Store({
     posById: POS_BY_ID,
     containerSize: CONTAINER_SIZE_BY_ID,
     middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
+    userAddedConnections: USER_ADDED_CONNECTIONS,
   },
 
   plugins: [

@@ -24,6 +24,9 @@
         </option>
       </select>
 
+      <br><br>
+      Add new:<br>
+      - connection: CTRL-click
     </div>
 
     <svg width="100%" height="100%"
@@ -34,6 +37,7 @@
         <connection
           :from="c.from"
           :to="c.to"
+          :user-added="!!c.timestamp"
           :key="c.from + c.to"
           ></connection>
       </template>
@@ -91,8 +95,8 @@ export default {
     },
     connections() {
       const base = this.$store.getters.baseConnections;
-      const between = this.$store.state.connections;
-      return base.concat(between);
+      const userAdded = this.$store.getters.userAddedConnections;
+      return base.concat(userAdded);
     },
     scrollingStyles() {
 
