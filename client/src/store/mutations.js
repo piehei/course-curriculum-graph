@@ -18,16 +18,18 @@ export const ORGANIZE_OBJECTS = (state) => {
 
     if ('parent' in node) return;
 
-
-    node.x = 100;
-    node.y = lastChildY += 150;
+    // have to use Vue.set since the properties x an y
+    // don't yet exist on the node itself (original json
+    // doesn't include any positional stuff)
+    Vue.set(node, 'x', 100);
+    Vue.set(node, 'y', lastChildY + 150);
 
     let verticalChildSpace = 0;
     const children = CHILDREN_BY_PARENT_ID(state, node.id);
     children.forEach((child, index) => {
 
-       child.x = node.x + 300;
-       child.y = node.y + index * 100;
+       Vue.set(child, 'x', node.x + 300);
+       Vue.set(child, 'y', node.y + index * 100);
        lastChildY = child.y;
        verticalChildSpace = index * 100;
 
