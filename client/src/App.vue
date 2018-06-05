@@ -1,6 +1,7 @@
 <template>
   <div id="page-outer-container"
-       :style="scrollingStyles">
+       :style="scrollingStyles"
+       ref="outer-page">
 
     <div style="position:absolute;top:10px;right:10px;">
       <a href="https://github.com/piehei/course-curriculum-graph" target="_BLANK">Source code</a>
@@ -57,7 +58,7 @@
       </template>
 
 
-      <template v-for="c in courses">
+      <template v-for="c in nodes">
         <node
               :key="c.id"
               :id="c.id"
@@ -68,6 +69,21 @@
               :type="c.type"
                 ></node>
       </template>
+
+
+      <template v-if="showNewNodeAdder">
+        <node
+          :key="-1"
+          :id="'-1'"
+          :name="''"
+          :pageMargins="pageMargins"
+          :x="newNode.x"
+          :y="newNode.y"
+          :type="'NEW_NODE'"
+          @new-node-added="newNodeAdded"
+          ></node>
+      </template>
+
 
     </svg>
 
@@ -87,7 +103,11 @@ export default {
   data() {
     return {
       pageMargins: 35,
-      courses: this.$store.state.nodeList,
+      showNewNodeAdder: false,
+      newNode: {
+        x: 0,
+        y: 0,
+      }
     }
   },
   created() {
@@ -95,6 +115,20 @@ export default {
       this.$store.commit('ORGANIZE_OBJECTS');
     }
     this.$store.commit('RESET_USERLOG_TRAVEL');
+  },
+  mounted() {
+    const container = this.$refs['outer-page'];
+
+    // if the user clicks the page with CTRL down,
+    // an empty node with editable text field will be added
+    // --> pressing enter will add the node
+    container.addEventListener('click', (evt) => {
+      evt.stopPropagation();
+      if (!evt.ctrlKey) return;
+      this.showNewNodeAdder = true;
+      this.newNode.x = evt.clientX;
+      this.newNode.y = evt.clientY;
+    })
   },
   computed: {
     pathShape: {
@@ -107,6 +141,11 @@ export default {
     },
     possiblePathShapes() {
       return this.$store.state.UI.possiblePathShapes;
+    },
+    nodes() {
+      const base = this.$store.state.nodeList;
+      const userAdded = this.$store.getters.userAddedNodes;
+      return base.concat(userAdded);
     },
     connections() {
       const base = this.$store.getters.baseConnections;
@@ -128,7 +167,11 @@ export default {
     },
   },
   methods: {
-
+    newNodeAdded() {
+      this.showNewNodeAdder = false;
+      this.newNode.x = 0;
+      this.newNode.y = 0;
+    },
     resetState() {
       this.$store.commit('RESET_STATE');
     },
