@@ -34,3 +34,18 @@ export const TRAVEL_USERLOG_HISTORY = (state, direction) => {
 export const RESET_USERLOG_TRAVEL = (state) => {
   state.userLogIndex = state.userLog.length;
 };
+
+export const ADD_NEW_NODE = (state, { name, x, y }) => {
+
+  const node = {
+    type: 'node',
+    id: (new Date()).getTime().toString().slice(-4), // four digit string
+    name: name,
+    x: x,
+    y: y,
+    timestamp: (new Date()).getTime(),
+  };
+
+  state.userLog.push(node);
+  state.userLogIndex = state.userLog.length;
+}

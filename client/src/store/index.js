@@ -22,6 +22,11 @@ const USER_ADDED_CONNECTIONS = (state) => {
 };
 
 
+const USER_ADDED_NODES = (state) => {
+  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'node');
+};
+
+
 const BASE_CONNECTIONS = (state) => {
 
   const baseList = [];
@@ -105,6 +110,7 @@ export default new Vuex.Store({
     containerSize: CONTAINER_SIZE_BY_ID,
     middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
     userAddedConnections: USER_ADDED_CONNECTIONS,
+    userAddedNodes: USER_ADDED_NODES,
   },
 
   plugins: [
