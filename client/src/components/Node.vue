@@ -8,7 +8,7 @@
         <text id="course-name"
               x="25"
               y="25"
-              font-size="14">{{ type === 'PARENT' ? 'Course' : 'Topic' }}</text>
+              font-size="14">{{ nodeTitle }}</text>
 
       <!-- this is the background of the course -->
       <rect id="background-rect"
@@ -39,11 +39,29 @@
       <g id="g-content"
          ref="gContent">
 
+
+
+      <template v-if="type === 'NEW_NODE'">
+
+        <foreignObject x="25" y="50" width="100" height="20">
+            <div xmlns="http://www.w3.org/1999/xhtml">
+              <input
+                 v-model="newNodeName"
+                 @keyup.enter="inputEditingEnter">
+            </div>
+        </foreignObject>
+
+      </template>
+      <template v-else>
+
         <text id="course-name"
               style="pointer-events:none;"
+              contentEditable="true"
               x="25"
               y="65"
               font-size="20"> {{ name }} </text>
+
+      </template>
       </g>
     </svg>
 
@@ -91,6 +109,7 @@ export default {
       containerHeight: 0,
       mouseIsDown: false,
       bgRectHeight: 250,
+      newNodeName: '',
     }
   },
   mounted() {
@@ -112,6 +131,15 @@ export default {
     })
   },
   computed: {
+    nodeTitle() {
+      if (this.type === 'PARENT') {
+        return 'Course';
+      } else if (this.type === 'CHILD') {
+        return 'Topic';
+      } else if (this.type === 'NEW_NODE') {
+        return 'New topic name:';
+      }
+    },
     dragCircleX () {
       return this.width - 20;
     },
@@ -119,7 +147,16 @@ export default {
       return 5;
     },
   },
-  methods: {},
+  methods: {
+    inputEditingEnter() {
+      this.$store.commit('ADD_NEW_NODE', {
+        name: this.newNodeName,
+        x: this.x,
+        y: this.y,
+      });
+      this.$emit('new-node-added');
+    }
+  },
 }
 </script>
 <style scoped>
