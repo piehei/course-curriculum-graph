@@ -65,6 +65,7 @@ export default {
     const drag = this.$refs['dragRect'];
 
     drag.addEventListener('click', (evt) => {
+      evt.stopPropagation();
       if (!evt.ctrlKey) return;
       console.log(evt)
       this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
