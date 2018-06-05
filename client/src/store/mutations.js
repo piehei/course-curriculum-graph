@@ -6,9 +6,14 @@ import { CHILDREN_BY_PARENT_ID } from './index';
 
 
 export const RESET_STATE = (state) => {
+  state.userLog = state.userLog.slice(0, 0);
+  state.userLogIndex = 0;
   ORGANIZE_OBJECTS(state);
 };
 
+export const ORGANIZE = (state) => {
+  ORGANIZE_OBJECTS(state);
+};
 
 export const ORGANIZE_OBJECTS = (state) => {
 
@@ -111,22 +116,4 @@ export const SAVE_OBJECT_POSITION = (state, { posX, posY, objectId }) => {
 export const CHANGE_PATH_SHAPE = (state, shape) => {
   state.UI.pathShape = shape;
 };
-
-export const CONNECTION_ADDING_CLICK = (state, id) => {
-  state.UI.showConnectionAdder = true;
-  if (!state.UI.newConnectionFrom) {
-    state.UI.newConnectionFrom = id;
-  } else {
-    const from = state.UI.newConnectionFrom;
-    state.UI.newConnectionFrom = undefined;
-    if (from === id) return;
-    state.userLog.push({
-      type: 'connection',
-      from: from,
-      to: id,
-      timestamp: (new Date()).getTime()
-    });
-  }
-};
-
 

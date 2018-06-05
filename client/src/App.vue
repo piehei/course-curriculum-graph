@@ -13,6 +13,12 @@
 
       <br><br>
 
+      <button @click="organize">
+        Organize
+      </button>
+
+      <br><br>
+
       Line shape:
       <br>
 
@@ -28,6 +34,14 @@
       Add new:<br>
       - connection: CTRL-click
     </div>
+
+
+    <div id="traveler">
+      <button @click="travel(-1)"><--</button>
+      <button @click="resetTravel">Reset</button>
+      <button @click="travel(1)">--> </button>
+    </div>
+
 
     <svg width="100%" height="100%"
          xmlns="http://www.w3.org/2000/svg">
@@ -80,6 +94,7 @@ export default {
     if (!this.$store.state.stateTouched) {
       this.$store.commit('ORGANIZE_OBJECTS');
     }
+    this.$store.commit('RESET_USERLOG_TRAVEL');
   },
   computed: {
     pathShape: {
@@ -118,9 +133,21 @@ export default {
       this.$store.commit('RESET_STATE');
     },
 
+    organize() {
+      this.$store.commit('ORGANIZE');
+    },
+
     toggleCurve() {
       this.$store.commit('TOGGLE_CURVES');
     },
+
+    travel(dir) {
+      this.$store.commit('TRAVEL_USERLOG_HISTORY', dir);
+    },
+
+    resetTravel() {
+      this.$store.commit('RESET_USERLOG_TRAVEL')
+    }
 
   },
 }
@@ -142,7 +169,18 @@ export default {
     top: 10px;
   }
 
+  #traveler {
+    text-align: center;
+    margin-top: -10px;
+  }
+
+  #traveler button {
+    margin: 0 10px;
+  }
+
   svg {
     user-select: none;
   }
+
+
 </style>

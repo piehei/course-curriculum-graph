@@ -7,6 +7,7 @@ Vue.use(Vuex);
 import courseList from '../assets/course-list.json';
 
 import * as mutations from './mutations'
+import * as userLogMutations from './userLogMutations';
 
 export const CHILDREN_BY_PARENT_ID = (state, id) => {
   return state.nodeList.filter(node => {
@@ -17,7 +18,7 @@ export const CHILDREN_BY_PARENT_ID = (state, id) => {
 
 
 const USER_ADDED_CONNECTIONS = (state) => {
-  return state.userLog.filter(e => e.type === 'connection');
+  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'connection');
 };
 
 
@@ -83,15 +84,17 @@ export default new Vuex.Store({
       possiblePathShapes: ['curve', 'path', 'line'],
     },
     userLog: [
-      { type: 'connection',
-        from: '2002',
-        to: '1001',
-        timestamp: (new Date()).getTime() }
-    ]
+      // { type: 'connection',
+      //   from: '2002',
+      //   to: '1001',
+      //   timestamp: (new Date()).getTime() }
+    ],
+    userLogIndex: 0,
   },
 
   mutations: {
-    ...mutations
+    ...mutations,
+    ...userLogMutations,
   },
 
   actions: {},
