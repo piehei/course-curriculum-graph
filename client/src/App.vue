@@ -31,13 +31,21 @@
         </option>
       </select>
 
-      <br><br>
-      Add new:<br>
-      - connection: CTRL-click
     </div>
 
+    <div id="add-instructions">
+      New connection:<br>
+      - CTRL-click on a node, then CTRL-click on another node
+      <br>
+      New node:<br>
+      - CTRL-click on empty space, enter name, press enter
+      <br>
+      Delete: not supported yet
+    </div>
 
     <div id="traveler">
+      Time travel for connections/nodes (pos changes not supported yet)
+      <br>
       <button @click="travel(-1)"><--</button>
       <button @click="resetTravel">Reset</button>
       <button @click="travel(1)">--> </button>
@@ -215,16 +223,23 @@ export default {
 
   #traveler {
     text-align: center;
-    margin-top: -10px;
+    margin-top: -20px;
+    font-size:12px;
   }
 
   #traveler button {
-    margin: 0 10px;
+    margin: 2px 10px;
   }
 
   svg {
     user-select: none;
   }
 
+  #add-instructions {
+    position: absolute;
+    top: 10px;
+    left: 120px;
+    font-size: 12px;
+  }
 
 </style>
