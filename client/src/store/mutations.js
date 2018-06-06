@@ -74,7 +74,7 @@ export const SAVE_OBJECT_CONTAINER_SIZE = (state, { id, width, height, top }) =>
 
 export const MOVE_OBJECT_BY = (state, { deltaX, deltaY, objectId }) => {
   state.stateTouched = true;
-  const node = state.nodeList.filter(node => node.id === objectId)[0];
+  const node = state.userLog.concat(state.nodeList).filter(node => node.id === objectId)[0];
   node.x += deltaX;
   node.y += deltaY;
 };

@@ -125,9 +125,10 @@ export default {
     container.addEventListener('click', (evt) => {
       evt.stopPropagation();
       if (!evt.ctrlKey) return;
+      console.log(evt)
       this.showNewNodeAdder = true;
-      this.newNode.x = evt.clientX;
-      this.newNode.y = evt.clientY;
+      this.newNode.x = evt.clientX - this.pageMargins - 65;
+      this.newNode.y = evt.clientY - this.pageMargins - 70;
     })
   },
   computed: {

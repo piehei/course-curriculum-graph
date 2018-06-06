@@ -64,7 +64,7 @@ const CONTAINER_MIDDLE_POINT_BY_ID = (state, getters) => (id) => {
 
 
 const POS_BY_ID = (state) => (objectId) => {
-  const node = state.nodeList.filter(node => node.id === objectId)[0];
+  const node = state.userLog.concat(state.nodeList).filter(node => node.id === objectId)[0];
   return {
     x: node.x,
     y: node.y

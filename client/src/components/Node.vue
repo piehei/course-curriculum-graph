@@ -46,8 +46,13 @@
         <foreignObject x="25" y="50" width="100" height="20">
             <div xmlns="http://www.w3.org/1999/xhtml">
               <input
+                 ref="input-field"
+                 placeholder="Press enter to save"
                  v-model="newNodeName"
                  @keyup.enter="inputEditingEnter">
+              <div v-if="showWarning">
+                Cannot save empty name
+              </div>
             </div>
         </foreignObject>
 
@@ -110,6 +115,7 @@ export default {
       mouseIsDown: false,
       bgRectHeight: 250,
       newNodeName: '',
+      showWarning: false,
     }
   },
   mounted() {
@@ -129,6 +135,12 @@ export default {
       this.$store.commit('SAVE_OBJECT_CONTAINER_SIZE',
         { id: this.id, width: this.containerWidth, height: this.containerHeight, top: cBounding.y });
     })
+
+
+    // focus cursor in input text field
+    if (this.type === 'NEW_NODE') {
+      this.$refs['input-field'].focus()
+    }
   },
   computed: {
     nodeTitle() {
@@ -149,6 +161,10 @@ export default {
   },
   methods: {
     inputEditingEnter() {
+      if (this.newNodeName.length < 1) {
+        this.showWarning = true;
+        return;
+      }
       this.$store.commit('ADD_NEW_NODE', {
         name: this.newNodeName,
         x: this.x,
