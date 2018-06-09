@@ -49,3 +49,18 @@ export const ADD_NEW_NODE = (state, { name, x, y }) => {
   state.userLog.push(node);
   state.userLogIndex = state.userLog.length;
 }
+
+export const SAVE_NODE_LOC_TO_USERLOG = (state, { id, x, y }) => {
+
+  const posChange = {
+    type: 'location',
+    id: id,
+    x: x,
+    y: y,
+    timestamp: (new Date()).getTime(),
+  };
+
+  state.userLog.push(posChange);
+  state.userLogIndex = state.userLog.length;
+  state.movingNode.id = undefined;
+}

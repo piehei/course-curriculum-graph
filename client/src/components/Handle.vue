@@ -28,14 +28,6 @@ export default {
       type: Number,
       required: true,
     },
-    parentDeltaX: {
-      type: Number,
-      required: true,
-    },
-    parentDeltaY: {
-      type: Number,
-      required: true,
-    },
     width: {
       type: Number,
       required: true,
@@ -44,14 +36,20 @@ export default {
       type: Number,
       required: true,
     },
+    currX: {
+      type: Number,
+      required: true,
+    },
+    currY: {
+      type: Number,
+      required: true,
+    }
   },
   components: {
     FontAwesomeIcon,
   },
   data() {
     return {
-      currX: 0,
-      currY: 0,
       icon: faArrowsAlt,
       lastMousePos: {
         x: 0,
@@ -67,12 +65,10 @@ export default {
     drag.addEventListener('click', (evt) => {
       evt.stopPropagation();
       if (!evt.ctrlKey) return;
-      console.log(evt)
       this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
     });
 
     drag.addEventListener('mousedown', (mouseDownEvt) => {
-      // console.log('mouseIsDown')
 
       this.lastMousePos.x = mouseDownEvt.clientX;
       this.lastMousePos.y = mouseDownEvt.clientY;
@@ -92,21 +88,34 @@ export default {
         this.lastMousePos.x = evt.clientX;
         this.lastMousePos.y = evt.clientY;
 
-        this.$store.commit('MOVE_OBJECT_BY', {
+        const newX = this.currX + deltaX;
+        const newY = this.currY + deltaY;
+        this.$emit('update:localX', newX)
+        this.$emit('update:localY', newY)
+
+        this.$store.commit('MOVE_OBJECT_TO', {
           objectId: this.id,
-          deltaX: deltaX,
-          deltaY: deltaY }
+          newX: newX,
+          newY: newY }
         );
+
       }
 
       window.addEventListener('mousemove', mouseMoveHandler);
 
       // removes this course component's global mouse movement
-      // event listeners after mouseup event
+      // event listeners after mouseup event and commits the final
+      // location to userLog so that timetravel includes node movements
       const mouseUpHandler = () => {
-        // console.log('window: mouseup');
+
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
+
+        this.$store.commit('SAVE_NODE_LOC_TO_USERLOG', {
+          id: this.id,
+          x: this.currX,
+          y: this.currY,
+        });
       };
 
       window.addEventListener('mouseup', mouseUpHandler);

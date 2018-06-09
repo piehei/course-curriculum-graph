@@ -72,11 +72,11 @@ export const SAVE_OBJECT_CONTAINER_SIZE = (state, { id, width, height, top }) =>
 };
 
 
-export const MOVE_OBJECT_BY = (state, { deltaX, deltaY, objectId }) => {
+export const MOVE_OBJECT_TO = (state, { newX, newY, objectId }) => {
   state.stateTouched = true;
-  const node = state.userLog.concat(state.nodeList).filter(node => node.id === objectId)[0];
-  node.x += deltaX;
-  node.y += deltaY;
+  Vue.set(state.movingNode, 'id', objectId);
+  state.movingNode.x = newX;
+  state.movingNode.y = newY;
 };
 
 

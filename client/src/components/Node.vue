@@ -29,8 +29,6 @@
          :height="bgRectHeight + 40 - 8"
          :curr-x="x"
          :curr-y="y"
-         :parent-delta-x="pageMargins"
-         :parent-delta-y="pageMargins"
          :id="id"
          ></handle>
 
@@ -86,14 +84,6 @@ export default {
       type: String,
       required: true,
     },
-    x: {
-      type: Number,
-      required: true,
-    },
-    y: {
-      type: Number,
-      required: true,
-    },
     name: {
       type: String,
       required: true,
@@ -116,6 +106,7 @@ export default {
       bgRectHeight: 250,
       newNodeName: '',
       showWarning: false,
+      isMoving: false,
     }
   },
   mounted() {
@@ -143,6 +134,12 @@ export default {
     }
   },
   computed: {
+    x() {
+      return this.$store.getters.posById(this.id).x;
+    },
+    y() {
+      return this.$store.getters.posById(this.id).y;
+    },
     nodeTitle() {
       if (this.type === 'PARENT') {
         return 'Course';
@@ -171,7 +168,7 @@ export default {
         y: this.y,
       });
       this.$emit('new-node-added');
-    }
+    },
   },
 }
 </script>

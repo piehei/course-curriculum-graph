@@ -67,13 +67,10 @@
 
 
       <template v-for="c in nodes">
-        <node
-              :key="c.id"
+        <node :key="c.id"
               :id="c.id"
               :name="c.name"
               :pageMargins="pageMargins"
-              :x="c.x"
-              :y="c.y"
               :type="c.type"
                 ></node>
       </template>
