@@ -1,73 +1,67 @@
 <template>
-  <svg width="100%"
-       height="100%"
-       x="0"
-       y="0">
-    <svg :x="x" :y="y">
+  <svg :x="x" :y="y">
 
-        <text id="course-name"
-              x="25"
-              y="25"
-              font-size="14">{{ nodeTitle }}</text>
+      <text id="course-name"
+            x="25"
+            y="25"
+            font-size="14">{{ nodeTitle }}</text>
 
-      <!-- this is the background of the course -->
-      <rect id="background-rect"
-            ref="container"
-            x="0"
-            y="30"
-            rx="10"
-            ry="10"
-            width="250"
-            :height="bgRectHeight + 40"
-            :stroke=" type === 'PARENT' ? 'blue' : 'orange'"
-            stroke-width="2"
-            fill="white"></rect>
-      <handle
-         :drag-rect-x="4"
-         :drag-rect-y="34"
-         :width="250 - 8"
-         :height="bgRectHeight + 40 - 8"
-         :curr-x="x"
-         :curr-y="y"
-         :id="id"
-         ></handle>
+    <!-- this is the background of the course -->
+    <rect id="background-rect"
+          ref="container"
+          x="0"
+          y="30"
+          rx="10"
+          ry="10"
+          width="250"
+          :height="bgRectHeight + 40"
+          :stroke=" type === 'PARENT' ? 'blue' : 'orange'"
+          stroke-width="2"
+          fill="white"></rect>
+    <handle
+       :drag-rect-x="4"
+       :drag-rect-y="34"
+       :width="250 - 8"
+       :height="bgRectHeight + 40 - 8"
+       :curr-x="x"
+       :curr-y="y"
+       :id="id"
+       ></handle>
 
 
-      <!-- this is a group that has all the contents inside the course element -->
-      <g id="g-content"
-         ref="gContent">
+    <!-- this is a group that has all the contents inside the course element -->
+    <g id="g-content"
+       ref="gContent">
 
 
 
-      <template v-if="type === 'NEW_NODE'">
+    <template v-if="type === 'NEW_NODE'">
 
-        <foreignObject x="25" y="50" width="100" height="20">
-            <div xmlns="http://www.w3.org/1999/xhtml">
-              <input
-                 ref="input-field"
-                 placeholder="Press enter to save"
-                 v-model="newNodeName"
-                 @keyup.enter="inputEditingEnter">
-              <div v-if="showWarning">
-                Cannot save empty name
-              </div>
+      <foreignObject x="25" y="50" width="100" height="20">
+          <div xmlns="http://www.w3.org/1999/xhtml">
+            <input
+               ref="input-field"
+               placeholder="Press enter to save"
+               v-model="newNodeName"
+               @keyup.enter="inputEditingEnter">
+            <div v-if="showWarning">
+              Cannot save empty name
             </div>
-        </foreignObject>
+          </div>
+      </foreignObject>
 
-      </template>
-      <template v-else>
+    </template>
+    <template v-else>
 
-        <text id="course-name"
-              style="pointer-events:none;"
-              contentEditable="true"
-              x="25"
-              y="65"
-              font-size="20"> {{ name }} </text>
+      <text id="course-name"
+            style="pointer-events:none;"
+            contentEditable="true"
+            x="25"
+            y="65"
+            font-size="20"> {{ name }} </text>
 
-      </template>
-      </g>
-    </svg>
-
+    </template>
+    </g>
   </svg>
 </template>
 <script>
