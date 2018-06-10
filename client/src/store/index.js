@@ -80,7 +80,7 @@ const POS_BY_ID = (state) => (objectId) => {
   // history is a list that starts with the teacher defined original
   // nodes and connections and ends with the whole userlog
   // --> finding the first element from the end is the last committed pos
-  const history = state.nodeList.concat(state.userLog);
+  const history = state.nodeList.concat(state.userLog.slice(0, state.userLogIndex));
   const node = history[history.map(elem => elem.id).lastIndexOf(objectId)];
   return {
     x: node.x,

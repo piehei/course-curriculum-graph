@@ -63,15 +63,20 @@ export default {
     const drag = this.$refs['dragRect'];
 
     drag.addEventListener('click', (evt) => {
-      evt.stopPropagation();
+      evt.stopPropagation(); // prevents appearing on App.vue
       if (!evt.ctrlKey) return;
       this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
     });
 
     drag.addEventListener('mousedown', (mouseDownEvt) => {
-
+      console.log('down')
       this.lastMousePos.x = mouseDownEvt.clientX;
       this.lastMousePos.y = mouseDownEvt.clientY;
+
+      // since mousedown is called at click events
+      // keep track of if any movement happened or if the user
+      // only added a new connection
+      let HAS_MOVED = false;
 
       // this is called at every mouse movement event
       // this updates the location of the course element
@@ -99,6 +104,8 @@ export default {
           newY: newY }
         );
 
+        HAS_MOVED = true;
+
       }
 
       window.addEventListener('mousemove', mouseMoveHandler);
@@ -111,11 +118,13 @@ export default {
         window.removeEventListener('mousemove', mouseMoveHandler);
         window.removeEventListener('mouseup', mouseUpHandler);
 
-        this.$store.commit('SAVE_NODE_LOC_TO_USERLOG', {
-          id: this.id,
-          x: this.currX,
-          y: this.currY,
-        });
+        if (HAS_MOVED) {
+          this.$store.commit('SAVE_NODE_LOC_TO_USERLOG', {
+            id: this.id,
+            x: this.currX,
+            y: this.currY,
+          });
+        }
       };
 
       window.addEventListener('mouseup', mouseUpHandler);

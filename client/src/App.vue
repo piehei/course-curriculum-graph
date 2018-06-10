@@ -44,7 +44,7 @@
     </div>
 
     <div id="traveler">
-      Time travel for connections/nodes (pos changes not supported yet)
+      Time travel
       <br>
       <button @click="travel(-1)"><--</button>
       <button @click="resetTravel">Reset</button>
