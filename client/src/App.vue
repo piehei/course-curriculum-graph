@@ -71,9 +71,11 @@
     </div>
 
 
-    <svg width="100%" height="100%"
+    <svg ref="outer-svg"
+         width="100%" height="100%"
+         style="border:1px solid blue;"
          xmlns="http://www.w3.org/2000/svg">
-
+      <g ref="outer-g">
 
       <template v-for="c in connections">
         <connection
@@ -108,12 +110,24 @@
           ></node>
       </template>
 
+    </g>
+    <!--
+      TODO: think if this is actually needed for something
+            now the zoom effect is attached to the outer-svg
+    <rect ref="zoom-rect"
+          width="100%"
+          height="100%"
+          fill="none"
+          pointer-events="all"></rect>
+    -->
 
     </svg>
 
   </div>
 </template>
 <script>
+import { event, select, zoom } from 'd3';
+
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
 
@@ -126,6 +140,8 @@ export default {
   },
   data() {
     return {
+      svgWidth: 0,
+      svgHeight: 0,
       pageMargins: 35,
       showNewNodeAdder: false,
       newNode: {
@@ -148,13 +164,26 @@ export default {
     }
   },
   mounted() {
+    const svg = this.$refs['outer-svg'];
 
-    const container = this.$refs['outer-page'];
+    // these are used for viewBox --> might not be needed at all in the end
+    const size = svg.getBoundingClientRect()
+    this.svgWidth = size.width;
+    this.svgHeight = size.height;
+
+    // attach d3 zoom and pan listeners to outer-svg and transform the g elem
+    // at zoom events
+    const g = select(this.$refs['outer-g']);
+    select(svg).call(zoom().on('zoom', () => {
+      if (event.sourceEvent.target === svg) {
+         g.attr('transform', event.transform)
+      }
+    }))
 
     // if the user clicks the page with CTRL down,
     // an empty node with editable text field will be added
     // --> pressing enter will add the node
-    container.addEventListener('click', (evt) => {
+    this.$refs['outer-page'].addEventListener('click', (evt) => {
       evt.stopPropagation();
       if (!evt.ctrlKey) return;
       this.showNewNodeAdder = true;
@@ -163,6 +192,14 @@ export default {
     })
   },
   computed: {
+    viewBox() {
+      // TODO: not needed as of now...
+      const x = 0;
+      const y = 0;
+      const width = this.svgWidth;
+      const height = this.svgHeight;
+      return `${x} ${y} ${width} ${height}`;
+    },
     ttPosIndicator() {
       return `${this.$store.state.userLogIndex}/${this.$store.state.userLog.length}`;
     },
@@ -204,11 +241,13 @@ export default {
     toggleDeleteMode() {
       this.$store.commit('TOGGLE_DELETE_MODE');
     },
+
     newNodeAdded() {
       this.showNewNodeAdder = false;
       this.newNode.x = 0;
       this.newNode.y = 0;
     },
+
     resetState() {
       this.$store.commit('RESET_STATE');
     },
@@ -241,6 +280,7 @@ export default {
     right: 10px;
     bottom: -100px;
     padding: 25px;
+    overflow: hidden;
   }
 
   #buttons {
