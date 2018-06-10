@@ -64,3 +64,17 @@ export const SAVE_NODE_LOC_TO_USERLOG = (state, { id, x, y }) => {
   state.userLogIndex = state.userLog.length;
   state.movingNode.id = undefined;
 }
+
+
+export const DELETE_ITEM = (state, { type, id }) => {
+
+  const delEvent = {
+    type: 'delete',
+    id: id,
+    timestamp: (new Date()).getTime()
+  };
+
+  state.userLog.push(delEvent);
+  state.userLogIndex = state.userLog.length;
+  state.UI.deleteMode = false;
+}

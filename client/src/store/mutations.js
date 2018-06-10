@@ -9,6 +9,7 @@ export const RESET_STATE = (state) => {
   state.userLog = state.userLog.slice(0, 0);
   state.userLogIndex = 0;
   ORGANIZE_OBJECTS(state);
+  state.UI.deleteMode = false;
 };
 
 export const ORGANIZE = (state) => {
@@ -115,5 +116,10 @@ export const SAVE_OBJECT_POSITION = (state, { posX, posY, objectId }) => {
 
 export const CHANGE_PATH_SHAPE = (state, shape) => {
   state.UI.pathShape = shape;
+};
+
+
+export const TOGGLE_DELETE_MODE = (state) => {
+  state.UI.deleteMode = !state.UI.deleteMode;
 };
 

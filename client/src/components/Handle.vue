@@ -57,19 +57,26 @@ export default {
       },
     }
   },
-  created() {},
   mounted() {
 
     const drag = this.$refs['dragRect'];
 
     drag.addEventListener('click', (evt) => {
       evt.stopPropagation(); // prevents appearing on App.vue
+
+      if (this.deleteMode) {
+        this.$store.commit('DELETE_ITEM', {
+          type: 'node',
+          id: this.id
+        })
+        return;
+      }
+
       if (!evt.ctrlKey) return;
       this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
     });
 
     drag.addEventListener('mousedown', (mouseDownEvt) => {
-      console.log('down')
       this.lastMousePos.x = mouseDownEvt.clientX;
       this.lastMousePos.y = mouseDownEvt.clientY;
 
@@ -130,7 +137,11 @@ export default {
       window.addEventListener('mouseup', mouseUpHandler);
     });
   },
-  computed: {},
+  computed: {
+    deleteMode() {
+      return this.$store.state.UI.deleteMode;
+    }
+  },
   methods: {},
 }
 </script>

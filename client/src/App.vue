@@ -3,7 +3,7 @@
        :style="scrollingStyles"
        ref="outer-page">
 
-    <div style="position:absolute;top:10px;right:10px;">
+    <div style="position:absolute;bottom:10px;right:10px;">
       <a href="https://github.com/piehei/course-curriculum-graph" target="_BLANK">Source code</a>
     </div>
 
@@ -40,15 +40,34 @@
       New node:<br>
       - CTRL-click on empty space, enter name, press enter
       <br>
-      Delete: not supported yet
+      Delete:<br>
+      <button @click="toggleDeleteMode"
+              style="font-size:12px;background:#ff000057;">{{ deleteMode ? 'Disable' : 'Enable' }} delete mode</button>
+      <template v-if="deleteMode">
+        <br>
+        Click on any node or connection to delete it
+      </template>
     </div>
 
     <div id="traveler">
-      Time travel
+      Time travel {{ ttPosIndicator }}
       <br>
-      <button @click="travel(-1)"><--</button>
+      <button @click="travel(-1)">←</button>
       <button @click="resetTravel">Reset</button>
-      <button @click="travel(1)">--> </button>
+      <button @click="travel(1)">→</button>
+      <br>
+      <a href="#" @click.prevent="showTimeTravelInfo = !showTimeTravelInfo">READ THIS</a>
+      <template v-if="showTimeTravelInfo">
+        <br>
+          As of now this is implemented as a list of events and the arrows<br>
+          travel that list. Whenever a new user action occurs (adding of connection/node or deleting),<br>
+          the list is travelled to its end -> to the current state / present moment.<br>
+          This comes with a user-confusing problem:<br>
+          Make changes, then go back in time a few clicks, now make a new change.<br>
+          --> the change is made when the time had been travelled backwards and the UI showed that state,<br>
+          now the new change brings the state back to the current time and it "jumps over" a couple of events.<br>
+          <b>How to solve?</b> Maybe a button that commits a previous state in time to be the new state<br>(or in other words: lets the user remove some actions by going backwards and then clicking smth like 'I want this to be current')
+      </template>
     </div>
 
 
@@ -112,7 +131,8 @@ export default {
       newNode: {
         x: 0,
         y: 0,
-      }
+      },
+      showTimeTravelInfo: false,
     }
   },
   created() {
@@ -120,8 +140,15 @@ export default {
       this.$store.commit('ORGANIZE_OBJECTS');
     }
     this.$store.commit('RESET_USERLOG_TRAVEL');
+
+    // if deleteMode was ON when the page was loaded
+    // turn it off so the user is not confused
+    if (this.$store.state.UI.deleteMode) {
+      this.toggleDeleteMode();
+    }
   },
   mounted() {
+
     const container = this.$refs['outer-page'];
 
     // if the user clicks the page with CTRL down,
@@ -130,13 +157,18 @@ export default {
     container.addEventListener('click', (evt) => {
       evt.stopPropagation();
       if (!evt.ctrlKey) return;
-      console.log(evt)
       this.showNewNodeAdder = true;
       this.newNode.x = evt.clientX - this.pageMargins - 65;
       this.newNode.y = evt.clientY - this.pageMargins - 70;
     })
   },
   computed: {
+    ttPosIndicator() {
+      return `${this.$store.state.userLogIndex}/${this.$store.state.userLog.length}`;
+    },
+    deleteMode() {
+      return this.$store.state.UI.deleteMode;
+    },
     pathShape: {
       get() {
         return this.$store.state.UI.pathShape;
@@ -149,14 +181,10 @@ export default {
       return this.$store.state.UI.possiblePathShapes;
     },
     nodes() {
-      const base = this.$store.state.nodeList;
-      const userAdded = this.$store.getters.userAddedNodes;
-      return base.concat(userAdded);
+      return this.$store.getters.nodes;
     },
     connections() {
-      const base = this.$store.getters.baseConnections;
-      const userAdded = this.$store.getters.userAddedConnections;
-      return base.concat(userAdded);
+      return this.$store.getters.connections;
     },
     scrollingStyles() {
 
@@ -173,6 +201,9 @@ export default {
     },
   },
   methods: {
+    toggleDeleteMode() {
+      this.$store.commit('TOGGLE_DELETE_MODE');
+    },
     newNodeAdded() {
       this.showNewNodeAdder = false;
       this.newNode.x = 0;
@@ -235,7 +266,7 @@ export default {
   #add-instructions {
     position: absolute;
     top: 10px;
-    left: 120px;
+    right: 120px;
     font-size: 12px;
   }
 

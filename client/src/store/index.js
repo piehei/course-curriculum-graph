@@ -26,6 +26,19 @@ const USER_ADDED_NODES = (state) => {
 };
 
 
+const DELETE_EVENTS = (state) => {
+  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'delete');
+};
+
+
+const ALL_NODES = (state) => {
+  const all = state.nodeList.concat(USER_ADDED_NODES(state));
+  const deletedIds = DELETE_EVENTS(state).map(d => d.id);
+  const undeleted = all.filter(node => deletedIds.indexOf(node.id) === -1);
+  return undeleted;
+};
+
+
 const BASE_CONNECTIONS = (state) => {
 
   const baseList = [];
@@ -41,6 +54,20 @@ const BASE_CONNECTIONS = (state) => {
 
   return baseList;
 };
+
+
+const ALL_CONNECTIONS = (state) => {
+  const base = BASE_CONNECTIONS(state);
+  const user = USER_ADDED_CONNECTIONS(state);
+
+  const nodeIds = ALL_NODES(state).map(n => n.id);
+
+  const connectionsWithBothEnds = base.concat(user).filter(connection => {
+    return nodeIds.indexOf(connection.from) !== -1 && nodeIds.indexOf(connection.to) !== -1;
+  });
+
+  return connectionsWithBothEnds;
+}
 
 
 const CONTAINER_SIZE_BY_ID = (state) => (objectId) => {
@@ -104,6 +131,7 @@ export default new Vuex.Store({
     UI: {
       pathShape: 'curve',
       possiblePathShapes: ['curve', 'path', 'line'],
+      deleteMode: false,
     },
     userLog: [
       // { type: 'connection'|'node'|'location',
@@ -131,12 +159,14 @@ export default new Vuex.Store({
   actions: {},
 
   getters: {
-    baseConnections: BASE_CONNECTIONS,
+    //userAddedConnections: USER_ADDED_CONNECTIONS,
+    //userAddedNodes: USER_ADDED_NODES,
+    nodes: ALL_NODES,
+    //baseConnections: BASE_CONNECTIONS,
+    connections: ALL_CONNECTIONS,
     posById: POS_BY_ID,
     containerSize: CONTAINER_SIZE_BY_ID,
     middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
-    userAddedConnections: USER_ADDED_CONNECTIONS,
-    userAddedNodes: USER_ADDED_NODES,
   },
 
   plugins: [
