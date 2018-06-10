@@ -82,8 +82,8 @@
           :id="'-1'"
           :name="''"
           :pageMargins="pageMargins"
-          :x="newNode.x"
-          :y="newNode.y"
+          :new-node-x="newNode.x"
+          :new-node-y="newNode.y"
           :type="'NEW_NODE'"
           @new-node-added="newNodeAdded"
           ></node>

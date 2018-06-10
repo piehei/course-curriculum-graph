@@ -92,6 +92,14 @@ export default {
       type: String,
       required: true,
     },
+    newNodeX: {
+      type: Number,
+      required: false,
+    },
+    newNodeY: {
+      type: Number,
+      required: false,
+    }
   },
   components: {
     handle: Handle,
@@ -135,9 +143,11 @@ export default {
   },
   computed: {
     x() {
+      if (this.newNodeX) return this.newNodeX;
       return this.$store.getters.posById(this.id).x;
     },
     y() {
+      if (this.newNodeY) return this.newNodeY;
       return this.$store.getters.posById(this.id).y;
     },
     nodeTitle() {
