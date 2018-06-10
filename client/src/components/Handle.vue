@@ -77,6 +77,7 @@ export default {
     });
 
     drag.addEventListener('mousedown', (mouseDownEvt) => {
+      mouseDownEvt.stopPropagation()
       this.lastMousePos.x = mouseDownEvt.clientX;
       this.lastMousePos.y = mouseDownEvt.clientY;
 
