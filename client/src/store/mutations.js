@@ -10,6 +10,7 @@ export const RESET_STATE = (state) => {
   state.userLogIndex = 0;
   ORGANIZE_OBJECTS(state);
   state.UI.deleteMode = false;
+  state.comments = [];
 };
 
 export const ORGANIZE = (state) => {
@@ -121,5 +122,29 @@ export const CHANGE_PATH_SHAPE = (state, shape) => {
 
 export const TOGGLE_DELETE_MODE = (state) => {
   state.UI.deleteMode = !state.UI.deleteMode;
+};
+
+
+export const ADD_COMMENT_TO_NODE = (state, { nodeId, text, type }) => {
+
+  if (!(nodeId in state.comments)) {
+    // if node is not in state.comments -> add it forcefully
+    Vue.set(state.comments, nodeId, []);
+  }
+
+  state.comments[nodeId].push({
+    text,
+    type,
+    timestamp: (new Date()).getTime()
+  })
+
+};
+
+export const DELETE_COMMENT_FROM_NODE = (state, { nodeId, text }) => {
+  state.comments[nodeId] = state.comments[nodeId].filter(comment => comment.text !== text);
+  // clean up state.comments -> object only includes nodes that have comment(s)
+  if (state.comments[nodeId].length === 0) {
+    Vue.delete(state.comments, nodeId);
+  }
 };
 

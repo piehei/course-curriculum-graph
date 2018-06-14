@@ -115,6 +115,13 @@ const POS_BY_ID = (state) => (objectId) => {
   };
 };
 
+const COMMENTS_BY_NODE_ID = (state) => (nodeId) => {
+  if (nodeId in state.comments) {
+    return state.comments[nodeId];
+  }
+  return [];
+};
+
 
 export default new Vuex.Store({
 
@@ -149,6 +156,12 @@ export default new Vuex.Store({
       x: 0,
       y: 0,
     },
+    comments: {
+      // "1000": {
+      //   text: "",
+      //   type:
+      // }
+    },
   },
 
   mutations: {
@@ -167,6 +180,7 @@ export default new Vuex.Store({
     posById: POS_BY_ID,
     containerSize: CONTAINER_SIZE_BY_ID,
     middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
+    commentsByNodeId: COMMENTS_BY_NODE_ID,
   },
 
   plugins: [

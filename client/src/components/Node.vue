@@ -1,5 +1,7 @@
 <template>
-  <svg :x="x" :y="y">
+  <svg class="node-container-svg"
+       :x="x"
+       :y="y">
 
       <text id="course-name"
             x="25"
@@ -29,10 +31,30 @@
        ></handle>
 
 
+    <svg x="255" :y="bgRectHeight / 2 + 40" width="20px" height="20px">
+      <font-awesome-icon
+        :icon="plus"
+        style="cursor:pointer;"
+        @click="showNewItemAdder">
+      </font-awesome-icon>
+    </svg>
+
+    <template v-if="showComments">
+      <foreignObject
+        x="285"
+        :y="bgRectHeight / 2 + 40 + 4 - 300/2"
+        width="200px"
+        height="300px">
+          <comments
+            :parent-id="id"
+            :show-adder.sync="showAdder"></comments>
+      </foreignObject>
+    </template>
+
+
     <!-- this is a group that has all the contents inside the course element -->
     <g id="g-content"
        ref="gContent">
-
 
 
     <template v-if="type === 'NEW_NODE'">
@@ -65,7 +87,11 @@
   </svg>
 </template>
 <script>
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlus'
+
 import Handle from './Handle.vue';
+import Comments from './Comments.vue'
 
 export default {
   name: 'Box',
@@ -97,9 +123,12 @@ export default {
   },
   components: {
     handle: Handle,
+    comments: Comments,
+    fontAwesomeIcon: FontAwesomeIcon,
   },
   data() {
     return {
+      plus: faPlusSquare,
       width: 250,
       height: 250,
       containerWidth: 0,
@@ -109,6 +138,8 @@ export default {
       newNodeName: '',
       showWarning: false,
       isMoving: false,
+      hideComments: false,
+      showAdder: false,
     }
   },
   mounted() {
@@ -159,6 +190,10 @@ export default {
     dragCircleY () {
       return 5;
     },
+    showComments() {
+      const comments = this.$store.getters.commentsByNodeId(this.id);
+      return comments.length > 0 || this.showAdder;
+    },
   },
   methods: {
     inputEditingEnter() {
@@ -173,10 +208,23 @@ export default {
       });
       this.$emit('new-node-added');
     },
+    toggleComments(evt) {
+      evt.stopPropagation();
+      this.showComments = !this.showComments;
+    },
+    showNewItemAdder() {
+      this.showAdder = true;
+    },
+    hideNewItemAdder() {
+      this.showAdder = false;
+    },
   },
 }
 </script>
 <style scoped>
+.node-container-svg {
+  overflow: visible;
+}
 
 #course-name {
   user-select: none;
