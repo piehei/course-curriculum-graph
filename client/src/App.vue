@@ -174,8 +174,11 @@ export default {
     // attach d3 zoom and pan listeners to outer-svg and transform the g elem
     // at zoom events
     const g = select(this.$refs['outer-g']);
-    select(svg).call(zoom().on('zoom', () => {
-      if (event.sourceEvent.target === svg) {
+
+    const s = select(svg);
+
+    s.call(zoom().on('zoom.wheel', () => {
+      if (event.sourceEvent && event.sourceEvent.target === svg) {
          g.attr('transform', event.transform)
       }
     }))

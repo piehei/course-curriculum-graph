@@ -212,7 +212,8 @@ export default {
       evt.stopPropagation();
       this.showComments = !this.showComments;
     },
-    showNewItemAdder() {
+    showNewItemAdder(evt) {
+      evt.stopPropagation();
       this.showAdder = true;
     },
     hideNewItemAdder() {
