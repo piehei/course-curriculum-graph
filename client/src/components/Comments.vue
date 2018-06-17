@@ -16,7 +16,7 @@
 
         <template v-for="type in types">
           <input type="radio" :key="`type-${type}-input`" :id="`type-${type}`" :value="type" v-model="newCommentType">
-          <label :for="`type-${type}`" :key="`type-${type}-for`">{{type}}</label>
+          <label :for="`type-${type}`" :key="`type-${type}-for`" :class="`comment-${type}`">{{type}}</label>
         </template>
 
         <br><br>
@@ -37,14 +37,15 @@
     </template>
 
     <template v-else>
-      <ul>
+      <ul class="comments-ul">
         <template v-for="c in comments">
-          <li>
+          <li :key="c.text"
+              :class="`comment-${c.type}`">
             {{ c.text }}
             <font-awesome-icon
               :icon="trash"
               size="xs"
-              style="cursor:pointer;"
+              style="cursor:pointer;float:right;"
               @click="deleteComment(c.text)"></font-awesome-icon>
           </li>
         </template>
@@ -83,7 +84,7 @@ export default {
       newCommentText: '',
       newCommentType: '',
       trash: faTrash,
-      types: [ "expectation", "notes", "reflection" ],
+      types: [ "expectation", "note", "reflection" ],
       errorMsg: undefined,
     }
   },
@@ -151,5 +152,27 @@ export default {
 .comments-outer-container {
   border: 1px solid red;
   width: 300px;
+}
+
+.comments-ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.comments-ul li {
+  padding: 5px;
+  margin: 2px 4px;
+}
+
+.comment-expectation {
+  background: #cddc39;
+}
+
+.comment-note {
+  background: #ffeb3b;
+}
+
+.comment-reflection {
+  background: #ffc107;
 }
 </style>
