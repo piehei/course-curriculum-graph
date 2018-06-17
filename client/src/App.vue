@@ -8,6 +8,12 @@
     </div>
 
     <div id="buttons">
+      <button @click="resetZoom">
+        Reset zoom
+      </button>
+
+      <br><br>
+
       <button @click="resetState">
         Reset state
       </button>
@@ -111,22 +117,24 @@
       </template>
 
     </g>
+
     <!--
       TODO: think if this is actually needed for something
             now the zoom effect is attached to the outer-svg
-    <rect ref="zoom-rect"
-          width="100%"
-          height="100%"
-          fill="none"
-          pointer-events="all"></rect>
-    -->
+
+      <rect ref="zoom-rect"
+            width="100%"
+            height="100%"
+            fill="none"
+            pointer-events="all"></rect>
+     -->
 
     </svg>
 
   </div>
 </template>
 <script>
-import { event, select, zoom } from 'd3';
+import { event, select, zoom, zoomIdentity } from 'd3';
 
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
@@ -149,6 +157,8 @@ export default {
         y: 0,
       },
       showTimeTravelInfo: false,
+      appZoom: undefined,
+      zoomListenerElement: undefined,
     }
   },
   created() {
@@ -165,6 +175,7 @@ export default {
   },
   mounted() {
     const svg = this.$refs['outer-svg'];
+    const outerg = this.$refs['outer-g'];
 
     // these are used for viewBox --> might not be needed at all in the end
     const size = svg.getBoundingClientRect()
@@ -173,15 +184,20 @@ export default {
 
     // attach d3 zoom and pan listeners to outer-svg and transform the g elem
     // at zoom events
-    const g = select(this.$refs['outer-g']);
 
-    const s = select(svg);
+    const onZoomEvent = () => {
+      outergSelection.attr('transform', event.transform)
+    }
 
-    s.call(zoom().on('zoom.wheel', () => {
-      if (event.sourceEvent && event.sourceEvent.target === svg) {
-         g.attr('transform', event.transform)
-      }
-    }))
+    const zoomBehaviour = zoom().on('zoom', onZoomEvent)
+
+    const svgSelection = select(svg);
+    const outergSelection = select(outerg);
+
+    zoomBehaviour(svgSelection);
+
+    this.appZoom = zoomBehaviour;
+    this.zoomListenerElement = svgSelection;
 
     // if the user clicks the page with CTRL down,
     // an empty node with editable text field will be added
@@ -241,6 +257,7 @@ export default {
     },
   },
   methods: {
+
     toggleDeleteMode() {
       this.$store.commit('TOGGLE_DELETE_MODE');
     },
@@ -249,6 +266,14 @@ export default {
       this.showNewNodeAdder = false;
       this.newNode.x = 0;
       this.newNode.y = 0;
+    },
+
+    resetZoom() {
+      // reset the zoom listening element to un-zoomed, un-panned state
+      // automatically sets the zoom state of the outer-g element to correct
+      // NOTE: we're NOT calling this on the outer-g, we're calling this on the element
+      //       that's listening for zoom events
+      this.zoomListenerElement.transition().duration(500).call(this.appZoom.transform, zoomIdentity);
     },
 
     resetState() {
