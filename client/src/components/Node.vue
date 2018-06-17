@@ -193,6 +193,7 @@ export default {
     },
     showComments() {
       const comments = this.$store.getters.commentsByNodeId(this.id);
+      console.log('checking')
       return comments.length > 0 || this.showAdder;
     },
   },

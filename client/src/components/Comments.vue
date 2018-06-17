@@ -11,25 +11,31 @@
 
     <template v-if="showAdder">
       <div style="text-align:center">
-        Text:
-        <textarea v-model="newCommentText" placeholder="write your thoughts"></textarea>
+        Select type:
+        <br>
 
-        <br>
-        Type:
-        <br>
-        <input type="radio" id="one" value="One" v-model="newCommentType">
-        <label for="one">One</label>
-        <br>
-        <input type="radio" id="two" value="Two" v-model="newCommentType">
-        <label for="two">Two</label>
-        <br>
-        <input type="radio" id="three" value="Three" v-model="newCommentType">
-        <label for="three">Three</label>
+        <template v-for="type in types">
+          <input type="radio" :key="`type-${type}-input`" :id="`type-${type}`" :value="type" v-model="newCommentType">
+          <label :for="`type-${type}`" :key="`type-${type}-for`">{{type}}</label>
+        </template>
 
         <br><br>
+
+        Text:
+        <br>
+        <textarea v-model="newCommentText" placeholder="write your thoughts"></textarea>
+
+
+        <br><br>
+        <template v-if="errorMsg">
+          {{ errorMsg }}
+        </template>
+        <br><br>
+
         <button @click="add">add comment</button>
       </div>
     </template>
+
     <template v-else>
       <ul>
         <template v-for="c in comments">
@@ -77,15 +83,15 @@ export default {
       newCommentText: '',
       newCommentType: '',
       trash: faTrash,
+      types: [ "expectation", "notes", "reflection" ],
+      errorMsg: undefined,
     }
   },
   watch: {
     comments() {
-      console.log('comments changed')
       this.updateSize();
     },
     showAdder() {
-      console.log('show adder changed')
       this.updateSize();
     }
   },
@@ -108,10 +114,22 @@ export default {
       this.$nextTick(() => {
         const rect = this.$refs['container'].getBoundingClientRect();
         this.height = rect.height;
-        this.topMargin = - this.height / 2;
       })
     },
     add() {
+
+      if (!this.newCommentType) {
+        this.errorMsg = "You have to choose a type!"
+        return;
+      }
+
+      if (this.newCommentText.length < 3) {
+        this.errorMsg = "Text must be longer than 3 characters"
+        return;
+      }
+
+      this.errorMsg = undefined;
+
       this.$store.commit('ADD_COMMENT_TO_NODE', {
         nodeId: this.parentId,
         text: this.newCommentText,
