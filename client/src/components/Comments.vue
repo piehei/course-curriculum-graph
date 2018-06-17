@@ -23,15 +23,14 @@
 
         Text:
         <br>
-        <textarea v-model="newCommentText" placeholder="write your thoughts"></textarea>
+        <textarea style="width:90%;padding:5px;" v-model="newCommentText" placeholder="write here"></textarea>
 
 
-        <br><br>
         <template v-if="errorMsg">
+          <br><br>
           {{ errorMsg }}
         </template>
         <br><br>
-
         <button @click="add">add comment</button>
       </div>
     </template>
@@ -152,8 +151,11 @@ export default {
 </script>
 <style scoped>
 .comments-outer-container {
-  border: 1px solid red;
+  border: 1px solid #9e9e9e;
   width: 300px;
+  border-radius: 5px;
+  box-shadow: 2px 2px #00bcd44d;
+  padding: 5px;
 }
 
 .comments-ul {
