@@ -137,6 +137,8 @@ export default {
         type: this.newCommentType,
       })
       this.$emit('update:showAdder', false);
+      this.newCommentType = "";
+      this.newCommentText = "";
     },
     deleteComment(text) {
       // TODO: THIS IS A BAD BAD HACK -> SHOULD INCORPORATE IDs or so, not by text

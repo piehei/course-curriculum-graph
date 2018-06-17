@@ -31,12 +31,21 @@
        ></handle>
 
 
-    <svg x="255" :y="bgRectHeight / 2 + 40" width="20px" height="20px">
+    <svg x="255"
+         :y="bgRectHeight / 2 + 40"
+         width="20px"
+         height="20px"
+        >
       <font-awesome-icon
-        :icon="plus"
-        style="cursor:pointer;"
-        @click="showNewItemAdder">
+        :icon="showAdder ? minus : plus"
+        >
       </font-awesome-icon>
+        <rect
+          width="20px"
+          height="20px"
+          style="opacity:0;cursor:pointer;"
+          @click="toggleNewItemAdder">
+        </rect>
     </svg>
 
     <template v-if="showComments">
@@ -90,6 +99,7 @@
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlus'
+import faMinusSquare from '@fortawesome/fontawesome-free-solid/faMinus'
 
 import Handle from './Handle.vue';
 import Comments from './Comments.vue'
@@ -130,6 +140,7 @@ export default {
   data() {
     return {
       plus: faPlusSquare,
+      minus: faMinusSquare,
       width: 250,
       height: 250,
       containerWidth: 0,
@@ -220,6 +231,9 @@ export default {
     },
     hideNewItemAdder() {
       this.showAdder = false;
+    },
+    toggleNewItemAdder() {
+      this.showAdder = !this.showAdder;
     },
   },
 }
