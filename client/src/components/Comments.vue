@@ -1,5 +1,11 @@
 
 <template>
+<foreignObject
+  x="285"
+  :y="y"
+  width="200px"
+  :height="height"
+  >
   <div ref="container"
        class="comments-outer-container">
 
@@ -40,6 +46,7 @@
     </template>
 
   </div>
+</foreignObject>
 </template>
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
@@ -54,6 +61,10 @@ export default {
     },
     showAdder: {
       type: Boolean,
+      required: true,
+    },
+    parentVerticalMiddlePoint: {
+      type: Number,
       required: true,
     }
   },
@@ -70,6 +81,11 @@ export default {
   },
   watch: {
     comments() {
+      console.log('comments changed')
+      this.updateSize();
+    },
+    showAdder() {
+      console.log('show adder changed')
       this.updateSize();
     }
   },
@@ -80,13 +96,20 @@ export default {
   computed: {
     comments() {
       return this.$store.getters.commentsByNodeId(this.parentId);
+    },
+    y() {
+      return this.parentVerticalMiddlePoint - this.height/2;
     }
   },
   methods: {
     updateSize() {
-      const rect = this.$refs['container'].getBoundingClientRect();
-      console.log(rect);
-      this.height = rect.height;
+      // getting the height from the DOM depends on the DOM being updated
+      // --> wait for nextTick (Vue renders) and only then update
+      this.$nextTick(() => {
+        const rect = this.$refs['container'].getBoundingClientRect();
+        this.height = rect.height;
+        this.topMargin = - this.height / 2;
+      })
     },
     add() {
       this.$store.commit('ADD_COMMENT_TO_NODE', {
@@ -109,5 +132,6 @@ export default {
 <style scoped>
 .comments-outer-container {
   border: 1px solid red;
+  width: 300px;
 }
 </style>

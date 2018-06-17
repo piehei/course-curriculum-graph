@@ -40,15 +40,16 @@
     </svg>
 
     <template v-if="showComments">
-      <foreignObject
+      <!-- <foreignObject
         x="285"
-        :y="bgRectHeight / 2 + 40 + 4 - 300/2"
+        :y="bgRectHeight / 2 + 40 + 4"
         width="200px"
-        height="300px">
+        > -->
           <comments
             :parent-id="id"
+            :parent-vertical-middle-point="bgRectHeight / 2 + 40 + 8"
             :show-adder.sync="showAdder"></comments>
-      </foreignObject>
+      <!-- </foreignObject> -->
     </template>
 
 
