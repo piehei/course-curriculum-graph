@@ -156,6 +156,7 @@ export default {
   border-radius: 5px;
   box-shadow: 2px 2px #00bcd44d;
   padding: 5px;
+  background: white;
 }
 
 .comments-ul {
