@@ -112,8 +112,8 @@ export default {
       // getting the height from the DOM depends on the DOM being updated
       // --> wait for nextTick (Vue renders) and only then update
       this.$nextTick(() => {
-        const rect = this.$refs['container'].getBoundingClientRect();
-        this.height = rect.height;
+        const rect = this.$refs['container'];
+        this.height = rect.offsetHeight;
       })
     },
     add() {
