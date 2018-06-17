@@ -3,36 +3,40 @@
        :x="x"
        :y="y">
 
-      <text id="course-name"
-            x="25"
-            y="25"
-            font-size="14">{{ nodeTitle }}</text>
+    <!-- 0 px from top -->
+    <text id="course-name"
+          x="25"
+          y="0"
+          font-size="12">{{ nodeTitle }}</text>
 
+    <!-- 10 px from top -->
     <!-- this is the background of the course -->
     <rect id="background-rect"
           ref="container"
           x="0"
-          y="30"
+          y="10"
           rx="10"
           ry="10"
           width="250"
-          :height="bgRectHeight + 40"
+          :height="contentHeightPlusMargin"
           :stroke=" type === 'PARENT' ? 'blue' : 'orange'"
           stroke-width="2"
           fill="white"></rect>
+
     <handle
        :drag-rect-x="4"
-       :drag-rect-y="34"
+       :drag-rect-y="10"
        :width="250 - 8"
-       :height="bgRectHeight + 40 - 8"
+       :height="contentHeightPlusMargin"
        :curr-x="x"
        :curr-y="y"
        :id="id"
        ></handle>
 
-
+    <!-- this is the plus/minus sign on the right side -->
+    <!-- y = background-rect top + half of height - half of own height -->
     <svg x="255"
-         :y="bgRectHeight / 2 + 40"
+         :y="10 + (contentHeightPlusMargin) / 2 - 10"
          width="20px"
          height="20px"
         >
@@ -49,16 +53,10 @@
     </svg>
 
     <template v-if="showComments">
-      <!-- <foreignObject
-        x="285"
-        :y="bgRectHeight / 2 + 40 + 4"
-        width="200px"
-        > -->
           <comments
             :parent-id="id"
-            :parent-vertical-middle-point="bgRectHeight / 2 + 40 + 8"
+            :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
             :show-adder.sync="showAdder"></comments>
-      <!-- </foreignObject> -->
     </template>
 
 
@@ -89,7 +87,7 @@
             style="pointer-events:none;"
             contentEditable="true"
             x="25"
-            y="65"
+            y="30"
             font-size="20"> {{ name }} </text>
 
     </template>
@@ -146,7 +144,8 @@ export default {
       containerWidth: 0,
       containerHeight: 0,
       mouseIsDown: false,
-      bgRectHeight: 250,
+      contentHeight: 250,
+      contentHeightPlusMargin: 250,
       newNodeName: '',
       showWarning: false,
       isMoving: false,
@@ -161,7 +160,8 @@ export default {
     // based on the contents of the content g
     const g = this.$refs.gContent;
     const gBounding = g.getBoundingClientRect();
-    this.bgRectHeight = gBounding.height;
+    this.contentHeight = gBounding.height;
+    this.contentHeightPlusMargin = gBounding.height + 10;
 
     this.$nextTick(() => {
       const c = this.$refs.container;

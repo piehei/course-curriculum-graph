@@ -154,6 +154,7 @@ export default {
 #drag-rect {
   cursor: move;
   pointer-events: bounding-box;
+  opacity: 0;
 }
 
 </style>
