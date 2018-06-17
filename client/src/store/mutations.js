@@ -140,6 +140,7 @@ export const ADD_COMMENT_TO_NODE = (state, { nodeId, text, type }) => {
 
 };
 
+
 export const DELETE_COMMENT_FROM_NODE = (state, { nodeId, text }) => {
   state.comments[nodeId] = state.comments[nodeId].filter(comment => comment.text !== text);
   // clean up state.comments -> object only includes nodes that have comment(s)
@@ -147,4 +148,10 @@ export const DELETE_COMMENT_FROM_NODE = (state, { nodeId, text }) => {
     Vue.delete(state.comments, nodeId);
   }
 };
+
+
+export const ZOOM = (state, zoomIdentity) => {
+  state.UI.zoomIdentity = zoomIdentity;
+};
+
 

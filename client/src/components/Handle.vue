@@ -1,4 +1,3 @@
-
 <template>
   <rect id="drag-rect"
        ref="dragRect"
@@ -6,7 +5,6 @@
        :height="height"
        fill="white"
        :x="dragRectX" :y="dragRectY">
-  <!-- <font-awesome-icon :icon="icon" size="lg" :transform="{ rotate: 45 }"></font-awesome-icon> -->
   </rect>
 </template>
 <script>
@@ -101,8 +99,13 @@ export default {
         this.lastMousePos.x = evt.clientX;
         this.lastMousePos.y = evt.clientY;
 
-        const newX = this.currX + deltaX;
-        const newY = this.currY + deltaY;
+        let scale = 1;
+        if (this.$store.state.UI.zoomIdentity) {
+          scale = this.$store.state.UI.zoomIdentity.k;
+        }
+
+        const newX = this.currX + deltaX / scale;
+        const newY = this.currY + deltaY / scale;
         this.$emit('update:localX', newX)
         this.$emit('update:localY', newY)
 

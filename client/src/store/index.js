@@ -139,6 +139,7 @@ export default new Vuex.Store({
       pathShape: 'curve',
       possiblePathShapes: ['curve', 'path', 'line'],
       deleteMode: false,
+      zoomIdentity: undefined,
     },
     userLog: [
       // { type: 'connection'|'node'|'location',

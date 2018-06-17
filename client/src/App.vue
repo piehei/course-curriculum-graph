@@ -187,6 +187,7 @@ export default {
 
     const onZoomEvent = () => {
       outergSelection.attr('transform', event.transform)
+      this.$store.commit('ZOOM', event.transform)
     }
 
     const zoomBehaviour = zoom().on('zoom', onZoomEvent)
