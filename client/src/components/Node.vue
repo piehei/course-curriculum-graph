@@ -33,6 +33,12 @@
        :id="id"
        ></handle>
 
+
+    <smiley
+      :parent-id="id"
+      :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
+          ></smiley>
+
     <!-- this is the plus/minus sign on the right side -->
     <!-- y = background-rect top + half of height - half of own height -->
     <svg x="255"
@@ -95,11 +101,11 @@
   </svg>
 </template>
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPlus, faMinus } from '@fortawesome/fontawesome-free-solid'
 
 import Handle from './Handle.vue';
-import Comments from './Comments.vue'
+import Comments from './Comments.vue';
+import SmileyClicker from './SmileyClicker.vue';
 
 export default {
   name: 'Box',
@@ -132,7 +138,7 @@ export default {
   components: {
     handle: Handle,
     comments: Comments,
-    fontAwesomeIcon: FontAwesomeIcon,
+    smiley: SmileyClicker,
   },
   data() {
     return {

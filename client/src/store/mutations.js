@@ -155,3 +155,14 @@ export const ZOOM = (state, zoomIdentity) => {
 };
 
 
+export const SMILEY_CLICKED = (state, { nodeId, indx }) => {
+  // smiley order is:
+  // meh, frown, meh, smile
+  // --> indx 0 is meh and it means "not clicked" and is displayed
+  //     in grey
+  if (indx > 0) {
+    Vue.set(state.smileys, nodeId, indx)
+  } else {
+    Vue.delete(state.smileys, nodeId)
+  }
+}

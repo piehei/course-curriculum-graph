@@ -123,6 +123,17 @@ const COMMENTS_BY_NODE_ID = (state) => (nodeId) => {
 };
 
 
+const SMILEYINDX_BY_NODE_ID = (state) => (nodeId) => {
+
+  if (nodeId in state.smileys) {
+    return state.smileys[nodeId];
+  }
+
+  // [ frown, meh, smile ] --> 1 is middleground
+  return 0;
+};
+
+
 export default new Vuex.Store({
 
   state: {
@@ -163,6 +174,9 @@ export default new Vuex.Store({
       //   type:
       // }
     },
+    smileys: {
+      // "1001": 3
+    }
   },
 
   mutations: {
@@ -182,6 +196,7 @@ export default new Vuex.Store({
     containerSize: CONTAINER_SIZE_BY_ID,
     middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
     commentsByNodeId: COMMENTS_BY_NODE_ID,
+    smileyIndxByNodeId: SMILEYINDX_BY_NODE_ID,
   },
 
   plugins: [
