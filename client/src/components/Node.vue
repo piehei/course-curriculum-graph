@@ -95,9 +95,8 @@
   </svg>
 </template>
 <script>
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faPlusSquare from '@fortawesome/fontawesome-free-solid/faPlus'
-import faMinusSquare from '@fortawesome/fontawesome-free-solid/faMinus'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faPlus, faMinus } from '@fortawesome/fontawesome-free-solid'
 
 import Handle from './Handle.vue';
 import Comments from './Comments.vue'
@@ -137,8 +136,8 @@ export default {
   },
   data() {
     return {
-      plus: faPlusSquare,
-      minus: faMinusSquare,
+      plus: faPlus,
+      minus: faMinus,
       width: 250,
       height: 250,
       containerWidth: 0,

@@ -55,8 +55,8 @@
 </foreignObject>
 </template>
 <script>
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faTrash from '@fortawesome/fontawesome-free-solid/faTrash'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faTrash } from '@fortawesome/fontawesome-free-solid'
 
 export default {
   name: 'comments',
