@@ -8,8 +8,7 @@
   </rect>
 </template>
 <script>
-import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-import faArrowsAlt from '@fortawesome/fontawesome-free-solid/faArrowsAlt'
+import { faArrowsAlt } from '@fortawesome/fontawesome-free-solid';
 
 export default {
   name: 'handle',
@@ -43,9 +42,7 @@ export default {
       required: true,
     }
   },
-  components: {
-    FontAwesomeIcon,
-  },
+  components: {},
   data() {
     return {
       icon: faArrowsAlt,

@@ -55,7 +55,6 @@
 </foreignObject>
 </template>
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faTrash } from '@fortawesome/fontawesome-free-solid'
 
 export default {
@@ -74,9 +73,7 @@ export default {
       required: true,
     }
   },
-  components: {
-    fontAwesomeIcon: FontAwesomeIcon,
-  },
+  components: {},
   data() {
     return {
       height: 0,
