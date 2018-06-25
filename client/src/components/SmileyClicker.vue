@@ -3,10 +3,15 @@
     :x="-5 - iconHeight"
     :y="y"
     :height="'40px'">
-    <font-awesome-layers class="icon" :class="{ 'clicked': clicked }">
+    <font-awesome-layers
+      class="icon"
+      :class="{ 'clicked': clicked,
+                'red': chosenIcon.type === 'frown',
+                'orange': chosenIcon.type === 'meh',
+                'green': chosenIcon.type === 'smile'}">
       <font-awesome-icon
         ref="icon"
-        :icon="chosenIcon"
+        :icon="chosenIcon.icon"
         @click="iconClicked">
       </font-awesome-icon>
     </font-awesome-layers>
@@ -34,7 +39,7 @@ export default {
       localClicked: false,
       iconHeight: 0,
       icons: [
-        { type: 'meh',
+        { type: 'meh1',
           icon: faMeh },
         { type: 'frown',
           icon: faFrown },
@@ -61,7 +66,7 @@ export default {
     },
 
     chosenIcon() {
-      return this.icons[this.currentIndx].icon;
+      return this.icons[this.currentIndx];
     },
 
     clicked() {
@@ -86,8 +91,16 @@ export default {
     font-size: 25px;
   }
 
-  .clicked{
+  .red {
     color: #ff5722;
+  }
+
+  .orange {
+    color: orange;
+  }
+
+  .green {
+    color: green;
   }
 
 </style>
