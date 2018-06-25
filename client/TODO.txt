@@ -1,1 +1,8 @@
-CODE SPLIT D3! DO NOT INCLUDE WHOLE LIB IN THE FINAL BUNDLE
+
+* CODE SPLIT D3! DO NOT INCLUDE WHOLE LIB IN THE FINAL BUNDLE
+
+* Do not allow user to remove teacher-defined nodes
+
+* Make a snapshot-based version of timetravel for the end user
+
+* Make comments reorderable

@@ -79,7 +79,7 @@
 
     <svg ref="outer-svg"
          width="100%" height="100%"
-         style="border:1px solid blue;"
+         style="border:0px solid blue;"
          xmlns="http://www.w3.org/2000/svg">
       <g ref="outer-g">
 
