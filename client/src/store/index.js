@@ -200,7 +200,15 @@ export default new Vuex.Store({
   },
 
   plugins: [
-    createPersistedState()
+    // this will save everything in the browser's localStorage
+    createPersistedState({
+      filter: (evt) => {
+        // these commits will NOT be saved in the localStorage
+        // ZOOM: do not save zoom state (state.ui.zoomIdentity)
+        const skipThese = ['ZOOM'];
+        return skipThese.indexOf(evt.type) === -1;
+      }
+    })
   ],
 
 });
