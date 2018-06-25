@@ -102,32 +102,7 @@
                 ></node>
       </template>
 
-
-      <template v-if="showNewNodeAdder">
-        <node
-          :key="-1"
-          :id="'-1'"
-          :name="''"
-          :pageMargins="pageMargins"
-          :new-node-x="newNode.x"
-          :new-node-y="newNode.y"
-          :type="'NEW_NODE'"
-          @new-node-added="newNodeAdded"
-          ></node>
-      </template>
-
     </g>
-
-    <!--
-      TODO: think if this is actually needed for something
-            now the zoom effect is attached to the outer-svg
-
-      <rect ref="zoom-rect"
-            width="100%"
-            height="100%"
-            fill="none"
-            pointer-events="all"></rect>
-     -->
 
     </svg>
 

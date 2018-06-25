@@ -62,7 +62,7 @@
         x="285"
         :y="10 + contentHeightPlusMargin / 2 - 20">
         <div>
-            <button>Topic</button>
+            <button @click="showNewNodeAdder = !showNewNodeAdder; showAdder = !showAdder">Topic</button>
             <button @click="showCommentsAdder = !showCommentsAdder; showAdder = !showAdder;">Comments</button>
         </div>
       </foreignObject>
@@ -87,12 +87,7 @@
 
     </template>
 
-    <!-- this is a group that has all the contents inside the course element -->
-    <g id="g-content"
-       ref="gContent">
-
-
-    <template v-if="type === 'NEW_NODE'">
+    <template v-if="showNewNodeAdder">
 
       <foreignObject x="25" y="50" width="100" height="20">
           <div xmlns="http://www.w3.org/1999/xhtml">
@@ -108,7 +103,10 @@
       </foreignObject>
 
     </template>
-    <template v-else>
+
+    <!-- this is a group that has all the contents inside the course element -->
+    <g id="g-content"
+       ref="gContent">
 
       <text id="course-name"
             style="pointer-events:none;"
@@ -116,8 +114,6 @@
             x="25"
             y="30"
             font-size="20"> {{ name }} </text>
-
-    </template>
     </g>
   </svg>
 </template>
@@ -147,14 +143,6 @@ export default {
       type: String,
       required: true,
     },
-    newNodeX: {
-      type: Number,
-      required: false,
-    },
-    newNodeY: {
-      type: Number,
-      required: false,
-    }
   },
   components: {
     handle: Handle,
@@ -178,6 +166,7 @@ export default {
       hideComments: false,
       showAdder: false,
       showCommentsAdder: false,
+      showNewNodeAdder: false,
     }
   },
   mounted() {
@@ -207,11 +196,9 @@ export default {
   },
   computed: {
     x() {
-      if (this.newNodeX) return this.newNodeX;
       return this.$store.getters.posById(this.id).x;
     },
     y() {
-      if (this.newNodeY) return this.newNodeY;
       return this.$store.getters.posById(this.id).y;
     },
     nodeTitle() {
@@ -243,12 +230,15 @@ export default {
         this.showWarning = true;
         return;
       }
+
       this.$store.commit('ADD_NEW_NODE', {
         name: this.newNodeName,
-        x: this.x,
+        x: this.x + 300,
         y: this.y,
       });
-      this.$emit('new-node-added');
+
+      this.newNodeName = "";
+      this.showNewNodeAdder = false;
     },
     toggleNewCommentAdder() {
       this.showCommentsAdder = !this.showCommentsAdder;
