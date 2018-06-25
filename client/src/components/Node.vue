@@ -232,6 +232,7 @@ export default {
       }
 
       this.$store.commit('ADD_NEW_NODE', {
+        parentId: this.id,
         name: this.newNodeName,
         x: this.x + 300,
         y: this.y,

@@ -35,7 +35,7 @@ export const RESET_USERLOG_TRAVEL = (state) => {
   state.userLogIndex = state.userLog.length;
 };
 
-export const ADD_NEW_NODE = (state, { name, x, y }) => {
+export const ADD_NEW_NODE = (state, { parentId, name, x, y }) => {
 
   const node = {
     type: 'node',
@@ -45,8 +45,23 @@ export const ADD_NEW_NODE = (state, { name, x, y }) => {
     y: y,
     timestamp: (new Date()).getTime(),
   };
-
   state.userLog.push(node);
+  state.userLogIndex = state.userLog.length;
+
+  // TODO: if a connection is added like below, you can time travel backwards
+  //       and remove the connection while keeping the node
+  //       --> should this adding of new connection be refactored away
+  //           and a new getter like CONNECTIONS_FROM_USER_ADDED_NODES
+  //           be implemented that would return connections from nodes
+  //           the user added?????
+
+  const conn = {
+    type: 'connection',
+    from: parentId,
+    to: node.id,
+    timestamp: (new Date()).getTime()
+  };
+  state.userLog.push(conn);
   state.userLogIndex = state.userLog.length;
 }
 
