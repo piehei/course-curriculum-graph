@@ -9,7 +9,7 @@
   <div ref="container"
        class="comments-outer-container">
 
-    <template v-if="showAdder">
+    <template v-if="showCommentsAdder">
       <div style="text-align:center">
         Select type:
         <br>
@@ -31,7 +31,8 @@
           {{ errorMsg }}
         </template>
         <br><br>
-        <button @click="add">add comment</button>
+        <button class="cancel" @click="cancel">cancel</button>
+        <button class="add" @click="add">add comment</button>
       </div>
     </template>
 
@@ -64,7 +65,7 @@ export default {
       type: String,
       required: true,
     },
-    showAdder: {
+    showCommentsAdder: {
       type: Boolean,
       required: true,
     },
@@ -88,7 +89,7 @@ export default {
     comments() {
       this.updateSize();
     },
-    showAdder() {
+    showCommentsAdder() {
       this.updateSize();
     }
   },
@@ -132,7 +133,8 @@ export default {
         text: this.newCommentText,
         type: this.newCommentType,
       })
-      this.$emit('update:showAdder', false);
+
+      this.$emit('update:showCommentsAdder', false);
       this.newCommentType = "";
       this.newCommentText = "";
     },
@@ -142,6 +144,9 @@ export default {
         nodeId: this.parentId,
         text: text,
       })
+    },
+    cancel() {
+      this.$emit('update:showCommentsAdder', false);
     },
   },
 }
@@ -177,4 +182,14 @@ export default {
 .comment-reflection {
   background: #ffc107;
 }
+
+.cancel {
+  color: grey;
+  margin-right: 0.1rem;
+}
+.add {
+  color: green;
+  margin-left: 0.1rem;
+}
+
 </style>

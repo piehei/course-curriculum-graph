@@ -44,27 +44,48 @@
     <svg x="255"
          :y="10 + (contentHeightPlusMargin) / 2 - 10"
          width="20px"
-         height="20px"
-        >
+         height="20px">
       <font-awesome-icon
-        :icon="showAdder ? minus : plus"
-        >
+        :icon="showAdder ? minus : plus">
       </font-awesome-icon>
-        <rect
-          width="20px"
-          height="20px"
-          style="opacity:0;cursor:pointer;"
-          @click="toggleNewItemAdder">
-        </rect>
+      <rect
+        width="20px"
+        height="20px"
+        style="opacity:0;cursor:pointer;"
+        @click="toggleShowAdder">
+      </rect>
     </svg>
 
-    <template v-if="showComments">
-          <comments
-            :parent-id="id"
-            :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
-            :show-adder.sync="showAdder"></comments>
+    <template v-if="showAdder">
+
+      <foreignObject
+        x="285"
+        :y="10 + contentHeightPlusMargin / 2 - 20">
+        <div>
+            <button>Topic</button>
+            <button @click="showCommentsAdder = !showCommentsAdder; showAdder = !showAdder;">Comments</button>
+        </div>
+      </foreignObject>
+
     </template>
 
+    <template v-if="showComments">
+
+      <!-- TODO: think about refactoring this
+                 should all showCommentsAdder logic be inside the comments component?
+
+                 eg.
+
+                 component always shows the adder if its comment count === 0 or if localShowAdder === true
+                 => new comments would be added by clicking inside the component itself
+      -->
+
+      <comments
+        :parent-id="id"
+        :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
+        :show-comments-adder.sync="showCommentsAdder"></comments>
+
+    </template>
 
     <!-- this is a group that has all the contents inside the course element -->
     <g id="g-content"
@@ -156,6 +177,7 @@ export default {
       isMoving: false,
       hideComments: false,
       showAdder: false,
+      showCommentsAdder: false,
     }
   },
   mounted() {
@@ -208,9 +230,11 @@ export default {
       return 5;
     },
     showComments() {
+      if (this.showAdder) {
+        return false;
+      }
       const comments = this.$store.getters.commentsByNodeId(this.id);
-      console.log('checking')
-      return comments.length > 0 || this.showAdder;
+      return comments.length > 0 || this.showCommentsAdder;
     },
   },
   methods: {
@@ -226,19 +250,14 @@ export default {
       });
       this.$emit('new-node-added');
     },
-    toggleComments(evt) {
-      evt.stopPropagation();
-      this.showComments = !this.showComments;
+    toggleNewCommentAdder() {
+      this.showCommentsAdder = !this.showCommentsAdder;
     },
-    showNewItemAdder(evt) {
-      evt.stopPropagation();
-      this.showAdder = true;
-    },
-    hideNewItemAdder() {
-      this.showAdder = false;
-    },
-    toggleNewItemAdder() {
-      this.showAdder = !this.showAdder;
+    toggleShowAdder() {
+      // do nothing if comment adding is open
+      if (!this.showCommentsAdder) {
+        this.showAdder = !this.showAdder;
+      }
     },
   },
 }
