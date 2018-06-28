@@ -7,6 +7,23 @@
       <a href="https://github.com/piehei/course-curriculum-graph" target="_BLANK">Source code</a>
     </div>
 
+
+
+    <template v-if="showOverlay">
+      <overlay
+        :adderType="overlayAdderType"
+        :show.sync="showOverlay"></overlay>
+    </template>
+
+    <div id="top-buttons">
+      <button @click="add('node')">
+        Add node
+      </button>
+      <button @click="add('comment')">
+        Add comment
+      </button>
+    </div>
+
     <div id="buttons">
       <button @click="resetZoom">
         Reset zoom
@@ -113,6 +130,8 @@ import { event, select, zoom, zoomIdentity } from 'd3';
 
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
+import Overlay from './components/Overlay.vue';
+
 
 export default {
   name: 'Page',
@@ -120,6 +139,7 @@ export default {
   components: {
     node: Node,
     connection: Connection,
+    overlay: Overlay,
   },
   data() {
     return {
@@ -134,6 +154,8 @@ export default {
       showTimeTravelInfo: false,
       appZoom: undefined,
       zoomListenerElement: undefined,
+      showOverlay: false,
+      overlayAdderType: '',
     }
   },
   created() {
@@ -270,7 +292,12 @@ export default {
 
     resetTravel() {
       this.$store.commit('RESET_USERLOG_TRAVEL')
-    }
+    },
+
+    add(type) {
+      this.showOverlay = true;
+      this.overlayAdderType = type;
+    },
 
   },
 }
@@ -287,10 +314,17 @@ export default {
     overflow: hidden;
   }
 
+  #top-buttons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+
   #buttons {
     position: absolute;
+    bottom: 10px;
     left: 10px;
-    top: 10px;
   }
 
   #traveler {
