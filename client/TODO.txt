@@ -6,3 +6,20 @@
 * Make a snapshot-based version of timetravel for the end user
 
 * Make comments reorderable
+
+* When user adds a node, require to some sort of comments why that node was added
+
+
+******
+
+Pitäisikö uuden noden lisääminen olla overlayssä?
+
+Miksei Firefoxissa toimi???
+
+
+Hoverilla kommentit esille
+Hoverilla nodejen yhdistäminen linkki-ikonista
+
+Overlay on geneerinen -> kysyy eka, mitä tekee ellei avattu kälistä
+
+Tähti, joka täyttyy
