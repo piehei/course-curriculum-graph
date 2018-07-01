@@ -4,35 +4,57 @@
 
     <div class="left-panel">
 
-      Selected node:
-      <div class="node">
-        {{ node.name }}
-      </div>
+      <template v-if="node">
 
-      <div style="margin-top: 20px;">
+        Selected node:
+        <span style="float:right;font-style:italic;font-weight:bold;">
+          <a href="" @click.prevent="selectedNodeId = undefined">change</a>
+        </span>
+        <br>
+        <br>
 
-        <template v-if="comments.length === 0">
-          The node does not have any previous comments.
-        </template>
-        <template v-else>
+        <div class="node">
+          {{ node.name }}
+        </div>
 
-          Previous comments in this node:<br>
+        <div style="margin-top: 20px;">
 
-          <ul class="comments-ul">
-            <template v-for="c in comments">
-              <li :key="c.text"
-                  :class="`comment-${c.type}`">
-                {{ c.text }}
-                <font-awesome-icon
-                  :icon="trash"
-                  size="xs"
-                  style="cursor:pointer;float:right;"
-                  @click="deleteComment(c.text)"></font-awesome-icon>
-              </li>
-            </template>
-          </ul>
-        </template>
-      </div>
+          <template v-if="comments.length === 0">
+            The node does not have any previous comments.
+          </template>
+          <template v-else>
+
+            Previous comments in this node:<br>
+
+            <ul class="comments-ul">
+              <template v-for="c in comments">
+                <li :key="c.text"
+                    :class="`comment-${c.type}`">
+                  {{ c.text }}
+                  <font-awesome-icon
+                    :icon="trash"
+                    size="xs"
+                    style="cursor:pointer;float:right;"
+                    @click="deleteComment(c.text)"></font-awesome-icon>
+                </li>
+              </template>
+            </ul>
+          </template>
+        </div>
+      </template>
+      <template v-else>
+
+        Select node for adding comments:
+        <br><br>
+
+        <select v-model="selectedNodeId">
+          <option disabled value="">Please select one</option>
+          <template v-for="n in nodes">
+            <option :value="n.id">{{ n.name }}</option>
+          </template>
+        </select>
+
+      </template>
 
     </div>
 
@@ -116,6 +138,9 @@ export default {
     node() {
       return this.$store.getters.nodes.filter(n => n.id === this.nodeId)[0];
     },
+    nodes() {
+      return this.$store.getters.nodes;
+    },
     comments() {
       return this.$store.getters.commentsByNodeId(this.nodeId);
     },
@@ -130,6 +155,11 @@ export default {
 
       if (this.newCommentText.length < 3) {
         this.errorMsg = "Text must be longer than 3 characters"
+        return;
+      }
+
+      if (!this.nodeId) {
+        this.errorMsg = "You must choose a node first!"
         return;
       }
 

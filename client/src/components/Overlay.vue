@@ -6,7 +6,7 @@
       X
     </button>
 
-    <h1><center>You're adding a new {{ type }}</center></h1>
+    <h1><center>You're adding new {{ type }}</center></h1>
 
     <commentAdder></commentAdder>
 

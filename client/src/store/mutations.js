@@ -6,11 +6,12 @@ import { CHILDREN_BY_PARENT_ID } from './index';
 
 
 export const RESET_STATE = (state) => {
+  // TODO: make sure this actually resets everything needed
   state.userLog = state.userLog.slice(0, 0);
   state.userLogIndex = 0;
   ORGANIZE_OBJECTS(state);
   state.UI.deleteMode = false;
-  state.comments = [];
+  state.comments = {};
 };
 
 export const ORGANIZE = (state) => {
@@ -126,6 +127,13 @@ export const TOGGLE_DELETE_MODE = (state) => {
 
 
 export const ADD_COMMENT_TO_NODE = (state, { nodeId, text, type }) => {
+
+  // debugger;
+
+  if (!nodeId) {
+    console.log({nodeId, text, type});
+    throw `${nodeId} is not legal nodeId!!!!`
+  }
 
   if (!(nodeId in state.comments)) {
     // if node is not in state.comments -> add it forcefully

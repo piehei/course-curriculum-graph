@@ -295,8 +295,9 @@ export default {
     },
 
     add(type) {
-      this.showOverlay = true;
-      this.overlayAdderType = type;
+      if (type === 'comment') {
+        this.$store.commit('ADD_COMMENTS', undefined);
+      }
     },
 
   },
