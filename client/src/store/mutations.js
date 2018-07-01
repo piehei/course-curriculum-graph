@@ -166,3 +166,14 @@ export const SMILEY_CLICKED = (state, { nodeId, indx }) => {
     Vue.delete(state.smileys, nodeId)
   }
 }
+
+
+export const ADD_COMMENTS = (state, id) => {
+  state.overlay.type = 'COMMENTS';
+  state.overlay.commentNodeId = id;
+}
+
+export const CLOSE_OVERLAY = (state) => {
+  state.overlay.type = undefined;
+  state.overlay.commentNodeId = undefined;
+}

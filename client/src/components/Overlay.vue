@@ -6,33 +6,36 @@
       X
     </button>
 
-    <h1><center>You're adding a new {{ adderType }}</center></h1>
+    <h1><center>You're adding a new {{ type }}</center></h1>
+
+    <commentAdder></commentAdder>
 
   </div>
 </template>
 <script>
+import CommentAdder from './CommentAdder';
+
 export default {
   name: 'overlay',
-  props: {
-    show: {
-      type: Boolean,
-      required: true,
-    },
-    adderType: {
-      type: String,
-      required: true,
-    }
+  props: {},
+  components: {
+    commentAdder: CommentAdder,
   },
-  components: {},
   data() {
     return {}
   },
   created() {},
-  computed: {},
+  computed: {
+
+    type() {
+      return this.$store.state.overlay.type;
+    }
+
+  },
   methods: {
 
     close() {
-      this.$emit('update:show', false);
+      this.$store.commit('CLOSE_OVERLAY');
     },
 
   },
@@ -47,7 +50,7 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 9999;
-  opacity: 0.90;
+  opacity: 0.95;
   background: #9e9e9e;
 }
 

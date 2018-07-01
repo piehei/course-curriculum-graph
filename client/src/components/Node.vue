@@ -63,7 +63,7 @@
         :y="10 + contentHeightPlusMargin / 2 - 20">
         <div>
             <button @click="showNewNodeAdder = !showNewNodeAdder; showAdder = !showAdder">Topic</button>
-            <button @click="showCommentsAdder = !showCommentsAdder; showAdder = !showAdder;">Comments</button>
+            <button @click="addComments">Comments</button>
         </div>
       </foreignObject>
 
@@ -225,6 +225,12 @@ export default {
     },
   },
   methods: {
+
+    addComments() {
+      this.showAdder = false;
+      this.$store.commit('ADD_COMMENTS', this.id);
+    },
+
     inputEditingEnter() {
       if (this.newNodeName.length < 1) {
         this.showWarning = true;

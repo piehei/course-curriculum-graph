@@ -152,6 +152,10 @@ export default new Vuex.Store({
       deleteMode: false,
       zoomIdentity: undefined,
     },
+    overlay: {
+      type: undefined,
+      commentNodeId: undefined,
+    },
     userLog: [
       // { type: 'connection'|'node'|'location',
       //   id: '1001', for nodes

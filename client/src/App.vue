@@ -10,9 +10,7 @@
 
 
     <template v-if="showOverlay">
-      <overlay
-        :adderType="overlayAdderType"
-        :show.sync="showOverlay"></overlay>
+      <overlay></overlay>
     </template>
 
     <div id="top-buttons">
@@ -154,8 +152,6 @@ export default {
       showTimeTravelInfo: false,
       appZoom: undefined,
       zoomListenerElement: undefined,
-      showOverlay: false,
-      overlayAdderType: '',
     }
   },
   created() {
@@ -209,6 +205,7 @@ export default {
     })
   },
   computed: {
+
     viewBox() {
       // TODO: not needed as of now...
       const x = 0;
@@ -252,6 +249,9 @@ export default {
       const delta = this.$store.state.lowestPoint - window.innerHeight;
       const negativeBottom = -(delta + 200);
       return `bottom:${negativeBottom}px`;
+    },
+    showOverlay() {
+      return !!this.$store.state.overlay.type;
     },
   },
   methods: {
