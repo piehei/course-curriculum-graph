@@ -8,7 +8,7 @@
 
         Selected node:
         <span style="float:right;font-style:italic;font-weight:bold;">
-          <a href="" @click.prevent="selectedNodeId = undefined">change</a>
+          <a href="" @click.prevent="nodeId = undefined">change</a>
         </span>
         <br>
         <br>
@@ -47,7 +47,7 @@
         Select node for adding comments:
         <br><br>
 
-        <select v-model="selectedNodeId">
+        <select v-model="nodeId">
           <option disabled value="">Please select one</option>
           <template v-for="n in nodes">
             <option :value="n.id">{{ n.name }}</option>
@@ -120,21 +120,24 @@ export default {
       trash: faTrash,
       types: [ "expectation", "note", "reflection" ],
       errorMsg: undefined,
-      selectedNodeId: undefined,
+      nodeId: undefined,
       success: false,
     }
   },
   watch: {},
-  created() {},
+  created() {
+
+    // when the overlay is opened state.overlay.commentNodeId
+    // defines which node was clicked
+    // --> the value is undefined in case of opening the overlay from
+    //     global "add comments" button
+    // state.overlay.commentNodeId will always be reset when overlay closes
+    if (this.$store.state.overlay.commentNodeId) {
+      this.nodeId = this.$store.state.overlay.commentNodeId;
+    }
+  },
   mounted() {},
   computed: {
-    nodeId() {
-      if (this.selectedNodeId) {
-        return this.selectedNodeId;
-      } else {
-        return this.$store.state.overlay.commentNodeId;
-      }
-    },
     node() {
       return this.$store.getters.nodes.filter(n => n.id === this.nodeId)[0];
     },
