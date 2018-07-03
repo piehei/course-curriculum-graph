@@ -1,11 +1,12 @@
 
 <template>
   <div class="overlay-outer-container">
+    <!--
     <button class="close-button"
             @click="close">
       X
     </button>
-
+    -->
     <h1><center>You're adding new {{ type }}</center></h1>
 
     <commentAdder></commentAdder>

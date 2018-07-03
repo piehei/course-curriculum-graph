@@ -50,7 +50,9 @@
         <select v-model="nodeId">
           <option disabled value="">Please select one</option>
           <template v-for="n in nodes">
-            <option :value="n.id">{{ n.name }}</option>
+            <option
+              :key="n.id"
+              :value="n.id">{{ n.name }}</option>
           </template>
         </select>
 
@@ -65,7 +67,8 @@
       <br><br>
 
       <template v-for="type in types">
-        <div class="choice">
+        <div class="choice"
+             :key="type">
           <label class="type-label"
                  :for="`type-${type}`"
                  :key="`type-${type}-for`"
@@ -76,7 +79,7 @@
                    :id="`type-${type}`"
                    :value="type"
                    v-model="newCommentType">
-            {{type}}
+            {{ type }}
           </label>
         </div>
       </template>
@@ -93,6 +96,7 @@
         {{ errorMsg }}
       </template>
       <br><br>
+      <button class="cancel" @click="cancel">cancel</button>
       <button class="add" @click="add">add comment</button>
 
       <template v-if="success">
@@ -177,7 +181,14 @@ export default {
       this.newCommentType = "";
       this.newCommentText = "";
       this.success = true;
+
+      this.cancel();
     },
+
+    cancel() {
+      this.$store.commit('CLOSE_OVERLAY');
+    },
+
     deleteComment(text) {
       // TODO: THIS IS A BAD BAD HACK -> SHOULD INCORPORATE IDs or so, not by text
       this.$store.commit('DELETE_COMMENT_FROM_NODE', {
