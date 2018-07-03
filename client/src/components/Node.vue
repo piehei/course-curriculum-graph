@@ -46,28 +46,15 @@
          width="20px"
          height="20px">
       <font-awesome-icon
-        :icon="showAdder ? minus : plus">
+        :icon="commentIcon">
       </font-awesome-icon>
       <rect
         width="20px"
         height="20px"
         style="opacity:0;cursor:pointer;"
-        @click="toggleShowAdder">
+        @click="addComment">
       </rect>
     </svg>
-
-    <template v-if="showAdder">
-
-      <foreignObject
-        x="285"
-        :y="10 + contentHeightPlusMargin / 2 - 20">
-        <div>
-            <button @click="showNewNodeAdder = !showNewNodeAdder; showAdder = !showAdder">Topic</button>
-            <button @click="addComments">Comments</button>
-        </div>
-      </foreignObject>
-
-    </template>
 
     <template v-if="showComments">
 
@@ -82,8 +69,8 @@
 
       <comments
         :parent-id="id"
-        :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
-        :show-comments-adder.sync="showCommentsAdder"></comments>
+        :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2">
+      </comments>
 
     </template>
 
@@ -118,7 +105,7 @@
   </svg>
 </template>
 <script>
-import { faPlus, faMinus } from '@fortawesome/fontawesome-free-solid'
+import { faComment } from '@fortawesome/fontawesome-free-regular';
 
 import Handle from './Handle.vue';
 import Comments from './Comments.vue';
@@ -151,8 +138,7 @@ export default {
   },
   data() {
     return {
-      plus: faPlus,
-      minus: faMinus,
+      commentIcon: faComment,
       width: 250,
       height: 250,
       containerWidth: 0,
@@ -164,8 +150,6 @@ export default {
       showWarning: false,
       isMoving: false,
       hideComments: false,
-      showAdder: false,
-      showCommentsAdder: false,
       showNewNodeAdder: false,
     }
   },
@@ -217,17 +201,13 @@ export default {
       return 5;
     },
     showComments() {
-      if (this.showAdder) {
-        return false;
-      }
       const comments = this.$store.getters.commentsByNodeId(this.id);
-      return comments.length > 0 || this.showCommentsAdder;
+      return comments.length > 0;
     },
   },
   methods: {
 
-    addComments() {
-      this.showAdder = false;
+    addComment() {
       this.$store.commit('ADD_COMMENTS', this.id);
     },
 
@@ -246,15 +226,6 @@ export default {
 
       this.newNodeName = "";
       this.showNewNodeAdder = false;
-    },
-    toggleNewCommentAdder() {
-      this.showCommentsAdder = !this.showCommentsAdder;
-    },
-    toggleShowAdder() {
-      // do nothing if comment adding is open
-      if (!this.showCommentsAdder) {
-        this.showAdder = !this.showAdder;
-      }
     },
   },
 }

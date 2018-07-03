@@ -1,42 +1,12 @@
-
 <template>
-<foreignObject
-  x="285"
-  :y="y"
-  width="200px"
-  :height="height"
-  >
-  <div ref="container"
-       class="comments-outer-container">
+  <foreignObject
+    x="285"
+    :y="y"
+    width="200px"
+    :height="height">
+    <div ref="container"
+         class="comments-outer-container">
 
-    <template v-if="showCommentsAdder">
-      <div style="text-align:center">
-        Select type:
-        <br>
-
-        <template v-for="type in types">
-          <input type="radio" :key="`type-${type}-input`" :id="`type-${type}`" :value="type" v-model="newCommentType">
-          <label :for="`type-${type}`" :key="`type-${type}-for`" :class="`comment-${type}`">{{type}}</label>
-        </template>
-
-        <br><br>
-
-        Text:
-        <br>
-        <textarea style="width:90%;padding:5px;" v-model="newCommentText" placeholder="write here"></textarea>
-
-
-        <template v-if="errorMsg">
-          <br><br>
-          {{ errorMsg }}
-        </template>
-        <br><br>
-        <button class="cancel" @click="cancel">cancel</button>
-        <button class="add" @click="add">add comment</button>
-      </div>
-    </template>
-
-    <template v-else>
       <ul class="comments-ul">
         <template v-for="c in comments">
           <li :key="c.text"
@@ -50,10 +20,8 @@
           </li>
         </template>
       </ul>
-    </template>
-
-  </div>
-</foreignObject>
+    </div>
+  </foreignObject>
 </template>
 <script>
 import { faTrash } from '@fortawesome/fontawesome-free-solid'
@@ -63,10 +31,6 @@ export default {
   props: {
     parentId: {
       type: String,
-      required: true,
-    },
-    showCommentsAdder: {
-      type: Boolean,
       required: true,
     },
     parentVerticalMiddlePoint: {
@@ -89,9 +53,6 @@ export default {
     comments() {
       this.updateSize();
     },
-    showCommentsAdder() {
-      this.updateSize();
-    }
   },
   created() {},
   mounted() {
@@ -114,39 +75,12 @@ export default {
         this.height = rect.offsetHeight;
       })
     },
-    add() {
-
-      if (!this.newCommentType) {
-        this.errorMsg = "You have to choose a type!"
-        return;
-      }
-
-      if (this.newCommentText.length < 3) {
-        this.errorMsg = "Text must be longer than 3 characters"
-        return;
-      }
-
-      this.errorMsg = undefined;
-
-      this.$store.commit('ADD_COMMENT_TO_NODE', {
-        nodeId: this.parentId,
-        text: this.newCommentText,
-        type: this.newCommentType,
-      })
-
-      this.$emit('update:showCommentsAdder', false);
-      this.newCommentType = "";
-      this.newCommentText = "";
-    },
     deleteComment(text) {
       // TODO: THIS IS A BAD BAD HACK -> SHOULD INCORPORATE IDs or so, not by text
       this.$store.commit('DELETE_COMMENT_FROM_NODE', {
         nodeId: this.parentId,
         text: text,
       })
-    },
-    cancel() {
-      this.$emit('update:showCommentsAdder', false);
     },
   },
 }
