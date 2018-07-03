@@ -321,6 +321,11 @@ export default {
       if (type === 'comment') {
         this.$store.commit('ADD_COMMENTS', undefined);
       }
+
+      if (type === 'link') {
+        this.$store.commit('ADD_LINKS', undefined);
+      }
+
     },
 
   },

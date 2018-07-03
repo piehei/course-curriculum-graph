@@ -181,6 +181,10 @@ export const ADD_COMMENTS = (state, id) => {
   state.overlay.commentNodeId = id;
 }
 
+export const ADD_LINKS = (state, id) => {
+  state.overlay.type = 'LINKS';
+}
+
 export const CLOSE_OVERLAY = (state) => {
   state.overlay.type = undefined;
   state.overlay.commentNodeId = undefined;

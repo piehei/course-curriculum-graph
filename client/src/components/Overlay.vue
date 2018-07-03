@@ -9,9 +9,15 @@
     -->
     <h1><center>You're adding new {{ type }}</center></h1>
 
-    <commentAdder></commentAdder>
-
+    <template v-if="type === 'COMMENTS'">
+      <commentAdder></commentAdder>
+    </template>
+    <template v-if="type === 'LINKS'">
+      <h3>Not implemented yet</h3>
+      <button @click="close">CLOSE</button>
+    </template>
   </div>
+
 </template>
 <script>
 import CommentAdder from './CommentAdder';
