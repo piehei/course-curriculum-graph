@@ -3,11 +3,13 @@ import { FontAwesomeIcon, FontAwesomeLayers } from '@fortawesome/vue-fontawesome
 
 import App from './App.vue'
 import store from './store/index.js';
+import Tooltip from './components/Tooltip.vue';
 
 Vue.config.productionTip = false
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('font-awesome-layers', FontAwesomeLayers);
+Vue.component('tooltip', Tooltip);
 
 new Vue({
   render: h => h(App),

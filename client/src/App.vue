@@ -15,7 +15,7 @@
 
     <div id="top-buttons">
 
-      <tooltip>
+      <tooltip direction="right">
         <font-awesome-icon
           :icon="linkIcon"
           size="2x"
@@ -28,7 +28,7 @@
 
       <br><br>
 
-      <tooltip>
+      <tooltip direction="right">
         <font-awesome-icon
           :icon="commentIcon"
           size="2x"
@@ -149,7 +149,7 @@ import { faComment } from '@fortawesome/fontawesome-free-regular';
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
 import Overlay from './components/Overlay.vue';
-import Tooltip from './components/Tooltip.vue';
+//import Tooltip from './components/Tooltip.vue';
 
 export default {
   name: 'Page',
@@ -158,7 +158,7 @@ export default {
     node: Node,
     connection: Connection,
     overlay: Overlay,
-    tooltip: Tooltip,
+    //tooltip: Tooltip,
   },
   data() {
     return {
