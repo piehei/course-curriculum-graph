@@ -1,7 +1,7 @@
 <template>
   <div class="tooltip">
     <slot></slot>
-      <span class="tooltiptext tooltip-right">
+      <span :class="`tooltiptext tooltip-${direction}`">
         <slot name="text"></slot>
       </span>
   </div>
@@ -9,7 +9,12 @@
 <script>
 export default {
   name: 'Tooltip',
-  props: [],
+  props: {
+    direction: {
+      type: String,
+      required: true,
+    }
+  },
   components: {},
   data() {
     return {}
@@ -79,5 +84,4 @@ export default {
   bottom: auto;
   right: 128%;
 }
-
 </style>
