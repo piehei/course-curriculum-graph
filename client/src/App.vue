@@ -14,12 +14,30 @@
     </template>
 
     <div id="top-buttons">
-      <button @click="add('node')">
-        Add node
-      </button>
-      <button @click="add('comment')">
-        Add comment
-      </button>
+
+      <tooltip>
+        <font-awesome-icon
+          :icon="linkIcon"
+          size="2x"
+          @click="add('link')">
+        </font-awesome-icon>
+        <template slot="text">
+          Add new connection
+        </template>
+      </tooltip>
+
+      <br><br>
+
+      <tooltip>
+        <font-awesome-icon
+          :icon="commentIcon"
+          size="2x"
+          @click="add('comment')">
+        </font-awesome-icon>
+        <template slot="text">
+          Add new comment
+        </template>
+      </tooltip>
     </div>
 
     <div id="buttons">
@@ -125,11 +143,13 @@
 </template>
 <script>
 import { event, select, zoom, zoomIdentity } from 'd3';
+import { faLink } from '@fortawesome/fontawesome-free-solid';
+import { faComment } from '@fortawesome/fontawesome-free-regular';
 
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
 import Overlay from './components/Overlay.vue';
-
+import Tooltip from './components/Tooltip.vue';
 
 export default {
   name: 'Page',
@@ -138,9 +158,12 @@ export default {
     node: Node,
     connection: Connection,
     overlay: Overlay,
+    tooltip: Tooltip,
   },
   data() {
     return {
+      linkIcon: faLink,
+      commentIcon: faComment,
       svgWidth: 0,
       svgHeight: 0,
       pageMargins: 35,
@@ -321,6 +344,9 @@ export default {
     left: 10px;
   }
 
+  #top-buttons svg {
+    cursor: pointer;
+  }
 
   #buttons {
     position: absolute;
