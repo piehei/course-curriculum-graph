@@ -38,6 +38,7 @@
           Add new comment
         </template>
       </tooltip>
+
     </div>
 
     <div id="buttons">

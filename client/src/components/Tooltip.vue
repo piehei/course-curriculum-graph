@@ -1,7 +1,7 @@
 <template>
   <div class="tooltip">
     <slot></slot>
-      <span :class="`tooltiptext tooltip-${direction}`">
+    <span :class="`tooltiptext tooltip-${direction} ${size ? size : ''}`">
         <slot name="text"></slot>
       </span>
   </div>
@@ -13,6 +13,10 @@ export default {
     direction: {
       type: String,
       required: true,
+    },
+    size: {
+      type: String,
+      required: false,
     }
   },
   components: {},
@@ -25,6 +29,13 @@ export default {
 }
 </script>
 <style scoped>
+
+.small {
+  width: 100px;
+  padding: 3px 0;
+  font-size: 12px;
+}
+
 /* Tooltip container */
 .tooltip {
     position: relative;
@@ -43,7 +54,6 @@ export default {
     border-radius: 6px;
     z-index: 1;
     opacity: 0;
-    transition: opacity 0.3s;
 }
 
 /* Tooltip arrow

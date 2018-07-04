@@ -44,16 +44,23 @@
     <svg x="255"
          :y="10 + (contentHeightPlusMargin) / 2 - 10"
          width="20px"
-         height="20px">
-      <font-awesome-icon
-        :icon="commentIcon">
-      </font-awesome-icon>
-      <rect
-        width="20px"
-        height="20px"
-        style="opacity:0;cursor:pointer;"
-        @click="addComment">
-      </rect>
+         height="20px"
+         style="overflow:visible;">
+
+      <foreignObject width="100" height="100" x="0" y="0">
+        <tooltip direction="right" size="small">
+          <font-awesome-icon
+            :icon="commentIcon"
+            @click="addComment"
+            style="cursor:pointer;">
+          </font-awesome-icon>
+
+            <template slot="text">
+              Add comments
+            </template>
+        </tooltip>
+      </foreignObject>
+
     </svg>
 
     <template v-if="showComments">
