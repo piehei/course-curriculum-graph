@@ -95,19 +95,6 @@
       <button @click="travel(-1)">←</button>
       <button @click="resetTravel">Reset</button>
       <button @click="travel(1)">→</button>
-      <br>
-      <a href="#" @click.prevent="showTimeTravelInfo = !showTimeTravelInfo">READ THIS</a>
-      <template v-if="showTimeTravelInfo">
-        <br>
-          As of now this is implemented as a list of events and the arrows<br>
-          travel that list. Whenever a new user action occurs (adding of connection/node or deleting),<br>
-          the list is travelled to its end -> to the current state / present moment.<br>
-          This comes with a user-confusing problem:<br>
-          Make changes, then go back in time a few clicks, now make a new change.<br>
-          --> the change is made when the time had been travelled backwards and the UI showed that state,<br>
-          now the new change brings the state back to the current time and it "jumps over" a couple of events.<br>
-          <b>How to solve?</b> Maybe a button that commits a previous state in time to be the new state<br>(or in other words: lets the user remove some actions by going backwards and then clicking smth like 'I want this to be current')
-      </template>
     </div>
 
 
@@ -173,7 +160,6 @@ export default {
         x: 0,
         y: 0,
       },
-      showTimeTravelInfo: false,
       appZoom: undefined,
       zoomListenerElement: undefined,
     }
