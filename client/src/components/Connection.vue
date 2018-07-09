@@ -45,7 +45,7 @@ export default {
   created() {
     if (this.toMouseMode) {
       this.mouseX = this.x1;
-      this.mouseY = this.x2;
+      this.mouseY = this.y1;
       window.document.body.addEventListener('mousemove', (evt) => {
         this.mouseX = evt.clientX - 35;
         this.mouseY = evt.clientY - 35;
@@ -90,18 +90,6 @@ export default {
         return `M ${x1} ${y1} L ${x2} ${y2}`;
 
       }
-    },
-    posFrom() {
-      return this.$store.getters.posById(this.from);
-    },
-    posTo() {
-      return this.$store.getters.posById(this.to);
-    },
-    sizeFrom() {
-      return this.$store.getters.containerSize(this.from);
-    },
-    sizeTo() {
-      return this.$store.getters.containerSize(this.to);
     },
     x1() {
         return this.middle(this.from).x;

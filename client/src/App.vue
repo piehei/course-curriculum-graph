@@ -271,11 +271,11 @@ export default {
     },
 
     showConnectionAdder() {
-      return this.$store.state.UI.showConnectionAdder;
+      return !!this.$store.state.overlay.connectionFrom && !this.showOverlay;
     },
     newConnection() {
       return {
-        from: this.$store.state.UI.newConnectionFrom,
+        from: this.$store.state.overlay.connectionFrom,
         to: '',
       };
     },

@@ -155,6 +155,8 @@ export default new Vuex.Store({
     overlay: {
       type: undefined,
       commentNodeId: undefined,
+      connectionFrom: undefined,
+      connectionTo: undefined,
     },
     userLog: [
       // { type: 'connection'|'node'|'location',
@@ -206,12 +208,22 @@ export default new Vuex.Store({
   plugins: [
     // this will save everything in the browser's localStorage
     createPersistedState({
-      filter: (evt) => {
-        // these commits will NOT be saved in the localStorage
-        // ZOOM: do not save zoom state (state.ui.zoomIdentity)
-        const skipThese = ['ZOOM'];
-        return skipThese.indexOf(evt.type) === -1;
-      }
+      paths: [
+        'userLog',
+        'userLogIndex',
+        'comments',
+        'smileys',
+      ]
+
+      // filter: (evt) => {
+      //   // these commits will NOT be saved in the localStorage
+      //   // ZOOM: do not save zoom state (state.ui.zoomIdentity)
+      //   const skipThese = [
+      //     'ZOOM',
+      //     'CONNECTION_ADDING_CLICK',
+      //   ];
+      //   return skipThese.indexOf(evt.type) === -1;
+      // }
     })
   ],
 

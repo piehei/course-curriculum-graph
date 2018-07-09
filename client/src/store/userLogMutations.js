@@ -1,19 +1,18 @@
 export const CONNECTION_ADDING_CLICK = (state, id) => {
-  state.UI.showConnectionAdder = true;
-  if (!state.UI.newConnectionFrom) {
-    state.UI.newConnectionFrom = id;
+  if (!state.overlay.connectionFrom) {
+    state.overlay.connectionFrom = id;
   } else {
-    const from = state.UI.newConnectionFrom;
-    state.UI.newConnectionFrom = undefined;
-    state.UI.showConnectionAdder = false;
+    const from = state.overlay.connectionFrom;
     if (from === id) return;
-    state.userLog.push({
-      type: 'connection',
-      from: from,
-      to: id,
-      timestamp: (new Date()).getTime()
-    });
-    state.userLogIndex = state.userLog.length;
+    state.overlay.connectionTo = id;
+    state.overlay.type = 'LINKS';
+    // state.userLog.push({
+    //   type: 'connection',
+    //   from: from,
+    //   to: id,
+    //   timestamp: (new Date()).getTime()
+    // });
+    // state.userLogIndex = state.userLog.length;
   }
 };
 
