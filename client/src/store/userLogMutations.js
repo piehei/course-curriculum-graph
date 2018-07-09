@@ -6,13 +6,6 @@ export const CONNECTION_ADDING_CLICK = (state, id) => {
     if (from === id) return;
     state.overlay.connectionTo = id;
     state.overlay.type = 'LINKS';
-    // state.userLog.push({
-    //   type: 'connection',
-    //   from: from,
-    //   to: id,
-    //   timestamp: (new Date()).getTime()
-    // });
-    // state.userLogIndex = state.userLog.length;
   }
 };
 
@@ -92,4 +85,19 @@ export const DELETE_ITEM = (state, { type, id }) => {
   state.userLog.push(delEvent);
   state.userLogIndex = state.userLog.length;
   state.UI.deleteMode = false;
+}
+
+export const ADD_CONNECTION_WITH_COMMENT = (state, { from, to, text }) => {
+
+  // TODO: should this text go here? or somewhere else?
+  state.userLog.push({
+    type: 'connection',
+    from: from,
+    to: to,
+    text: text,
+    timestamp: (new Date()).getTime()
+  });
+  state.userLogIndex = state.userLog.length;
+  state.overlay.connectionFrom = undefined;
+  state.overlay.connectionTo = undefined;
 }

@@ -188,4 +188,6 @@ export const ADD_LINKS = (state, id) => {
 export const CLOSE_OVERLAY = (state) => {
   state.overlay.type = undefined;
   state.overlay.commentNodeId = undefined;
+  state.overlay.connectionFrom = undefined;
+  state.overlay.connectionTo = undefined;
 }
