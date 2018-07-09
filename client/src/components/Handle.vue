@@ -67,8 +67,6 @@ export default {
         return;
       }
 
-      if (!evt.ctrlKey) return;
-      this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
     });
 
     drag.addEventListener('mousedown', (mouseDownEvt) => {

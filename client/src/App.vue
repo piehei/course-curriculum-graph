@@ -74,9 +74,6 @@
     </div>
 
     <div id="add-instructions">
-      New connection:<br>
-      - CTRL-click on a node, then CTRL-click on another node
-      <br>
       New node:<br>
       - CTRL-click on empty space, enter name, press enter
       <br>
