@@ -42,7 +42,7 @@
     <!-- this is the plus/minus sign on the right side -->
     <!-- y = background-rect top + half of height - half of own height -->
     <svg x="255"
-         :y="10 + (contentHeightPlusMargin) / 2 - 10"
+         :y="10 + (contentHeightPlusMargin) / 2 - 20"
          width="20px"
          height="20px"
          style="overflow:visible;">
@@ -57,6 +57,18 @@
 
             <template slot="text">
               Add comments
+            </template>
+        </tooltip>
+        <br>
+        <tooltip direction="right" size="small">
+          <font-awesome-icon
+            :icon="linkIcon"
+            @click="addLink"
+            style="cursor:pointer;">
+          </font-awesome-icon>
+
+            <template slot="text">
+              Add link
             </template>
         </tooltip>
       </foreignObject>
@@ -113,6 +125,7 @@
 </template>
 <script>
 import { faComment } from '@fortawesome/fontawesome-free-regular';
+import { faLink } from '@fortawesome/fontawesome-free-solid';
 
 import Handle from './Handle.vue';
 import Comments from './Comments.vue';
@@ -145,6 +158,7 @@ export default {
   },
   data() {
     return {
+      linkIcon: faLink,
       commentIcon: faComment,
       width: 250,
       height: 250,
@@ -217,7 +231,9 @@ export default {
     addComment() {
       this.$store.commit('ADD_COMMENTS', this.id);
     },
-
+    addLink() {
+      this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
+    },
     inputEditingEnter() {
       if (this.newNodeName.length < 1) {
         this.showWarning = true;

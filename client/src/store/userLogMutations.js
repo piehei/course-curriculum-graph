@@ -5,6 +5,7 @@ export const CONNECTION_ADDING_CLICK = (state, id) => {
   } else {
     const from = state.UI.newConnectionFrom;
     state.UI.newConnectionFrom = undefined;
+    state.UI.showConnectionAdder = false;
     if (from === id) return;
     state.userLog.push({
       type: 'connection',

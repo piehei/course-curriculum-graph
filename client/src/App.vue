@@ -108,11 +108,20 @@
         <connection
           :from="c.from"
           :to="c.to"
+          :to-mouse-mode="false"
           :user-added="!!c.timestamp"
           :key="c.from + c.to"
           ></connection>
       </template>
 
+      <template v-if="showConnectionAdder">
+        <connection
+          :from="newConnection.from"
+          :to="newConnection.to"
+          :to-mouse-mode="true"
+          :user-added="true"
+        ></connection>
+      </template>
 
       <template v-for="c in nodes">
         <node :key="c.id"
@@ -262,6 +271,16 @@ export default {
     },
     showOverlay() {
       return !!this.$store.state.overlay.type;
+    },
+
+    showConnectionAdder() {
+      return this.$store.state.UI.showConnectionAdder;
+    },
+    newConnection() {
+      return {
+        from: this.$store.state.UI.newConnectionFrom,
+        to: '',
+      };
     },
   },
   methods: {

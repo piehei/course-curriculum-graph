@@ -24,6 +24,10 @@ export default {
       type: String,
       required: true,
     },
+    toMouseMode: {
+      type: Boolean,
+      required: true,
+    },
     userAdded: {
       type: Boolean,
       required: true,
@@ -34,9 +38,20 @@ export default {
     return {
       deltaX: 125,
       deltaY: 60,
+      mouseX: undefined,
+      mouseY: undefined,
     };
   },
-  created() {},
+  created() {
+    if (this.toMouseMode) {
+      this.mouseX = this.x1;
+      this.mouseY = this.x2;
+      window.document.body.addEventListener('mousemove', (evt) => {
+        this.mouseX = evt.clientX - 35;
+        this.mouseY = evt.clientY - 35;
+      })
+    }
+  },
   computed: {
     pathString() {
       const shape = this.$store.state.UI.pathShape;
@@ -44,6 +59,12 @@ export default {
       const y1 = this.y1;
       const x2 = this.x2;
       const y2 = this.y2;
+
+      if (this.toMouseMode) {
+        // straight line
+        return `M ${x1} ${y1} L ${x2} ${y2}`;
+      }
+
       const rand1 = Math.floor(Math.random() * 4);
       const rand2 = Math.floor(Math.random() * 5);
       const sign = x1 > x2 ? -1 : 1
@@ -89,9 +110,15 @@ export default {
       return this.middle(this.from).y;
     },
     x2() {
+      if (this.toMouseMode) {
+        return this.mouseX;
+      }
       return this.middle(this.to).x;
     },
     y2() {
+      if (this.toMouseMode) {
+        return this.mouseY;
+      }
       return this.middle(this.to).y;
     },
     dashParams() {
