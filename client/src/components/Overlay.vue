@@ -1,32 +1,27 @@
 
 <template>
   <div class="overlay-outer-container">
-    <!--
-    <button class="close-button"
-            @click="close">
-      X
-    </button>
-    -->
     <h1><center>You're adding new {{ type }}</center></h1>
 
     <template v-if="type === 'COMMENTS'">
       <commentAdder></commentAdder>
     </template>
     <template v-if="type === 'LINKS'">
-      <h3>Not implemented yet</h3>
-      <button @click="close">CLOSE</button>
+      <linkAdder></linkAdder>
     </template>
   </div>
 
 </template>
 <script>
 import CommentAdder from './CommentAdder';
+import LinkAdder from './LinkAdder';
 
 export default {
   name: 'overlay',
   props: {},
   components: {
     commentAdder: CommentAdder,
+    linkAdder: LinkAdder,
   },
   data() {
     return {}
@@ -39,13 +34,7 @@ export default {
     }
 
   },
-  methods: {
-
-    close() {
-      this.$store.commit('CLOSE_OVERLAY');
-    },
-
-  },
+  methods: {},
 }
 </script>
 <style scoped>
