@@ -107,7 +107,7 @@
           :to="c.to"
           :to-mouse-mode="false"
           :user-added="!!c.timestamp"
-          :key="c.from + c.to"
+          :key="c.from + c.to + c.timestamp"
           ></connection>
       </template>
 
