@@ -68,7 +68,7 @@
           </font-awesome-icon>
 
             <template slot="text">
-              Add link
+              {{ connectionIsBeingAdded ? 'Connect here' : 'Add link' }}
             </template>
         </tooltip>
       </foreignObject>
@@ -224,6 +224,12 @@ export default {
     showComments() {
       const comments = this.$store.getters.commentsByNodeId(this.id);
       return comments.length > 0;
+    },
+    connectionIsBeingAdded() {
+      // if this holds true, show a "Connect here" tooltip instead of
+      // "Add link" with the linkIcon
+      return !!this.$store.state.overlay.connectionFrom &&
+        this.$store.state.overlay.connectionFrom !== this.id;
     },
   },
   methods: {
