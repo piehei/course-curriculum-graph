@@ -17,12 +17,12 @@
 
       <tooltip direction="right">
         <font-awesome-icon
-          :icon="linkIcon"
+          :icon="['far', 'comment']"
           size="2x"
-          @click="add('link')">
+          @click="add('comment')">
         </font-awesome-icon>
         <template slot="text">
-          Add new connection
+          Add new comment
         </template>
       </tooltip>
 
@@ -30,12 +30,12 @@
 
       <tooltip direction="right">
         <font-awesome-icon
-          :icon="commentIcon"
+          :icon="['fas', 'link']"
           size="2x"
-          @click="add('comment')">
+          @click="add('link')">
         </font-awesome-icon>
         <template slot="text">
-          Add new comment
+          Add new connection
         </template>
       </tooltip>
 
@@ -137,8 +137,6 @@
 </template>
 <script>
 import { event, select, zoom, zoomIdentity } from 'd3';
-import { faLink } from '@fortawesome/fontawesome-free-solid';
-import { faComment } from '@fortawesome/fontawesome-free-regular';
 
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
@@ -156,8 +154,6 @@ export default {
   },
   data() {
     return {
-      linkIcon: faLink,
-      commentIcon: faComment,
       svgWidth: 0,
       svgHeight: 0,
       pageMargins: 35,

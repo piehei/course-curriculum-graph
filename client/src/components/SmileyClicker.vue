@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { faFrown, faSmile, faMeh } from '@fortawesome/fontawesome-free-regular'
+import { faFrown, faSmile, faMeh } from '@fortawesome/free-regular-svg-icons'
 
 export default {
   name: 'smiley-clicker',
@@ -39,7 +39,7 @@ export default {
       localClicked: false,
       iconHeight: 0,
       icons: [
-        { type: 'meh1',
+        { type: 'meh_unclicked',
           icon: faMeh },
         { type: 'frown',
           icon: faFrown },

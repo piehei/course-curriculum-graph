@@ -124,8 +124,8 @@
   </svg>
 </template>
 <script>
-import { faComment } from '@fortawesome/fontawesome-free-regular';
-import { faLink } from '@fortawesome/fontawesome-free-solid';
+import { faComment } from '@fortawesome/free-regular-svg-icons';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
 
 import Handle from './Handle.vue';
 import Comments from './Comments.vue';

@@ -8,7 +8,7 @@
   </rect>
 </template>
 <script>
-import { faArrowsAlt } from '@fortawesome/fontawesome-free-solid';
+import { faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 
 export default {
   name: 'handle',

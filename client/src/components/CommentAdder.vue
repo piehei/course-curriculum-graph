@@ -109,7 +109,7 @@
   </div>
 </template>
 <script>
-import { faTrash } from '@fortawesome/fontawesome-free-solid'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 export default {
   name: 'comment-adder',
