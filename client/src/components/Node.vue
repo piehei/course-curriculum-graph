@@ -38,6 +38,10 @@
       :parent-id="id"
       :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
           ></smiley>
+    <star
+      :parent-id="id"
+      :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
+          ></star>
 
     <!-- this is the plus/minus sign on the right side -->
     <!-- y = background-rect top + half of height - half of own height -->
@@ -130,6 +134,7 @@ import { faLink } from '@fortawesome/free-solid-svg-icons';
 import Handle from './Handle.vue';
 import Comments from './Comments.vue';
 import SmileyClicker from './SmileyClicker.vue';
+import StarClicker from './StarClicker.vue';
 
 export default {
   name: 'Box',
@@ -155,6 +160,7 @@ export default {
     handle: Handle,
     comments: Comments,
     smiley: SmileyClicker,
+    star: StarClicker,
   },
   data() {
     return {

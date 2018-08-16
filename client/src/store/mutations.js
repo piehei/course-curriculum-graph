@@ -175,6 +175,15 @@ export const SMILEY_CLICKED = (state, { nodeId, indx }) => {
   }
 }
 
+export const STAR_CLICKED = (state, { nodeId, indx }) => {
+  // star order is:
+  // empty, half, full
+  if (indx > 0) {
+    Vue.set(state.stars, nodeId, indx)
+  } else {
+    Vue.delete(state.stars, nodeId)
+  }
+}
 
 export const ADD_COMMENTS = (state, id) => {
   state.overlay.type = 'COMMENTS';

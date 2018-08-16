@@ -124,12 +124,16 @@ const COMMENTS_BY_NODE_ID = (state) => (nodeId) => {
 
 
 const SMILEYINDX_BY_NODE_ID = (state) => (nodeId) => {
-
   if (nodeId in state.smileys) {
     return state.smileys[nodeId];
   }
+  return 0;
+};
 
-  // [ frown, meh, smile ] --> 1 is middleground
+const STARINDX_BY_NODE_ID = (state) => (nodeId) => {
+  if (nodeId in state.stars) {
+    return state.stars[nodeId];
+  }
   return 0;
 };
 
@@ -182,7 +186,10 @@ export default new Vuex.Store({
     },
     smileys: {
       // "1001": 3
-    }
+    },
+    stars: {
+      // "1001": 2
+    },
   },
 
   mutations: {
@@ -203,6 +210,7 @@ export default new Vuex.Store({
     middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
     commentsByNodeId: COMMENTS_BY_NODE_ID,
     smileyIndxByNodeId: SMILEYINDX_BY_NODE_ID,
+    starIndxByNodeId: STARINDX_BY_NODE_ID,
   },
 
   plugins: [
@@ -213,6 +221,7 @@ export default new Vuex.Store({
         'userLogIndex',
         'comments',
         'smileys',
+        'stars',
       ]
 
       // filter: (evt) => {
