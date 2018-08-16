@@ -26,7 +26,14 @@ export default {
   data() {
     return {}
   },
-  created() {},
+  created() {
+    document.addEventListener('keyup', (evt) => {
+      // ESCAPE
+      if (evt.keyCode === 27)  {
+        this.$store.commit('CLOSE_OVERLAY');
+      }
+    })
+  },
   computed: {
 
     type() {
