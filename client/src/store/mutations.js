@@ -163,25 +163,22 @@ export const ZOOM = (state, zoomIdentity) => {
 };
 
 
-export const SMILEY_CLICKED = (state, { nodeId, indx }) => {
-  // smiley order is:
-  // meh, frown, meh, smile
-  // --> indx 0 is meh and it means "not clicked" and is displayed
-  //     in grey
-  if (indx > 0) {
-    Vue.set(state.smileys, nodeId, indx)
-  } else {
-    Vue.delete(state.smileys, nodeId)
-  }
-}
+export const MOOD_CLICKED = (state, { type, nodeId, indx }) => {
 
-export const STAR_CLICKED = (state, { nodeId, indx }) => {
-  // star order is:
-  // empty, half, full
-  if (indx > 0) {
-    Vue.set(state.stars, nodeId, indx)
+  let storeKeyString = '';
+  if (type === 'SMILEY') {
+    storeKeyString = 'smileys';
+  } else if (type === 'STAR') {
+    storeKeyString = 'stars';
   } else {
-    Vue.delete(state.stars, nodeId)
+    throw new Error(`${type} NOT available in MOOD_CLICKED!`)
+  }
+
+  if (indx > 0) {
+    Vue.set(state[storeKeyString], nodeId, indx)
+  } else {
+    // index 0 means default state which is unclicked/grey
+    Vue.delete(state[storeKeyString], nodeId)
   }
 }
 

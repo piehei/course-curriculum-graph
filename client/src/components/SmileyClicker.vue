@@ -77,7 +77,7 @@ export default {
 
     iconClicked() {
       const newIndx = (this.currentIndx + 1) % this.icons.length;
-      this.$store.commit('SMILEY_CLICKED', { nodeId: this.parentId, indx: newIndx });
+      this.$store.commit('MOOD_CLICKED', { type: 'SMILEY', nodeId: this.parentId, indx: newIndx });
     }
 
   },
