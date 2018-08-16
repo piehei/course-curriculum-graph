@@ -17,8 +17,9 @@
 
       <tooltip direction="right">
         <font-awesome-icon
-          :icon="['far', 'comment']"
+          :icon="commentIcon"
           size="2x"
+          class="fix-horizontal-position"
           @click="add('comment')">
         </font-awesome-icon>
         <template slot="text">
@@ -30,12 +31,39 @@
 
       <tooltip direction="right">
         <font-awesome-icon
-          :icon="['fas', 'link']"
+          :icon="linkIcon"
           size="2x"
+          class="fix-horizontal-position"
           @click="add('link')">
         </font-awesome-icon>
         <template slot="text">
           Add new connection
+        </template>
+      </tooltip>
+
+      <br><br>
+
+      <tooltip direction="right">
+        <font-awesome-icon
+          :icon="starIcon"
+          size="2x">
+        </font-awesome-icon>
+        <template slot="text">
+          Star icon indicates how well you learned the topic
+        </template>
+      </tooltip>
+
+      <br><br>
+
+      <tooltip direction="right">
+        <font-awesome-icon
+          :icon="smileyIcon"
+          size="2x"
+          class="fix-horizontal-position"
+          @click="add('link')">
+        </font-awesome-icon>
+        <template slot="text">
+          Smiley icon indicates how interesting you found the topic
         </template>
       </tooltip>
 
@@ -137,6 +165,9 @@
 </template>
 <script>
 import { event, select, zoom, zoomIdentity } from 'd3';
+import { faLink, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faMeh } from '@fortawesome/free-regular-svg-icons';
+
 
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
@@ -164,6 +195,10 @@ export default {
       },
       appZoom: undefined,
       zoomListenerElement: undefined,
+      linkIcon: faLink,
+      commentIcon: faComment,
+      starIcon: faStar,
+      smileyIcon: faMeh,
     }
   },
   created() {
@@ -340,6 +375,13 @@ export default {
     bottom: -100px;
     padding: 25px;
     overflow: hidden;
+  }
+
+  /* the star icon is 36*32 px and the rest
+     are 32*32. this compensates and makes
+     the rest wider so the align nicely. */
+  .fix-horizontal-position {
+    margin-left: 2px;
   }
 
   #top-buttons {
