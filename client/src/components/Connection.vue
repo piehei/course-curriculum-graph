@@ -40,15 +40,34 @@ export default {
       deltaY: 60,
       mouseX: undefined,
       mouseY: undefined,
+      lastMousePos: {
+        x: undefined,
+        y: undefined,
+      },
     };
   },
   created() {
     if (this.toMouseMode) {
-      this.mouseX = this.x1;
-      this.mouseY = this.y1;
+      this.mouseX = this.x1 - 35;
+      this.mouseY = this.y1 - 35;
+
+      this.lastMousePos.x = this.x1;
+      this.lastMousePos.y = this.y1;
+
       window.document.body.addEventListener('mousemove', (evt) => {
-        this.mouseX = evt.clientX - 35;
-        this.mouseY = evt.clientY - 35;
+        const deltaX = evt.clientX - this.lastMousePos.x;
+        const deltaY = evt.clientY - this.lastMousePos.y;
+
+        this.lastMousePos.x = evt.clientX;
+        this.lastMousePos.y = evt.clientY;
+
+        let scale = 1;
+        if (this.$store.state.UI.zoomIdentity) {
+          scale = this.$store.state.UI.zoomIdentity.k;
+        }
+
+        this.mouseX += deltaX / scale;
+        this.mouseY += deltaY / scale;
       })
     }
   },
