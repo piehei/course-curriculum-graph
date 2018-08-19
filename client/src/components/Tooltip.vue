@@ -1,9 +1,12 @@
 <template>
   <div class="tooltip">
     <slot></slot>
-    <span :class="`tooltiptext tooltip-${direction} ${size ? size : ''}`">
+    <span :class="`tooltiptext tooltip-${direction} ${size ? size : ''}`"
+          :style="`width:${width}px`">
         <slot name="text"></slot>
-      </span>
+    </span>
+
+
   </div>
 </template>
 <script>
@@ -17,7 +20,11 @@ export default {
     size: {
       type: String,
       required: false,
-    }
+    },
+    width: {
+      type: Number,
+      required: false,
+    },
   },
   components: {},
   data() {
@@ -29,6 +36,10 @@ export default {
 }
 </script>
 <style scoped>
+
+.icon-row {
+  margin: 20px;
+}
 
 .small {
   width: 100px;
@@ -46,11 +57,12 @@ export default {
 .tooltip .tooltiptext {
     visibility: hidden;
     position: absolute;
-    width: 120px;
-    background-color: #555;
-    color: #fff;
+    width: 140px;
+    background-color: white;
+    color: black;
+    border: 2px solid #bebebe;
     text-align: center;
-    padding: 5px 0;
+    padding: 5px 5px;
     border-radius: 6px;
     z-index: 1;
     opacity: 0;
