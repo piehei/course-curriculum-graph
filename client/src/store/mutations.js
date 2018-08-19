@@ -158,8 +158,20 @@ export const DELETE_COMMENT_FROM_NODE = (state, { nodeId, text }) => {
 };
 
 
-export const ZOOM = (state, zoomIdentity) => {
-  state.UI.zoomIdentity = zoomIdentity;
+export const ZOOM = (state, zoom) => {
+  state.UI.zoom = zoom;
+};
+
+
+export const SET_MOUSE_POSITION = (state, { x, y }) => {
+  state.UI.mouseX = (x - state.UI.marginX - state.UI.zoom.x)/state.UI.zoom.k;
+  state.UI.mouseY = (y - state.UI.marginY - state.UI.zoom.y)/state.UI.zoom.k;
+};
+
+export const SET_APP_MARGINS = (state, { x, y }) => {
+  console.log(`SET_APP_MARGINS (${x}, ${y})`);
+  state.UI.marginX = x;
+  state.UI.marginY = y;
 };
 
 

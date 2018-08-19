@@ -167,6 +167,8 @@ export default {
     // attach d3 zoom and pan listeners to outer-svg and transform the g elem
     // at zoom events
 
+    this.$store.commit('SET_APP_MARGINS', svg.getBoundingClientRect());
+
     const onZoomEvent = () => {
       outergSelection.attr('transform', event.transform)
       this.$store.commit('ZOOM', event.transform)
@@ -176,6 +178,10 @@ export default {
 
     const svgSelection = select(svg);
     const outergSelection = select(outerg);
+
+    svgSelection.on('mousemove', () => {
+      this.$store.commit('SET_MOUSE_POSITION', { x: event.clientX, y: event.clientY });
+    })
 
     zoomBehaviour(svgSelection);
 

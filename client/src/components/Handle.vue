@@ -89,15 +89,11 @@ export default {
 
         const deltaX = evt.clientX - this.lastMousePos.x;
         const deltaY = evt.clientY - this.lastMousePos.y;
-        //if (Math.abs(deltaX) < 4 || Math.abs(deltaY) < 4) return;
 
         this.lastMousePos.x = evt.clientX;
         this.lastMousePos.y = evt.clientY;
 
-        let scale = 1;
-        if (this.$store.state.UI.zoomIdentity) {
-          scale = this.$store.state.UI.zoomIdentity.k;
-        }
+        const scale = this.$store.state.UI.zoom.k;
 
         const newX = this.currX + deltaX / scale;
         const newY = this.currY + deltaY / scale;
@@ -111,7 +107,6 @@ export default {
         );
 
         HAS_MOVED = true;
-
       }
 
       window.addEventListener('mousemove', mouseMoveHandler);

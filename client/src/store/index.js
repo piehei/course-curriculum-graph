@@ -154,7 +154,11 @@ export default new Vuex.Store({
       pathShape: 'curve',
       possiblePathShapes: ['curve', 'path', 'line'],
       deleteMode: false,
-      zoomIdentity: undefined,
+      zoom: { x: 0, y: 0, k: 1 },
+      mouseX: 0,
+      mouseY: 0,
+      marginX: 0,
+      marginY: 0,
     },
     overlay: {
       type: undefined,
@@ -226,7 +230,7 @@ export default new Vuex.Store({
 
       // filter: (evt) => {
       //   // these commits will NOT be saved in the localStorage
-      //   // ZOOM: do not save zoom state (state.ui.zoomIdentity)
+      //   // ZOOM: do not save zoom state (state.ui.zoom)
       //   const skipThese = [
       //     'ZOOM',
       //     'CONNECTION_ADDING_CLICK',
