@@ -29,13 +29,32 @@
 
     <br><br>
 
-    <tooltip direction="right">
+    <tooltip direction="right" :width="200">
       <font-awesome-icon
         :icon="icons.star"
         size="2x">
       </font-awesome-icon>
       <template slot="text">
-        Star icon indicates how well you learned the topic
+        Star indicates how well you learned the topic
+        <br>
+        <font-awesome-icon
+          :icon="icons.star1"
+          size="2x"
+          style="margin:5px 10px;color:#ff5722;"
+          class="fix-horizontal-position">
+        </font-awesome-icon>
+        <font-awesome-icon
+          :icon="icons.star2"
+          size="2x"
+          style="margin:5px 10px;color:orange;"
+          class="fix-horizontal-position">
+        </font-awesome-icon>
+        <font-awesome-icon
+          :icon="icons.star3"
+          size="2x"
+          style="margin:5px 10px;color:green;"
+          class="fix-horizontal-position">
+        </font-awesome-icon>
       </template>
     </tooltip>
 
@@ -50,7 +69,7 @@
       </font-awesome-icon>
 
       <template slot="text">
-        Smiley icon indicates how interesting you found the topic
+        Smiley indicates how interesting you found the topic
         <br>
         <font-awesome-icon
           :icon="icons.smile1"
@@ -78,8 +97,8 @@
 
 </template>
 <script>
-import { faLink, faStar } from '@fortawesome/free-solid-svg-icons';
-import { faComment, faMeh, faFrown, faSmile } from '@fortawesome/free-regular-svg-icons';
+import { faLink, faStarHalfAlt, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faMeh, faFrown, faSmile, faStar } from '@fortawesome/free-regular-svg-icons';
 
 export default {
   name: 'global-icons',
@@ -92,6 +111,9 @@ export default {
         smile1: faFrown,
         smile2: faMeh,
         smile3: faSmile,
+        star1: faStar,
+        star2: faStarHalfAlt,
+        star3: faStarSolid,
       },
     };
   },
