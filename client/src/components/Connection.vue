@@ -1,7 +1,4 @@
-
 <template>
-
-
   <path :d="pathString"
 
         fill="transparent"
@@ -9,8 +6,6 @@
         stroke-width="3px"
         :stroke-dasharray="dashParams">
   </path>
-
-
 </template>
 <script>
 export default {
@@ -87,13 +82,13 @@ export default {
     },
     x2() {
       if (this.toMouseMode) {
-        return this.$store.state.UI.mouseX;
+        return this.$store.state.UI.mouse.x;
       }
       return this.middle(this.to).x;
     },
     y2() {
       if (this.toMouseMode) {
-        return this.$store.state.UI.mouseY;
+        return this.$store.state.UI.mouse.y;
       }
       return this.middle(this.to).y;
     },
@@ -107,8 +102,7 @@ export default {
       return this.$store.getters.middlePointById(id);
     },
   },
-}
+};
 </script>
 <style scoped>
-
 </style>

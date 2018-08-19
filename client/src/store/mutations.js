@@ -164,8 +164,8 @@ export const ZOOM = (state, zoom) => {
 
 
 export const SET_MOUSE_POSITION = (state, { x, y }) => {
-  state.UI.mouseX = (x - state.UI.marginX - state.UI.zoom.x)/state.UI.zoom.k;
-  state.UI.mouseY = (y - state.UI.marginY - state.UI.zoom.y)/state.UI.zoom.k;
+  state.UI.mouse.x = (x - state.UI.marginX - state.UI.zoom.x)/state.UI.zoom.k;
+  state.UI.mouse.y = (y - state.UI.marginY - state.UI.zoom.y)/state.UI.zoom.k;
 };
 
 export const SET_APP_MARGINS = (state, { x, y }) => {

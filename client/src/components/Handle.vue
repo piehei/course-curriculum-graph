@@ -46,19 +46,13 @@ export default {
   data() {
     return {
       icon: faArrowsAlt,
-      lastMousePos: {
-        x: 0,
-        y: 0,
-      },
-    }
+    };
   },
   mounted() {
-
     const drag = this.$refs['dragRect'];
 
     drag.addEventListener('click', (evt) => {
       evt.stopPropagation(); // prevents appearing on App.vue
-
       if (this.deleteMode) {
         this.$store.commit('DELETE_ITEM', {
           type: 'node',
@@ -66,59 +60,27 @@ export default {
         })
         return;
       }
-
     });
 
     drag.addEventListener('mousedown', (mouseDownEvt) => {
-      mouseDownEvt.stopPropagation()
-      this.lastMousePos.x = mouseDownEvt.clientX;
-      this.lastMousePos.y = mouseDownEvt.clientY;
+      mouseDownEvt.stopPropagation(); // prevents appearing on App.vue
 
-      // since mousedown is called at click events
-      // keep track of if any movement happened or if the user
-      // only added a new connection
       let HAS_MOVED = false;
-
-      // this is called at every mouse movement event
-      // this updates the location of the course element
-      // to the current mouse location
-      const mouseMoveHandler = (evt) => {
-        if (evt.clientY < 35) {
-          return;
-        }
-
-        const deltaX = evt.clientX - this.lastMousePos.x;
-        const deltaY = evt.clientY - this.lastMousePos.y;
-
-        this.lastMousePos.x = evt.clientX;
-        this.lastMousePos.y = evt.clientY;
-
-        const scale = this.$store.state.UI.zoom.k;
-
-        const newX = this.currX + deltaX / scale;
-        const newY = this.currY + deltaY / scale;
-        this.$emit('update:localX', newX)
-        this.$emit('update:localY', newY)
-
+      const removeMouseWatcher = this.$watch('mouse', (val) => {
         this.$store.commit('MOVE_OBJECT_TO', {
           objectId: this.id,
-          newX: newX,
-          newY: newY }
-        );
-
+          newX: val.x,
+          newY: val.y
+        });
+        this.$emit('update:localX', val.x)
+        this.$emit('update:localY', val.y)
         HAS_MOVED = true;
-      }
-
-      window.addEventListener('mousemove', mouseMoveHandler);
+      })
 
       // removes this course component's global mouse movement
       // event listeners after mouseup event and commits the final
       // location to userLog so that timetravel includes node movements
       const mouseUpHandler = () => {
-
-        window.removeEventListener('mousemove', mouseMoveHandler);
-        window.removeEventListener('mouseup', mouseUpHandler);
-
         if (HAS_MOVED) {
           this.$store.commit('SAVE_NODE_LOC_TO_USERLOG', {
             id: this.id,
@@ -126,18 +88,25 @@ export default {
             y: this.currY,
           });
         }
+
+        // remove wathing of mouse pos from Vuex store + mouseup event
+        removeMouseWatcher();
+        window.removeEventListener('mouseup', mouseUpHandler);
       };
 
       window.addEventListener('mouseup', mouseUpHandler);
     });
   },
   computed: {
+    mouse() {
+      const { x, y } = this.$store.state.UI.mouse;
+      return { x, y }; // reactivity needs this pattern
+    },
     deleteMode() {
       return this.$store.state.UI.deleteMode;
     }
   },
-  methods: {},
-}
+};
 </script>
 <style scoped>
 
