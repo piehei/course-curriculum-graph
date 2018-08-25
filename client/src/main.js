@@ -7,6 +7,7 @@ import { faComment } from '@fortawesome/free-regular-svg-icons';
 import App from './App.vue'
 import store from './store/index.js';
 import Tooltip from './components/Tooltip.vue';
+import initLogging from './Logger.js';
 
 Vue.config.productionTip = false
 
@@ -20,3 +21,5 @@ new Vue({
   render: h => h(App),
   store: store,
 }).$mount('#app')
+
+initLogging(store);

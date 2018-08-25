@@ -252,7 +252,7 @@ export default {
         return;
       }
 
-      this.$store.commit('ADD_NEW_NODE', {
+      this.$store.commit('USERLOG_ADD_NEW_NODE', {
         parentId: this.id,
         name: this.newNodeName,
         x: this.x + 300,

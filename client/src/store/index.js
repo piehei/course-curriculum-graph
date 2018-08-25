@@ -6,6 +6,8 @@ Vue.use(Vuex);
 
 import courseList from '../assets/course-list.json';
 
+import * as actions from './actions';
+import * as userLogActions from './userLogActions';
 import * as mutations from './mutations'
 import * as userLogMutations from './userLogMutations';
 
@@ -200,7 +202,10 @@ export default new Vuex.Store({
     ...userLogMutations,
   },
 
-  actions: {},
+  actions: {
+    ...actions,
+    ...userLogActions,
+  },
 
   getters: {
     //userAddedConnections: USER_ADDED_CONNECTIONS,

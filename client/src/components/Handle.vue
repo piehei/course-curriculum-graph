@@ -54,7 +54,7 @@ export default {
     drag.addEventListener('click', (evt) => {
       evt.stopPropagation(); // prevents appearing on App.vue
       if (this.deleteMode) {
-        this.$store.commit('DELETE_ITEM', {
+        this.$store.dispatch('USERLOG_DELETE_ITEM', {
           type: 'node',
           id: this.id
         })
@@ -82,7 +82,7 @@ export default {
       // location to userLog so that timetravel includes node movements
       const mouseUpHandler = () => {
         if (HAS_MOVED) {
-          this.$store.commit('SAVE_NODE_LOC_TO_USERLOG', {
+          this.$store.dispatch('USERLOG_SAVE_NODE_LOCATION', {
             id: this.id,
             x: this.currX,
             y: this.currY,

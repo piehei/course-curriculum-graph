@@ -132,7 +132,7 @@ export default {
 
       this.errorMsg = undefined;
 
-      this.$store.commit('ADD_CONNECTION_WITH_COMMENT', {
+      this.$store.dispatch('USERLOG_ADD_CONNECTION_WITH_COMMENT', {
         from: this.fromId,
         to: this.toId,
         text: this.newCommentText,
