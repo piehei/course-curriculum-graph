@@ -28,6 +28,20 @@
     </tooltip>
 
     <br><br>
+    <tooltip direction="right">
+      <font-awesome-icon
+        :icon="icons.eraser"
+        size="2x"
+        class="fix-horizontal-position"
+        style="color:red;"
+        @click="">
+      </font-awesome-icon>
+      <template slot="text">
+        Erase connection or node TODO IMPLEMENT THIS
+      </template>
+    </tooltip>
+
+    <br><br>
 
     <tooltip direction="right" :width="200">
       <font-awesome-icon
@@ -97,7 +111,7 @@
 
 </template>
 <script>
-import { faLink, faStarHalfAlt, faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
+import { faLink, faStarHalfAlt, faStar as faStarSolid, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faMeh, faFrown, faSmile, faStar } from '@fortawesome/free-regular-svg-icons';
 
 export default {
@@ -114,6 +128,7 @@ export default {
         star1: faStar,
         star2: faStarHalfAlt,
         star3: faStarSolid,
+        eraser: faEraser,
       },
     };
   },
