@@ -71,14 +71,14 @@ export default {
     },
 
     clicked() {
-      return (this.parentId in this.$store.state.stars);
+      return (this.parentId in this.$store.getters.stars);
     }
   },
   methods: {
 
     iconClicked() {
       const newIndx = (this.currentIndx + 1) % this.icons.length;
-      this.$store.commit('MOOD_CLICKED', { type: 'STAR', nodeId: this.parentId, indx: newIndx });
+      this.$store.dispatch('USERLOG_MOOD_CLICKED', { type: 'STAR', nodeId: this.parentId, indx: newIndx });
     }
 
   },

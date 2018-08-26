@@ -67,3 +67,14 @@ export const USERLOG_ADD_CONNECTION_WITH_COMMENT = ({ commit, state }, { from, t
   state.overlay.connectionTo = undefined;
 }
 
+export const USERLOG_MOOD_CLICKED = ({ commit }, { type, nodeId, indx }) => {
+
+  const mood = {
+    timestamp: (new Date()).getTime(),
+    type: type.toLowerCase(),
+    node: nodeId,
+    indx: indx,
+  };
+  commit('USERLOG_APPEND', mood);
+}
+

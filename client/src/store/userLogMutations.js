@@ -29,7 +29,6 @@ export const RESET_USERLOG_TRAVEL = (state) => {
 };
 
 export const USERLOG_APPEND = (state, item) => {
-  console.log('inside append');
   state.userLog.push(item);
   state.userLogIndex = state.userLog.length;
 }

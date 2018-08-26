@@ -132,9 +132,21 @@ const SMILEYINDX_BY_NODE_ID = (state) => (nodeId) => {
   return 0;
 };
 
-const STARINDX_BY_NODE_ID = (state) => (nodeId) => {
-  if (nodeId in state.stars) {
-    return state.stars[nodeId];
+const STARS = (state) => {
+  const stars = {};
+  state.userLog.forEach(logElem => {
+    if (logElem.type === 'star') {
+      if (!(logElem.id in stars)) {
+        stars[logElem.node] = logElem.indx;
+      }
+    }
+  })
+  return stars;
+}
+
+const STARINDX_BY_NODE_ID = (state, getters) => (nodeId) => {
+  if (nodeId in getters.stars) {
+    return getters.stars[nodeId];
   }
   return 0;
 };
@@ -219,6 +231,7 @@ export default new Vuex.Store({
     commentsByNodeId: COMMENTS_BY_NODE_ID,
     smileyIndxByNodeId: SMILEYINDX_BY_NODE_ID,
     starIndxByNodeId: STARINDX_BY_NODE_ID,
+    stars: STARS,
   },
 
   plugins: [
