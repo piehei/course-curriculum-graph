@@ -72,6 +72,7 @@
 
 
     <svg ref="outer-svg"
+         id="outer-svg"
          width="100%" height="100%"
          style="border:0px solid blue;"
          xmlns="http://www.w3.org/2000/svg">
@@ -184,6 +185,15 @@ export default {
     })
 
     zoomBehaviour(svgSelection);
+
+    // this prevents zooming from dblclicking on elements or wheeling over them
+    // ---> only dblclicks and wheeling on the *background* zooms
+    zoomBehaviour.filter(() => {
+      if (event.srcElement.id === 'outer-svg') {
+        return true;
+      }
+      return false;
+    })
 
     this.appZoom = zoomBehaviour;
     this.zoomListenerElement = svgSelection;
