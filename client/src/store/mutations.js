@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 // import courseList from '../assets/course-list.json';
 
-import { CHILDREN_BY_PARENT_ID } from './index';
+import { CHILDREN_BY_PARENT_ID } from './getters';
 
 
 export const RESET_STATE = (state) => {
@@ -174,25 +174,6 @@ export const SET_APP_MARGINS = (state, { x, y }) => {
   state.UI.marginY = y;
 };
 
-
-export const MOOD_CLICKED = (state, { type, nodeId, indx }) => {
-
-  let storeKeyString = '';
-  if (type === 'SMILEY') {
-    storeKeyString = 'smileys';
-  } else if (type === 'STAR') {
-    storeKeyString = 'stars';
-  } else {
-    throw new Error(`${type} NOT available in MOOD_CLICKED!`)
-  }
-
-  if (indx > 0) {
-    Vue.set(state[storeKeyString], nodeId, indx)
-  } else {
-    // index 0 means default state which is unclicked/grey
-    Vue.delete(state[storeKeyString], nodeId)
-  }
-}
 
 export const ADD_COMMENTS = (state, id) => {
   state.overlay.type = 'COMMENTS';

@@ -1,0 +1,138 @@
+export const CHILDREN_BY_PARENT_ID = (state, id) => {
+  return state.nodeList.filter(node => {
+    return 'parent' in node && node['parent'] === id
+  })
+}
+
+
+export const USER_ADDED_CONNECTIONS = (state) => {
+  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'connection');
+};
+
+
+export const USER_ADDED_NODES = (state) => {
+  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'node');
+};
+
+
+export const DELETE_EVENTS = (state) => {
+  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'delete');
+};
+
+
+export const ALL_NODES = (state) => {
+  const all = state.nodeList.concat(USER_ADDED_NODES(state));
+  const deletedIds = DELETE_EVENTS(state).map(d => d.id);
+  const undeleted = all.filter(node => deletedIds.indexOf(node.id) === -1);
+  return undeleted;
+};
+
+
+export const BASE_CONNECTIONS = (state) => {
+
+  const baseList = [];
+
+  state.nodeList.forEach(course => {
+    CHILDREN_BY_PARENT_ID(state, course.id).forEach(topic => {
+      baseList.push({
+        from: course.id,
+        to: topic.id,
+      });
+    });
+  });
+
+  return baseList;
+};
+
+
+export const ALL_CONNECTIONS = (state) => {
+  const base = BASE_CONNECTIONS(state);
+  const user = USER_ADDED_CONNECTIONS(state);
+
+  const nodeIds = ALL_NODES(state).map(n => n.id);
+
+  const connectionsWithBothEnds = base.concat(user).filter(connection => {
+    return nodeIds.indexOf(connection.from) !== -1 && nodeIds.indexOf(connection.to) !== -1;
+  });
+
+  return connectionsWithBothEnds;
+}
+
+
+export const CONTAINER_SIZE_BY_ID = (state) => (objectId) => {
+  if (objectId in state.meta) {
+    return state.meta[objectId];
+  }
+  return { width: 0, height: 0, top: 0 };
+};
+
+
+export const CONTAINER_MIDDLE_POINT_BY_ID = (state, getters) => (id) => {
+
+  const size = getters.containerSize(id);
+  const pos = getters.posById(id);
+
+  return {
+    x: pos.x + size.width / 2,
+    y: pos.y + size.height / 2 + size.top,
+  }
+
+};
+
+
+export const POS_BY_ID = (state) => (objectId) => {
+
+  // if this node is currently being dragged to a new location
+  // return the position from movingNode
+  // --> this ensures the connections that touch the node
+  // are updated all the time and the animation is smooth
+  if (state.movingNode.id === objectId) {
+    return {
+      x: state.movingNode.x,
+      y: state.movingNode.y
+    };
+  }
+
+  // history is a list that starts with the teacher defined original
+  // nodes and connections and ends with the whole userlog
+  // --> finding the first element from the end is the last committed pos
+  const history = state.nodeList.concat(state.userLog.slice(0, state.userLogIndex));
+  const node = history[history.map(elem => elem.id).lastIndexOf(objectId)];
+  return {
+    x: node.x,
+    y: node.y
+  };
+};
+
+export const COMMENTS_BY_NODE_ID = (state) => (nodeId) => {
+  if (nodeId in state.comments) {
+    return state.comments[nodeId];
+  }
+  return [];
+};
+
+export const MOODS = (state) => {
+
+  const mood = {
+    star: {},
+    smiley: {},
+  };
+
+  state.userLog.slice(0, state.userLogIndex).forEach(logElem => {
+    if (logElem.type === 'star' || logElem.type === 'smiley') {
+      if (!(logElem.id in mood[logElem.type])) {
+        mood[logElem.type][logElem.node] = logElem.indx;
+      }
+    }
+  });
+
+  return mood;
+}
+
+export const MOOD_BY_TYPE_AND_NODE = (state, getters) => (type, nodeId) => {
+  if (nodeId in getters.moods[type]) {
+    return getters.moods[type][nodeId];
+  }
+  return 0;
+};
+

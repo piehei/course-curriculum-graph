@@ -10,144 +10,7 @@ import * as actions from './actions';
 import * as userLogActions from './userLogActions';
 import * as mutations from './mutations'
 import * as userLogMutations from './userLogMutations';
-
-export const CHILDREN_BY_PARENT_ID = (state, id) => {
-  return state.nodeList.filter(node => {
-    return 'parent' in node && node['parent'] === id
-  })
-}
-
-
-const USER_ADDED_CONNECTIONS = (state) => {
-  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'connection');
-};
-
-
-const USER_ADDED_NODES = (state) => {
-  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'node');
-};
-
-
-const DELETE_EVENTS = (state) => {
-  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'delete');
-};
-
-
-const ALL_NODES = (state) => {
-  const all = state.nodeList.concat(USER_ADDED_NODES(state));
-  const deletedIds = DELETE_EVENTS(state).map(d => d.id);
-  const undeleted = all.filter(node => deletedIds.indexOf(node.id) === -1);
-  return undeleted;
-};
-
-
-const BASE_CONNECTIONS = (state) => {
-
-  const baseList = [];
-
-  state.nodeList.forEach(course => {
-    CHILDREN_BY_PARENT_ID(state, course.id).forEach(topic => {
-      baseList.push({
-        from: course.id,
-        to: topic.id,
-      });
-    });
-  });
-
-  return baseList;
-};
-
-
-const ALL_CONNECTIONS = (state) => {
-  const base = BASE_CONNECTIONS(state);
-  const user = USER_ADDED_CONNECTIONS(state);
-
-  const nodeIds = ALL_NODES(state).map(n => n.id);
-
-  const connectionsWithBothEnds = base.concat(user).filter(connection => {
-    return nodeIds.indexOf(connection.from) !== -1 && nodeIds.indexOf(connection.to) !== -1;
-  });
-
-  return connectionsWithBothEnds;
-}
-
-
-const CONTAINER_SIZE_BY_ID = (state) => (objectId) => {
-  if (objectId in state.meta) {
-    return state.meta[objectId];
-  }
-  return { width: 0, height: 0, top: 0 };
-};
-
-
-const CONTAINER_MIDDLE_POINT_BY_ID = (state, getters) => (id) => {
-
-  const size = getters.containerSize(id);
-  const pos = getters.posById(id);
-
-  return {
-    x: pos.x + size.width / 2,
-    y: pos.y + size.height / 2 + size.top,
-  }
-
-};
-
-
-const POS_BY_ID = (state) => (objectId) => {
-
-  // if this node is currently being dragged to a new location
-  // return the position from movingNode
-  // --> this ensures the connections that touch the node
-  // are updated all the time and the animation is smooth
-  if (state.movingNode.id === objectId) {
-    return {
-      x: state.movingNode.x,
-      y: state.movingNode.y
-    };
-  }
-
-  // history is a list that starts with the teacher defined original
-  // nodes and connections and ends with the whole userlog
-  // --> finding the first element from the end is the last committed pos
-  const history = state.nodeList.concat(state.userLog.slice(0, state.userLogIndex));
-  const node = history[history.map(elem => elem.id).lastIndexOf(objectId)];
-  return {
-    x: node.x,
-    y: node.y
-  };
-};
-
-const COMMENTS_BY_NODE_ID = (state) => (nodeId) => {
-  if (nodeId in state.comments) {
-    return state.comments[nodeId];
-  }
-  return [];
-};
-
-const MOODS = (state) => {
-
-  const mood = {
-    star: {},
-    smiley: {},
-  };
-
-  state.userLog.forEach(logElem => {
-    if (logElem.type === 'star' || logElem.type === 'smiley') {
-      if (!(logElem.id in mood[logElem.type])) {
-        mood[logElem.type][logElem.node] = logElem.indx;
-      }
-    }
-  });
-
-  return mood;
-}
-
-const MOOD_BY_TYPE_AND_NODE = (state, getters) => (type, nodeId) => {
-  if (nodeId in getters.moods[type]) {
-    return getters.moods[type][nodeId];
-  }
-  return 0;
-};
+import * as getters from './getters';
 
 
 export default new Vuex.Store({
@@ -199,12 +62,6 @@ export default new Vuex.Store({
       //   type:
       // }
     },
-    smileys: {
-      // "1001": 3
-    },
-    stars: {
-      // "1001": 2
-    },
   },
 
   mutations: {
@@ -218,17 +75,14 @@ export default new Vuex.Store({
   },
 
   getters: {
-    //userAddedConnections: USER_ADDED_CONNECTIONS,
-    //userAddedNodes: USER_ADDED_NODES,
-    nodes: ALL_NODES,
-    //baseConnections: BASE_CONNECTIONS,
-    connections: ALL_CONNECTIONS,
-    posById: POS_BY_ID,
-    containerSize: CONTAINER_SIZE_BY_ID,
-    middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
-    commentsByNodeId: COMMENTS_BY_NODE_ID,
-    moodByTypeAndNode: MOOD_BY_TYPE_AND_NODE,
-    moods: MOODS,
+    nodes: getters.ALL_NODES,
+    connections: getters.ALL_CONNECTIONS,
+    posById: getters.POS_BY_ID,
+    containerSize: getters.CONTAINER_SIZE_BY_ID,
+    middlePointById: getters.CONTAINER_MIDDLE_POINT_BY_ID,
+    commentsByNodeId: getters.COMMENTS_BY_NODE_ID,
+    moodByTypeAndNode: getters.MOOD_BY_TYPE_AND_NODE,
+    moods: getters.MOODS,
   },
 
   plugins: [
@@ -238,19 +92,7 @@ export default new Vuex.Store({
         'userLog',
         'userLogIndex',
         'comments',
-        'smileys',
-        'stars',
       ]
-
-      // filter: (evt) => {
-      //   // these commits will NOT be saved in the localStorage
-      //   // ZOOM: do not save zoom state (state.ui.zoom)
-      //   const skipThese = [
-      //     'ZOOM',
-      //     'CONNECTION_ADDING_CLICK',
-      //   ];
-      //   return skipThese.indexOf(evt.type) === -1;
-      // }
     })
   ],
 
