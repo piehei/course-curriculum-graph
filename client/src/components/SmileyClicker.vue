@@ -62,7 +62,7 @@ export default {
     },
 
     currentIndx() {
-      return this.$store.getters.smileyIndxByNodeId(this.parentId);
+      return this.$store.getters.moodByTypeAndNode('smiley', this.parentId);
     },
 
     chosenIcon() {
@@ -70,14 +70,14 @@ export default {
     },
 
     clicked() {
-      return this.parentId in this.$store.state.smileys;
+      return this.parentId in this.$store.getters.moods.smiley;
     }
   },
   methods: {
 
     iconClicked() {
       const newIndx = (this.currentIndx + 1) % this.icons.length;
-      this.$store.commit('MOOD_CLICKED', { type: 'SMILEY', nodeId: this.parentId, indx: newIndx });
+      this.$store.dispatch('USERLOG_MOOD_CLICKED', { type: 'SMILEY', nodeId: this.parentId, indx: newIndx });
     }
 
   },

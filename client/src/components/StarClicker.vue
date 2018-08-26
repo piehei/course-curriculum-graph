@@ -63,7 +63,7 @@ export default {
     },
 
     currentIndx() {
-      return this.$store.getters.starIndxByNodeId(this.parentId);
+      return this.$store.getters.moodByTypeAndNode('star', this.parentId);
     },
 
     chosenIcon() {
@@ -71,8 +71,8 @@ export default {
     },
 
     clicked() {
-      return (this.parentId in this.$store.getters.stars);
-    }
+      return (this.parentId in this.$store.getters.moods.star);
+    },
   },
   methods: {
 

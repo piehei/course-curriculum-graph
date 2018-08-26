@@ -124,29 +124,27 @@ const COMMENTS_BY_NODE_ID = (state) => (nodeId) => {
   return [];
 };
 
+const MOODS = (state) => {
 
-const SMILEYINDX_BY_NODE_ID = (state) => (nodeId) => {
-  if (nodeId in state.smileys) {
-    return state.smileys[nodeId];
-  }
-  return 0;
-};
+  const mood = {
+    star: {},
+    smiley: {},
+  };
 
-const STARS = (state) => {
-  const stars = {};
   state.userLog.forEach(logElem => {
-    if (logElem.type === 'star') {
-      if (!(logElem.id in stars)) {
-        stars[logElem.node] = logElem.indx;
+    if (logElem.type === 'star' || logElem.type === 'smiley') {
+      if (!(logElem.id in mood[logElem.type])) {
+        mood[logElem.type][logElem.node] = logElem.indx;
       }
     }
-  })
-  return stars;
+  });
+
+  return mood;
 }
 
-const STARINDX_BY_NODE_ID = (state, getters) => (nodeId) => {
-  if (nodeId in getters.stars) {
-    return getters.stars[nodeId];
+const MOOD_BY_TYPE_AND_NODE = (state, getters) => (type, nodeId) => {
+  if (nodeId in getters.moods[type]) {
+    return getters.moods[type][nodeId];
   }
   return 0;
 };
@@ -229,9 +227,8 @@ export default new Vuex.Store({
     containerSize: CONTAINER_SIZE_BY_ID,
     middlePointById: CONTAINER_MIDDLE_POINT_BY_ID,
     commentsByNodeId: COMMENTS_BY_NODE_ID,
-    smileyIndxByNodeId: SMILEYINDX_BY_NODE_ID,
-    starIndxByNodeId: STARINDX_BY_NODE_ID,
-    stars: STARS,
+    moodByTypeAndNode: MOOD_BY_TYPE_AND_NODE,
+    moods: MOODS,
   },
 
   plugins: [
