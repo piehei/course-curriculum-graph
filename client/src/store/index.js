@@ -56,12 +56,6 @@ export default new Vuex.Store({
       x: 0,
       y: 0,
     },
-    comments: {
-      // "1000": {
-      //   text: "",
-      //   type:
-      // }
-    },
   },
 
   mutations: {
@@ -80,6 +74,7 @@ export default new Vuex.Store({
     posById: getters.POS_BY_ID,
     containerSize: getters.CONTAINER_SIZE_BY_ID,
     middlePointById: getters.CONTAINER_MIDDLE_POINT_BY_ID,
+    comments: getters.COMMENTS,
     commentsByNodeId: getters.COMMENTS_BY_NODE_ID,
     moodByTypeAndNode: getters.MOOD_BY_TYPE_AND_NODE,
     moods: getters.MOODS,
@@ -91,7 +86,6 @@ export default new Vuex.Store({
       paths: [
         'userLog',
         'userLogIndex',
-        'comments',
       ]
     })
   ],

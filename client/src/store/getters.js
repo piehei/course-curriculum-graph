@@ -56,7 +56,7 @@ export const ALL_CONNECTIONS = (state) => {
   });
 
   return connectionsWithBothEnds;
-}
+};
 
 
 export const CONTAINER_SIZE_BY_ID = (state) => (objectId) => {
@@ -104,12 +104,36 @@ export const POS_BY_ID = (state) => (objectId) => {
   };
 };
 
-export const COMMENTS_BY_NODE_ID = (state) => (nodeId) => {
-  if (nodeId in state.comments) {
-    return state.comments[nodeId];
+
+export const COMMENTS = (state) => {
+  const comments = {};
+
+  // this goes reads userLog from back to front and picks all comments
+  state.userLog.slice(0, state.userLogIndex).reverse().forEach(logElem => {
+    if (logElem.type === 'comment') {
+      if (!(logElem.node in comments)) {
+        comments[logElem.node] = [];
+      }
+
+      // only the first instance of a comment with comment_id is picked
+      if (!comments[logElem.node].map(i => i.comment_id).includes(logElem.comment_id)) {
+        comments[logElem.node].push(logElem);
+      }
+    }
+  });
+
+  return comments;
+};
+
+
+export const COMMENTS_BY_NODE_ID = (state, getters) => (nodeId) => {
+  if (nodeId in getters.comments) {
+    // don't return comments whose state is deleted
+    return getters.comments[nodeId].filter(c => !c.delete);
   }
   return [];
 };
+
 
 export const MOODS = (state) => {
 
@@ -127,7 +151,8 @@ export const MOODS = (state) => {
   });
 
   return mood;
-}
+};
+
 
 export const MOOD_BY_TYPE_AND_NODE = (state, getters) => (type, nodeId) => {
   if (nodeId in getters.moods[type]) {

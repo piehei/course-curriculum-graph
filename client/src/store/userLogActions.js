@@ -25,7 +25,8 @@ export const USERLOG_ADD_NEW_NODE = ({ commit }, { parentId, name, x, y }) => {
     timestamp: (new Date()).getTime()
   };
   commit('USERLOG_APPEND', conn);
-}
+};
+
 
 export const USERLOG_SAVE_NODE_LOCATION = ({ commit, state }, { id, x, y }) => {
 
@@ -38,7 +39,7 @@ export const USERLOG_SAVE_NODE_LOCATION = ({ commit, state }, { id, x, y }) => {
   };
   commit('USERLOG_APPEND', posChange);
   state.movingNode.id = undefined;
-}
+};
 
 
 export const USERLOG_DELETE_ITEM = ({ commit, state }, { type, id }) => {
@@ -50,7 +51,8 @@ export const USERLOG_DELETE_ITEM = ({ commit, state }, { type, id }) => {
   };
   commit('USERLOG_APPEND', delEvent);
   state.UI.deleteMode = false;
-}
+};
+
 
 export const USERLOG_ADD_CONNECTION_WITH_COMMENT = ({ commit, state }, { from, to, text }) => {
 
@@ -65,7 +67,8 @@ export const USERLOG_ADD_CONNECTION_WITH_COMMENT = ({ commit, state }, { from, t
   commit('USERLOG_APPEND', conn);
   state.overlay.connectionFrom = undefined;
   state.overlay.connectionTo = undefined;
-}
+};
+
 
 export const USERLOG_MOOD_CLICKED = ({ commit }, { type, nodeId, indx }) => {
 
@@ -76,5 +79,36 @@ export const USERLOG_MOOD_CLICKED = ({ commit }, { type, nodeId, indx }) => {
     indx: indx,
   };
   commit('USERLOG_APPEND', mood);
-}
+};
+
+
+export const USERLOG_ADD_COMMENT_TO_NODE = ({ commit, state }, { nodeId, text, type }) => {
+
+  if (!nodeId) {
+    throw `${nodeId} is not legal nodeId!!!!`
+  }
+  const timestamp = (new Date()).getTime();
+  const comment = {
+    type: 'comment',
+    node: nodeId,
+    comment_id: `${nodeId}-${timestamp}`,
+    text,
+    comment_type: type,
+    timestamp,
+  };
+
+  commit('USERLOG_APPEND', comment);
+};
+
+
+export const USERLOG_DELETE_COMMENT_FROM_NODE = ({ commit }, { nodeId, commentId }) => {
+  const delete_comment = {
+    type: 'comment',
+    delete: true, // TODO: is this good?????????
+    node: nodeId,
+    comment_id: commentId,
+    timestamp: (new Date()).getTime(),
+  };
+  commit('USERLOG_APPEND', delete_comment);
+};
 

@@ -10,13 +10,13 @@
       <ul class="comments-ul">
         <template v-for="c in comments">
           <li :key="c.text"
-              :class="`comment-${c.type}`">
+              :class="`comment-${c.comment_type}`">
             {{ c.text }}
             <font-awesome-icon
               :icon="trash"
               size="xs"
               style="cursor:pointer;float:right;"
-              @click="deleteComment(c.text)"></font-awesome-icon>
+              @click="deleteComment(c.comment_id)"></font-awesome-icon>
           </li>
         </template>
       </ul>
@@ -75,11 +75,11 @@ export default {
         this.height = rect.offsetHeight;
       })
     },
-    deleteComment(text) {
+    deleteComment(cid) {
       // TODO: THIS IS A BAD BAD HACK -> SHOULD INCORPORATE IDs or so, not by text
-      this.$store.commit('DELETE_COMMENT_FROM_NODE', {
+      this.$store.dispatch('USERLOG_DELETE_COMMENT_FROM_NODE', {
         nodeId: this.parentId,
-        text: text,
+        commentId: cid,
       })
     },
   },

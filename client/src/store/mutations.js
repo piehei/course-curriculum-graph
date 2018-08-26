@@ -1,7 +1,5 @@
 import Vue from 'vue';
 
-// import courseList from '../assets/course-list.json';
-
 import { CHILDREN_BY_PARENT_ID } from './getters';
 
 
@@ -126,38 +124,6 @@ export const TOGGLE_DELETE_MODE = (state) => {
 };
 
 
-export const ADD_COMMENT_TO_NODE = (state, { nodeId, text, type }) => {
-
-  // debugger;
-
-  if (!nodeId) {
-    console.log({nodeId, text, type});
-    throw `${nodeId} is not legal nodeId!!!!`
-  }
-
-  if (!(nodeId in state.comments)) {
-    // if node is not in state.comments -> add it forcefully
-    Vue.set(state.comments, nodeId, []);
-  }
-
-  state.comments[nodeId].push({
-    text,
-    type,
-    timestamp: (new Date()).getTime()
-  })
-
-};
-
-
-export const DELETE_COMMENT_FROM_NODE = (state, { nodeId, text }) => {
-  state.comments[nodeId] = state.comments[nodeId].filter(comment => comment.text !== text);
-  // clean up state.comments -> object only includes nodes that have comment(s)
-  if (state.comments[nodeId].length === 0) {
-    Vue.delete(state.comments, nodeId);
-  }
-};
-
-
 export const ZOOM = (state, zoom) => {
   state.UI.zoom = zoom;
 };
@@ -169,7 +135,6 @@ export const SET_MOUSE_POSITION = (state, { x, y }) => {
 };
 
 export const SET_APP_MARGINS = (state, { x, y }) => {
-  console.log(`SET_APP_MARGINS (${x}, ${y})`);
   state.UI.marginX = x;
   state.UI.marginY = y;
 };
