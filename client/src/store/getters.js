@@ -86,6 +86,7 @@ export const POS_BY_ID = (state) => (objectId) => {
   // return the position from movingNode
   // --> this ensures the connections that touch the node
   // are updated all the time and the animation is smooth
+  // REMEMBER: the location is NOT saved to userLog until dragging finishes
   if (state.movingNode.id === objectId) {
     return {
       x: state.movingNode.x,

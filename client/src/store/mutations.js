@@ -2,6 +2,15 @@ import Vue from 'vue';
 
 import { CHILDREN_BY_PARENT_ID } from './getters';
 
+const SCALE_X_Y = (state, { x, y }) => {
+  // this properly scales mouse event client{X,Y} to current zoom
+  // if you don't do this, dragged items move strangely on non-default zoom levels
+  return {
+    x: (x - state.UI.marginX - state.UI.zoom.x)/state.UI.zoom.k,
+    y: (y - state.UI.marginY - state.UI.zoom.y)/state.UI.zoom.k,
+  };
+};
+
 
 export const RESET_STATE = (state) => {
   // TODO: make sure this actually resets everything needed
@@ -44,10 +53,6 @@ export const ORGANIZE_OBJECTS = (state) => {
     node.y += verticalChildSpace / 2 - 5;
 
   });
-
-  // const { point, id } = LOWEST_POINT_AND_ID(state.courseList);
-  // state.lowestId = id;
-  // state.lowestPoint = point;
 };
 
 
@@ -76,8 +81,9 @@ export const SAVE_OBJECT_CONTAINER_SIZE = (state, { id, width, height, top }) =>
 export const MOVE_OBJECT_TO = (state, { newX, newY, objectId }) => {
   state.stateTouched = true;
   Vue.set(state.movingNode, 'id', objectId);
-  state.movingNode.x = newX;
-  state.movingNode.y = newY;
+  const { x, y } = SCALE_X_Y(state, { x: newX, y: newY });
+  state.movingNode.x = x;
+  state.movingNode.y = y;
 };
 
 
@@ -129,9 +135,11 @@ export const ZOOM = (state, zoom) => {
 };
 
 
-export const SET_MOUSE_POSITION = (state, { x, y }) => {
-  state.UI.mouse.x = (x - state.UI.marginX - state.UI.zoom.x)/state.UI.zoom.k;
-  state.UI.mouse.y = (y - state.UI.marginY - state.UI.zoom.y)/state.UI.zoom.k;
+
+export const SET_MOUSE_POSITION = (state, obj) => {
+  const { x, y } = SCALE_X_Y(state, obj);
+  state.UI.mouse.x = x;
+  state.UI.mouse.y = y;
 };
 
 export const SET_APP_MARGINS = (state, { x, y }) => {

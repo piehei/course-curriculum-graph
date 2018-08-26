@@ -23,17 +23,6 @@
           stroke-width="2"
           fill="white"></rect>
 
-    <handle
-       :drag-rect-x="4"
-       :drag-rect-y="10"
-       :width="250 - 8"
-       :height="contentHeightPlusMargin"
-       :curr-x="x"
-       :curr-y="y"
-       :id="id"
-       ></handle>
-
-
     <smiley
       :parent-id="id"
       :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
@@ -130,8 +119,8 @@
 <script>
 import { faComment } from '@fortawesome/free-regular-svg-icons';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { select, drag, event } from 'd3';
 
-import Handle from './Handle.vue';
 import Comments from './Comments.vue';
 import SmileyClicker from './SmileyClicker.vue';
 import StarClicker from './StarClicker.vue';
@@ -157,7 +146,6 @@ export default {
     },
   },
   components: {
-    handle: Handle,
     comments: Comments,
     smiley: SmileyClicker,
     star: StarClicker,
@@ -178,7 +166,7 @@ export default {
       isMoving: false,
       hideComments: false,
       showNewNodeAdder: false,
-    }
+    };
   },
   mounted() {
 
@@ -204,6 +192,37 @@ export default {
     if (this.type === 'NEW_NODE') {
       this.$refs['input-field'].focus()
     }
+
+    //////////////////// DRAG AND DROP LOGIC
+    const dragHandle = this.$refs['container'];
+    const that = this;
+    var dragSelection = select(dragHandle);
+    const started = () => {
+      dragSelection.classed("dragging", true);
+
+      event.on("drag", dragged).on("end", ended);
+
+      function dragged() {
+        const x = event.sourceEvent.clientX;
+        const y = event.sourceEvent.clientY;
+        that.$store.commit('MOVE_OBJECT_TO', {
+          objectId: that.id,
+          newX: x,
+          newY: y,
+        });
+      }
+
+      function ended() {
+        dragSelection.classed("dragging", false);
+        that.$store.dispatch('USERLOG_SAVE_NODE_LOCATION', {
+          id: that.id,
+          x: that.x,
+          y: that.y,
+        });
+      }
+    };
+
+    dragSelection.call(drag().on('start', started));
   },
   computed: {
     x() {

@@ -115,7 +115,6 @@
 <script>
 import { event, select, zoom, zoomIdentity } from 'd3';
 
-
 import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
 import Overlay from './components/Overlay.vue';
