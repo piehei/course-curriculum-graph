@@ -25,7 +25,7 @@ SECRET_KEY = 'n-^3b@z$-sn7$@=(k54zgl&i(lgnxy%4dsaji-65mn*ndd9a&f'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cryptic-sierra-44763.herokuapp.com']
 
 
 # Application definition
@@ -55,6 +55,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
+    'ccgraph.surge.sh'
 )
 
 from corsheaders.defaults import default_headers
