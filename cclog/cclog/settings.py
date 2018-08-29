@@ -133,4 +133,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-from local_settings import *
+try:
+    from local_settings import *
+    print("LOCAL_SETTINGS APPLIED")
+except:
+    print("LOCAL_SETTINGS NOT FOUND")
