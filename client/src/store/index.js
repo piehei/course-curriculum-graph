@@ -13,6 +13,12 @@ import * as userLogMutations from './userLogMutations';
 import * as getters from './getters';
 
 
+const USERLOG_API_USERNAME = localStorage['USERLOG_API_USERNAME'] || Math.random().toString(36).substring(3);
+
+if (!localStorage['USERLOG_API_USERNAME']) {
+  localStorage['USERLOG_API_USERNAME'] = USERLOG_API_USERNAME;
+}
+
 export default new Vuex.Store({
 
   state: {
@@ -56,6 +62,10 @@ export default new Vuex.Store({
       x: 0,
       y: 0,
     },
+
+    debug: {
+      username: USERLOG_API_USERNAME,
+    }
   },
 
   mutations: {

@@ -49,18 +49,7 @@
 
     </div>
 
-    <div id="add-instructions">
-      New node:<br>
-      - CTRL-click on empty space, enter name, press enter
-      <br>
-      Delete:<br>
-      <button @click="toggleDeleteMode"
-              style="font-size:12px;background:#ff000057;">{{ deleteMode ? 'Disable' : 'Enable' }} delete mode</button>
-      <template v-if="deleteMode">
-        <br>
-        Click on any node or connection to delete it
-      </template>
-    </div>
+    <debug-form></debug-form>
 
     <div id="traveler">
       Time travel {{ ttPosIndicator }}
@@ -119,6 +108,7 @@ import Node from './components/Node.vue';
 import Connection from './components/Connection.vue';
 import Overlay from './components/Overlay.vue';
 import GlobalIcons from './components/GlobalIcons.vue';
+import DebugForm from './components/DebugForm.vue';
 
 export default {
   name: 'Page',
@@ -128,6 +118,7 @@ export default {
     connection: Connection,
     overlay: Overlay,
     globalIcons: GlobalIcons,
+    debugForm: DebugForm,
   },
   data() {
     return {
@@ -156,6 +147,7 @@ export default {
     }
   },
   mounted() {
+
     const svg = this.$refs['outer-svg'];
     const outerg = this.$refs['outer-g'];
 
@@ -343,11 +335,5 @@ export default {
     user-select: none;
   }
 
-  #add-instructions {
-    position: absolute;
-    top: 10px;
-    right: 120px;
-    font-size: 12px;
-  }
 
 </style>
