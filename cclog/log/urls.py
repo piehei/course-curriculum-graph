@@ -7,6 +7,6 @@ app_name = 'log'
 
 urlpatterns = [
 
-    path('', views.LogEntryList.as_view(), name='LogEntryList'),
+    path('<str:user_id>/', views.LogEntryList.as_view(), name='LogEntryList'),
 
 ]

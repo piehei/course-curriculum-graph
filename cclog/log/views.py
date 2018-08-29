@@ -21,14 +21,20 @@ class LogEntrySerializer(serializers.HyperlinkedModelSerializer):
 
 class LogEntryList(APIView):
 
-    def get(self, request, format=None):
-        entries = LogEntry.objects.all()
+    def get(self, request, format=None, **kwargs):
+
+        user = User.objects.filter(username=kwargs['user_id']).first()
+
+        if not user:
+            return Response([])
+
+        entries = LogEntry.objects.filter(user=user)
         serializer = LogEntrySerializer(entries, many=True)
         payload_list = map(lambda item: item['payload'], serializer.data)
         return Response(payload_list)
 
 
-    def post(self, request):
+    def post(self, request, **kwargs):
         print(request.data)
 
         user, created = User.objects.get_or_create(
