@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'log',
     'rest_framework',
     'corsheaders',
+    'raven.contrib.django.raven_compat',
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+RAVEN_CONFIG = {
+    'dsn': os.environ.get('RAVEN_DSN', None),
+}
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8080',
