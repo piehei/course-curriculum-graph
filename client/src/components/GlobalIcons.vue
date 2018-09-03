@@ -33,8 +33,8 @@
         :icon="icons.eraser"
         size="2x"
         class="fix-horizontal-position"
-        style="color:red;"
-        @click="">
+        :class="{ 'delete-mode': deleteMode }"
+        @click="toggleDeleteMode">
       </font-awesome-icon>
       <template slot="text">
         Erase connection or node TODO IMPLEMENT THIS
@@ -114,6 +114,7 @@
 import { faLink, faStarHalfAlt, faStar as faStarSolid, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faMeh, faFrown, faSmile, faStar } from '@fortawesome/free-regular-svg-icons';
 
+
 export default {
   name: 'global-icons',
   data() {
@@ -141,7 +142,17 @@ export default {
         this.$store.commit('ADD_LINKS', undefined);
       }
     },
+
+    toggleDeleteMode() {
+      this.$store.commit('TOGGLE_DELETE_MODE');
+    },
   },
+
+  computed: {
+    deleteMode() {
+      return this.$store.state.UI.deleteMode;
+    },
+  }
 }
 </script>
 <style scoped>
@@ -160,6 +171,10 @@ export default {
    the rest wider so the align nicely. */
 .fix-horizontal-position {
   margin-left: 2px;
+}
+
+.delete-mode {
+  color: red;
 }
 
 </style>

@@ -1,5 +1,6 @@
 <template>
   <path :d="pathString"
+        :class="{ 'delete-mode': deleteMode }"
 
         fill="transparent"
         :stroke="userAdded ? 'green' : '#9e9e9e'"
@@ -95,6 +96,9 @@ export default {
     dashParams() {
       return "10px 3px";
     },
+    deleteMode() {
+      return this.$store.state.UI.deleteMode;
+    }
   },
   methods: {
 
@@ -105,4 +109,10 @@ export default {
 };
 </script>
 <style scoped>
+
+.delete-mode:hover {
+  stroke: red;
+  stroke-width: 4px;
+}
+
 </style>

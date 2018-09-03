@@ -1,5 +1,6 @@
 <template>
   <div id="page-outer-container"
+       :class="{ 'delete-mode': deleteMode }"
        :style="scrollingStyles"
        ref="outer-page">
 
@@ -201,7 +202,6 @@ export default {
     })
   },
   computed: {
-
     viewBox() {
       // TODO: not needed as of now...
       const x = 0;
@@ -261,10 +261,6 @@ export default {
     },
   },
   methods: {
-
-    toggleDeleteMode() {
-      this.$store.commit('TOGGLE_DELETE_MODE');
-    },
 
     newNodeAdded() {
       this.showNewNodeAdder = false;
@@ -335,5 +331,8 @@ export default {
     user-select: none;
   }
 
+  .delete-mode {
+    cursor: url('data:image/svg+xml;base64,PHN2ZyBhcmlhLWhpZGRlbj0idHJ1ZSIgZGF0YS1wcmVmaXg9ImZhcyIgZGF0YS1pY29uPSJlcmFzZXIiIGNsYXNzPSJzdmctaW5saW5lLS1mYSBmYS1lcmFzZXIgZmEtdy0xNiIgcm9sZT0iaW1nIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMnB4IiBoZWlnaHQ9IjMycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSJyZWQiIGQ9Ik00OTcuOTQxIDI3My45NDFjMTguNzQ1LTE4Ljc0NSAxOC43NDUtNDkuMTM3IDAtNjcuODgybC0xNjAtMTYwYy0xOC43NDUtMTguNzQ1LTQ5LjEzNi0xOC43NDYtNjcuODgzIDBsLTI1NiAyNTZjLTE4Ljc0NSAxOC43NDUtMTguNzQ1IDQ5LjEzNyAwIDY3Ljg4Mmw5NiA5NkE0OC4wMDQgNDguMDA0IDAgMCAwIDE0NCA0ODBoMzU2YzYuNjI3IDAgMTItNS4zNzMgMTItMTJ2LTQwYzAtNi42MjctNS4zNzMtMTItMTItMTJIMzU1Ljg4M2wxNDIuMDU4LTE0Mi4wNTl6bS0zMDIuNjI3LTYyLjYyN2wxMzcuMzczIDEzNy4zNzNMMjY1LjM3MyA0MTZIMTUwLjYyOGwtODAtODAgMTI0LjY4Ni0xMjQuNjg2eiI+PC9wYXRoPjwvc3ZnPgo='), auto;
+  }
 
 </style>
