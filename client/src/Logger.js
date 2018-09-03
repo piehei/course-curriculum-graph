@@ -1,7 +1,10 @@
 
 const initLogging = (store) => {
 
-  window.CC_LOG_API_URL = window.location.origin.includes("localhost") ? "http://localhost:8888" : window.location.origin;
+  const localhost = "http://localhost:8888";
+  const heroku = "https://cryptic-sierra-44763.herokuapp.com"
+
+  window.CC_LOG_API_URL = window.location.origin.includes("localhost") ? localhost : heroku;
   window.CC_LOG_API_URL += "/api/v1/";
 
   store.subscribe((mutation, state) => {
