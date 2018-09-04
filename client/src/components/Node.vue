@@ -21,7 +21,10 @@
           :height="contentHeightPlusMargin"
           :stroke=" type === 'PARENT' ? 'blue' : 'orange'"
           stroke-width="2"
-          fill="white"></rect>
+          fill="white"
+          @mouseover="mouseIsHovering = true"
+          @mouseleave="mouseIsHovering = false"
+          ></rect>
 
     <!-- this is the plus/minus sign on the right side -->
     <!-- y = background-rect top + half of height - half of own height -->
@@ -159,6 +162,7 @@ export default {
       isMoving: false,
       hideComments: false,
       showNewNodeAdder: false,
+      mouseIsHovering: false,
     };
   },
   mounted() {
@@ -242,7 +246,7 @@ export default {
     },
     showComments() {
       const comments = this.$store.getters.commentsByNodeId(this.id);
-      return comments.length > 0;
+      return this.mouseIsHovering && comments.length > 0;
     },
     connectionIsBeingAdded() {
       // if this holds true, show a "Connect here" tooltip instead of
