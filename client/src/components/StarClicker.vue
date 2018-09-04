@@ -1,8 +1,9 @@
 <template>
   <foreignObject
-    :x="-35 - iconHeight"
-    :y="y - 1"
-    :height="'40px'">
+    :x="nodeX - 60"
+    :y="nodeY + 12"
+    height="25px"
+    width="28px">
     <font-awesome-layers
       class="icon"
       :class="{ 'clicked': clicked,
@@ -57,6 +58,12 @@ export default {
     this.iconHeight = icon.clientHeight;
   },
   computed: {
+    nodeX() {
+      return this.$store.getters.posById(this.parentId).x;
+    },
+    nodeY() {
+      return this.$store.getters.posById(this.parentId).y;
+    },
 
     y() {
       return this.parentVerticalMiddlePoint - this.iconHeight / 2;

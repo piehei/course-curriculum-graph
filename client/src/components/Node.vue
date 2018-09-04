@@ -5,7 +5,7 @@
 
     <!-- 0 px from top -->
     <text id="course-name"
-          x="25"
+          :x="leftMargin + 25"
           y="0"
           font-size="12">{{ nodeTitle }}</text>
 
@@ -13,7 +13,7 @@
     <!-- this is the background of the course -->
     <rect id="background-rect"
           ref="container"
-          x="0"
+          :x="leftMargin"
           y="10"
           rx="10"
           ry="10"
@@ -23,18 +23,9 @@
           stroke-width="2"
           fill="white"></rect>
 
-    <smiley
-      :parent-id="id"
-      :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
-          ></smiley>
-    <star
-      :parent-id="id"
-      :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
-          ></star>
-
     <!-- this is the plus/minus sign on the right side -->
     <!-- y = background-rect top + half of height - half of own height -->
-    <svg x="255"
+    <svg :x="leftMargin + 255"
          :y="10 + (contentHeightPlusMargin) / 2 - 20"
          width="20px"
          height="20px"
@@ -81,7 +72,8 @@
 
       <comments
         :parent-id="id"
-        :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2">
+        :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
+        :leftSidePos="leftMargin + 285">
       </comments>
 
     </template>
@@ -110,7 +102,7 @@
       <text id="course-name"
             style="pointer-events:none;"
             contentEditable="true"
-            x="25"
+            :x="leftMargin + 25"
             y="30"
             font-size="20"> {{ name }} </text>
     </g>
@@ -156,6 +148,7 @@ export default {
       commentIcon: faComment,
       width: 250,
       height: 250,
+      leftMargin: 5,
       containerWidth: 0,
       containerHeight: 0,
       mouseIsDown: false,
@@ -225,6 +218,7 @@ export default {
     dragSelection.call(drag().on('start', started));
   },
   computed: {
+
     x() {
       return this.$store.getters.posById(this.id).x;
     },

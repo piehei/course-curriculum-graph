@@ -1,6 +1,6 @@
 <template>
   <foreignObject
-    x="285"
+    :x="leftSidePos"
     :y="y"
     width="200px"
     :height="height">
@@ -36,7 +36,11 @@ export default {
     parentVerticalMiddlePoint: {
       type: Number,
       required: true,
-    }
+    },
+    leftSidePos: {
+      type: Number,
+      required: true,
+    },
   },
   components: {},
   data() {

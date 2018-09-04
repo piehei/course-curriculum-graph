@@ -88,6 +88,14 @@
       </template>
 
       <template v-for="c in nodes">
+        <smiley
+          :parent-id="c.id"
+          :parent-vertical-middle-point="10 + 250 / 2"
+              ></smiley>
+        <star
+          :parent-id="c.id"
+          :parent-vertical-middle-point="10 + 250 / 2"
+              ></star>
         <node :key="c.id"
               :id="c.id"
               :name="c.name"
@@ -110,6 +118,8 @@ import Connection from './components/Connection.vue';
 import Overlay from './components/Overlay.vue';
 import GlobalIcons from './components/GlobalIcons.vue';
 import DebugForm from './components/DebugForm.vue';
+import SmileyClicker from './components/SmileyClicker.vue';
+import StarClicker from './components/StarClicker.vue';
 
 export default {
   name: 'Page',
@@ -120,6 +130,8 @@ export default {
     overlay: Overlay,
     globalIcons: GlobalIcons,
     debugForm: DebugForm,
+    star: StarClicker,
+    smiley: SmileyClicker,
   },
   data() {
     return {
@@ -181,7 +193,7 @@ export default {
     // this prevents zooming from dblclicking on elements or wheeling over them
     // ---> only dblclicks and wheeling on the *background* zooms
     zoomBehaviour.filter(() => {
-      if (event.srcElement.id === 'outer-svg') {
+      if (event.target.id === 'outer-svg') {
         return true;
       }
       return false;

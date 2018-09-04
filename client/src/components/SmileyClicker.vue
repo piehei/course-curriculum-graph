@@ -1,9 +1,10 @@
 <template>
   <foreignObject
-    :x="-5 - iconHeight"
-    :y="y"
-    :height="'40px'">
-    <font-awesome-layers
+    :x="nodeX - 30"
+    :y="nodeY + 12"
+    width="25px"
+    height="25px">
+   <font-awesome-layers
       class="icon"
       :class="{ 'clicked': clicked,
                 'red': chosenIcon.type === 'frown',
@@ -14,7 +15,7 @@
         :icon="chosenIcon.icon"
         @click="iconClicked">
       </font-awesome-icon>
-    </font-awesome-layers>
+   </font-awesome-layers>
   </foreignObject>
 </template>
 
@@ -56,6 +57,12 @@ export default {
     this.iconHeight = icon.clientHeight;
   },
   computed: {
+    nodeX() {
+      return this.$store.getters.posById(this.parentId).x;
+    },
+    nodeY() {
+      return this.$store.getters.posById(this.parentId).y;
+    },
 
     y() {
       return this.parentVerticalMiddlePoint - this.iconHeight / 2;
@@ -103,4 +110,12 @@ export default {
     color: green;
   }
 
+  .clickable:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left:0;
+  }
 </style>
