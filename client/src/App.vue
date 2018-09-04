@@ -70,10 +70,11 @@
 
       <template v-for="c in connections">
         <connection
+          :id="c.connection_id"
           :from="c.from"
           :to="c.to"
           :to-mouse-mode="false"
-          :user-added="!!c.timestamp"
+          :user-added="!!c.userAdded"
           :key="c.from + c.to + c.timestamp"
           ></connection>
       </template>

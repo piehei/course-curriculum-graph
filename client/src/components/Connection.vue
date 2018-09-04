@@ -1,17 +1,21 @@
 <template>
   <path :d="pathString"
         :class="{ 'delete-mode': deleteMode }"
-
         fill="transparent"
         :stroke="userAdded ? 'green' : '#9e9e9e'"
         stroke-width="3px"
-        :stroke-dasharray="dashParams">
+        :stroke-dasharray="dashParams"
+        @click="clicked">
   </path>
 </template>
 <script>
 export default {
   name: 'connection',
   props: {
+    id: {
+      type: String,
+      required: false,
+    },
     from: {
       type: String,
       required: true,
@@ -97,10 +101,16 @@ export default {
       return "10px 3px";
     },
     deleteMode() {
-      return this.$store.state.UI.deleteMode;
+      return this.userAdded && this.$store.state.UI.deleteMode;
     }
   },
   methods: {
+
+    clicked() {
+      if (this.deleteMode) {
+        this.$store.dispatch('USERLOG_DELETE_CONNECTION', { connectionId: this.id });
+      }
+    },
 
     middle(id) {
       return this.$store.getters.middlePointById(id);

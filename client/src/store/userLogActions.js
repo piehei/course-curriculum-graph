@@ -42,27 +42,19 @@ export const USERLOG_SAVE_NODE_LOCATION = ({ commit, state }, { id, x, y }) => {
 };
 
 
-export const USERLOG_DELETE_ITEM = ({ commit, state }, { type, id }) => {
-
-  const delEvent = {
-    type: 'delete',
-    id: id,
-    timestamp: (new Date()).getTime()
-  };
-  commit('USERLOG_APPEND', delEvent);
-  state.UI.deleteMode = false;
-};
 
 
 export const USERLOG_ADD_CONNECTION_WITH_COMMENT = ({ commit, state }, { from, to, text }) => {
 
   // TODO: should this text go here? or somewhere else?
+  const ts = (new Date()).getTime();
   const conn = {
     type: 'connection',
     from: from,
     to: to,
     text: text,
-    timestamp: (new Date()).getTime()
+    connection_id: `${from}-${to}-${ts}`,
+    timestamp: ts,
   };
   commit('USERLOG_APPEND', conn);
   state.overlay.connectionFrom = undefined;
@@ -110,5 +102,17 @@ export const USERLOG_DELETE_COMMENT_FROM_NODE = ({ commit }, { nodeId, commentId
     timestamp: (new Date()).getTime(),
   };
   commit('USERLOG_APPEND', delete_comment);
+};
+
+
+export const USERLOG_DELETE_CONNECTION = ({ commit, state }, { connectionId }) => {
+  const delete_connection = {
+    type: 'connection',
+    delete: true,
+    connection_id: connectionId,
+    timestamp: (new Date()).getTime()
+  };
+  commit('USERLOG_APPEND', delete_connection);
+  state.UI.deleteMode = false;
 };
 

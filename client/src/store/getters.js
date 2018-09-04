@@ -6,7 +6,22 @@ export const CHILDREN_BY_PARENT_ID = (state, id) => {
 
 
 export const USER_ADDED_CONNECTIONS = (state) => {
-  return state.userLog.slice(0, state.userLogIndex).filter(e => e.type === 'connection');
+  const connections = [];
+  const connectionIds = [];
+
+  // go through all user added connections from back to front
+  // pick only the first appearance by id
+  state.userLog.slice(0, state.userLogIndex).reverse()
+    .filter(e => e.type === 'connection')
+    .map(conn => { return { ...conn, userAdded: true }; })
+    .forEach(conn => {
+      if (!connectionIds.includes(conn.connection_id)) {
+        connections.push(conn);
+        connectionIds.push(conn.connection_id);
+      }
+    })
+  // filter out those with kv delete: true
+  return connections.filter(conn => !conn.delete);
 };
 
 
