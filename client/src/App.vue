@@ -89,12 +89,14 @@
 
       <template v-for="c in nodes">
         <smiley
+          :key="`smiley-${c.id}`"
           :parent-id="c.id"
-          :parent-vertical-middle-point="10 + 250 / 2"
+          :parent-vertical-middle-point="10 + nodeMiddlePoint(c.id)"
               ></smiley>
         <star
+          :key="`star-${c.id}`"
           :parent-id="c.id"
-          :parent-vertical-middle-point="10 + 250 / 2"
+          :parent-vertical-middle-point="10 + nodeMiddlePoint(c.id)"
               ></star>
         <node :key="c.id"
               :id="c.id"
@@ -273,6 +275,10 @@ export default {
     },
   },
   methods: {
+
+    nodeMiddlePoint(nodeId) {
+      return this.$store.getters.containerSize(nodeId).height / 2;
+    },
 
     newNodeAdded() {
       this.showNewNodeAdder = false;

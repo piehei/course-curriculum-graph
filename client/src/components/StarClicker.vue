@@ -1,7 +1,7 @@
 <template>
   <foreignObject
     :x="nodeX - 60"
-    :y="nodeY + 12"
+    :y="nodeY + parentVerticalMiddlePoint - 13.5"
     height="25px"
     width="28px">
     <font-awesome-layers

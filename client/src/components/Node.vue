@@ -99,15 +99,10 @@
     </template>
 
     <!-- this is a group that has all the contents inside the course element -->
-    <g id="g-content"
-       ref="gContent">
-
-      <text id="course-name"
-            style="pointer-events:none;"
-            contentEditable="true"
-            :x="leftMargin + 25"
-            y="30"
-            font-size="20"> {{ name }} </text>
+    <g id="g-content">
+      <foreignObject :x="leftMargin + 25" y="15" width="200px" height="10px" style="overflow:visible;pointer-events:none;">
+        <div ref="gContent" class="content"> {{ name }}</div>
+      </foreignObject>
     </g>
   </svg>
 </template>
