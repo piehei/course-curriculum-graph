@@ -35,7 +35,7 @@
   },
   {
     "id": "2002",
-    "name": "Function ipsum generators",
+    "name": "Monoid is not a monad, but what is a functor?",
     "type": "CHILD",
     "parent": "2000"
   }
