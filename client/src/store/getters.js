@@ -136,13 +136,6 @@ export const COMMENTS = (state) => {
         comments[logElem.node].push(logElem);
       }
     }
-
-    if (logElem.type === 'connection') {
-      if (!(logElem.id in comments)) {
-        comments[logElem.id] = [];
-      }
-      comments[logElem.id].push(logElem);
-    }
   });
 
   return comments;
@@ -156,16 +149,6 @@ export const COMMENTS_BY_NODE_ID = (state, getters) => (nodeId) => {
   }
   return [];
 };
-
-
-export const COMMENTS_BY_CONNECTION_ID = (state, getters) => (connectionId) => {
-  if (connectionId in getters.comments) {
-    // don't return comments whose state is deleted
-    return getters.comments[connectionId];
-  }
-  return [];
-};
-
 
 
 export const MOODS = (state) => {
