@@ -76,6 +76,7 @@
           :to-mouse-mode="false"
           :user-added="!!c.userAdded"
           :key="c.from + c.to + c.timestamp"
+          :comment="c.text"
           ></connection>
       </template>
 

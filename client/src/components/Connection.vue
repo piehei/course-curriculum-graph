@@ -1,12 +1,22 @@
 <template>
+  <g>
   <path :d="pathString"
         :class="{ 'delete-mode': deleteMode }"
         fill="transparent"
         :stroke="userAdded ? 'green' : '#9e9e9e'"
         stroke-width="3px"
         :stroke-dasharray="dashParams"
-        @click="clicked">
+        @click="clicked"
+        @mouseover="mouseIsHovering = true"
+        @mouseleave="mouseIsHovering = false">
   </path>
+  <template v-if="userAdded && mouseIsHovering">
+    <text :x="commentPos.x"
+          :y="commentPos.y"
+          fill="black"
+          style="font-weight:bold;">{{ comment }}</text>
+  </template>
+  </g>
 </template>
 <script>
 export default {
@@ -32,15 +42,26 @@ export default {
       type: Boolean,
       required: true,
     },
+    comment: {
+      type: String,
+      required: false,
+    },
   },
   components: {},
   data() {
     return {
-      deltaX: 125,
-      deltaY: 60,
+      mouseIsHovering: false,
     };
   },
   computed: {
+    commentPos() {
+      const x = (this.x2 - this.x1)/2 + this.x1 + (Math.abs(this.x1-this.x2) < 50 ? 50 : -50);
+      const y = (this.y2 - this.y1)/2 + this.y1 + (this.y1 > this.y2 ? -50 : 50);
+      return {
+        x: x,
+        y: y,
+      };
+    },
     pathString() {
       const shape = this.$store.state.UI.pathShape;
       const x1 = this.x1;
@@ -61,7 +82,7 @@ export default {
         // curve is consctructed as follows:
         // M x1 x2 Q x y x2 y2
         // where x y stands for the slope
-        // here we make the slope steeper(?) if the nodes are very adjancent to eache other
+        // here we make the slope steeper(?) if the nodes are very adjacent to each other
         return `M ${x1} ${y1}
                 Q ${x1 + (x2-x1)/2 + (Math.abs(x1-x2) < 50 ? 50 : 0)} ${y1 + (y1 > y2 ? -100 : 100) + (y2-y1)/2}
                 ${x2} ${y2}`
