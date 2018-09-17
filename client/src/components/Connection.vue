@@ -51,19 +51,20 @@ export default {
   data() {
     return {
       mouseIsHovering: false,
+      slopeX: 0,
+      slopeY: 0,
     };
   },
   computed: {
     commentPos() {
-      const x = (this.x2 - this.x1)/2 + this.x1 + (Math.abs(this.x1-this.x2) < 50 ? 50 : -50);
-      const y = (this.y2 - this.y1)/2 + this.y1 + (this.y1 > this.y2 ? -50 : 50);
+      const x = this.x1 + (this.x2 - this.x1)/2;
+      const y = this.y1 + (this.y2 - this.y1)/2;
       return {
         x: x,
         y: y,
       };
     },
     pathString() {
-      const shape = this.$store.state.UI.pathShape;
       const x1 = this.x1;
       const y1 = this.y1;
       const x2 = this.x2;
@@ -74,31 +75,16 @@ export default {
         return `M ${x1} ${y1} L ${x2} ${y2}`;
       }
 
-      const rand1 = Math.floor(Math.random() * 4);
-      const rand2 = Math.floor(Math.random() * 5);
-      const sign = x1 > x2 ? -1 : 1
+      // curve is consctructed as follows:
+      // M x1 x2 Q x y x2 y2
+      // where x y stands for the slope
+      // here we make the slope steeper(?) if the nodes are very adjacent to each other
+      this.slopeX = `${x1 + (x2-x1)/2 + (Math.abs(x1-x2) < 50 ? 50 : 0)}`;
+      this.slopeY = `${y1 + (y1 > y2 ? -100 : 100) + (y2-y1)/2}`;
+      return `M ${x1} ${y1}
+              Q ${this.slopeX} ${this.slopeY}
+              ${x2} ${y2}`
 
-      if (shape === 'curve') {
-        // curve is consctructed as follows:
-        // M x1 x2 Q x y x2 y2
-        // where x y stands for the slope
-        // here we make the slope steeper(?) if the nodes are very adjacent to each other
-        return `M ${x1} ${y1}
-                Q ${x1 + (x2-x1)/2 + (Math.abs(x1-x2) < 50 ? 50 : 0)} ${y1 + (y1 > y2 ? -100 : 100) + (y2-y1)/2}
-                ${x2} ${y2}`
-
-      } else if (shape === 'path') {
-
-        return `M ${x1 + rand1} ${y1 - rand2}
-                 l ${ sign * Math.abs(x1 - x2 + rand1) / 2 } 0
-                 l 0 ${y2 - y1 + rand2}
-                 L ${x2 - rand1} ${y2 + rand2}`;
-
-      } else {
-
-        return `M ${x1} ${y1} L ${x2} ${y2}`;
-
-      }
     },
     x1() {
         return this.middle(this.from).x;

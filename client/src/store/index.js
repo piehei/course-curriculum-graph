@@ -25,12 +25,9 @@ export default new Vuex.Store({
     nodeList: courseList,
     meta: {},
     stateTouched: false,
-    useCurves: true,
     lowestPoint: 0,
     lowestId: "",
     UI: {
-      pathShape: 'curve',
-      possiblePathShapes: ['curve', 'path', 'line'],
       deleteMode: false,
       zoom: { x: 0, y: 0, k: 1 },
       mouse: { x: 0, y: 0 },

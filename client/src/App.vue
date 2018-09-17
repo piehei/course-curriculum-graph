@@ -35,19 +35,6 @@
         Organize
       </button>
 
-      <br><br>
-
-      Line shape:
-      <br>
-
-      <select v-model="pathShape">
-        <option disabled value="">Please select one</option>
-        <option v-for="shape in possiblePathShapes"
-                :key="shape">
-          {{ shape }}
-        </option>
-      </select>
-
     </div>
 
     <debug-form></debug-form>
@@ -232,17 +219,6 @@ export default {
     deleteMode() {
       return this.$store.state.UI.deleteMode;
     },
-    pathShape: {
-      get() {
-        return this.$store.state.UI.pathShape;
-      },
-      set(val) {
-        this.$store.commit('CHANGE_PATH_SHAPE', val);
-      },
-    },
-    possiblePathShapes() {
-      return this.$store.state.UI.possiblePathShapes;
-    },
     nodes() {
       return this.$store.getters.nodes;
     },
@@ -302,10 +278,6 @@ export default {
 
     organize() {
       this.$store.commit('ORGANIZE');
-    },
-
-    toggleCurve() {
-      this.$store.commit('TOGGLE_CURVES');
     },
 
     travel(dir) {

@@ -120,11 +120,6 @@ export const SAVE_OBJECT_POSITION = (state, { posX, posY, objectId }) => {
 };
 
 
-export const CHANGE_PATH_SHAPE = (state, shape) => {
-  state.UI.pathShape = shape;
-};
-
-
 export const TOGGLE_DELETE_MODE = (state) => {
   state.UI.deleteMode = !state.UI.deleteMode;
 };
