@@ -255,7 +255,9 @@ export default {
     addComment() {
       this.$store.commit('ADD_COMMENTS', this.id);
     },
-    addLink() {
+    addLink(evt) {
+      // propagation HAS to stop to prevent click handlers firing in App.vue
+      evt.stopPropagation();
       this.$store.commit('CONNECTION_ADDING_CLICK', this.id);
     },
     inputEditingEnter() {

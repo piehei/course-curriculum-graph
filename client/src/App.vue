@@ -175,6 +175,15 @@ export default {
     const svgSelection = select(svg);
     const outergSelection = select(outerg);
 
+
+    // user can cancel adding a connection between nodes by clicking "on blank"
+    outergSelection.on('click', () => {
+      const overlay = this.$store.state.overlay;
+      if (overlay.connectionFrom) {
+        this.$store.commit('CLOSE_OVERLAY'); // this resets link adding
+      }
+    })
+
     svgSelection.on('mousemove', () => {
       this.$store.commit('SET_MOUSE_POSITION', { x: event.clientX, y: event.clientY });
     })
@@ -196,13 +205,13 @@ export default {
     // if the user clicks the page with CTRL down,
     // an empty node with editable text field will be added
     // --> pressing enter will add the node
-    this.$refs['outer-page'].addEventListener('click', (evt) => {
-      evt.stopPropagation();
-      if (!evt.ctrlKey) return;
-      this.showNewNodeAdder = true;
-      this.newNode.x = evt.clientX - this.pageMargins - 65;
-      this.newNode.y = evt.clientY - this.pageMargins - 70;
-    })
+    // this.$refs['outer-page'].addEventListener('click', (evt) => {
+    //   evt.stopPropagation();
+    //   if (!evt.ctrlKey) return;
+    //   this.showNewNodeAdder = true;
+    //   this.newNode.x = evt.clientX - this.pageMargins - 65;
+    //   this.newNode.y = evt.clientY - this.pageMargins - 70;
+    // })
   },
   computed: {
     viewBox() {
