@@ -10,11 +10,16 @@
         @mouseover="mouseIsHovering = true"
         @mouseleave="mouseIsHovering = false">
   </path>
-  <template v-if="userAdded && mouseIsHovering">
-    <text :x="commentPos.x"
-          :y="commentPos.y"
-          fill="black"
-          style="font-weight:bold;">{{ comment }}</text>
+  <template v-if="!connectionAddingMode && userAdded && mouseIsHovering">
+    <foreignObject :x="commentPos.x"
+                   :y="commentPos.y"
+                   :width="400"
+                   :height="100">
+      <div class="comment-container">
+        {{ comment }}
+      </div>
+    </foreignObject>
+
   </template>
   </g>
 </template>
@@ -109,7 +114,11 @@ export default {
     },
     deleteMode() {
       return this.userAdded && this.$store.state.UI.deleteMode;
-    }
+    },
+    connectionAddingMode() {
+      const overlay = this.$store.state.overlay;
+      return overlay.connectionFrom && !overlay.connectionTo;
+    },
   },
   methods: {
 
@@ -131,5 +140,10 @@ export default {
   stroke: red;
   stroke-width: 4px;
 }
-
+.comment-container {
+  border: 1px solid grey;
+  border-radius: 5px;
+  padding: 3px;
+  background: white;
+}
 </style>
