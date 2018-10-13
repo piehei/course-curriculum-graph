@@ -127,9 +127,9 @@ export default {
   color: grey;
   margin-right: 0.1rem;
 }
+
 .add {
   color: green;
   margin-left: 0.1rem;
 }
-
 </style>

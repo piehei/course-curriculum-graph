@@ -63,6 +63,7 @@
     </svg>
 
     <template v-if="showComments">
+      <transition mode="in-out">
       <comments
         @mouseHoverStarts="commentsMouseHoverChange(true)"
         @mouseHoverEnds="commentsMouseHoverChange(false)"
@@ -70,6 +71,7 @@
         :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
         :leftSidePos="leftMargin + 285">
       </comments>
+      </transition>
     </template>
 
     <template v-if="showNewNodeAdder">
@@ -299,4 +301,12 @@ export default {
 #course-name {
   user-select: none;
 }
+
+
+.v-leave { opacity: 1; }
+.v-leave-active { transition: opacity 1s }
+.v-leave-to { opacity: 0; }
+.v-enter { opacity: 0; }
+.v-enter-active  { transition: opacity 1s }
+.v-enter-to { opacity: 1; }
 </style>
