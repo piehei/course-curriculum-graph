@@ -3,7 +3,9 @@
     :x="leftSidePos"
     :y="y"
     width="200px"
-    :height="height">
+    :height="height"
+    @mouseover="$emit('mouseHoverStarts')"
+    @mouseleave="$emit('mouseHoverEnds')">
     <div ref="container"
          class="comments-outer-container">
 

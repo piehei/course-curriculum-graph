@@ -23,7 +23,7 @@
           stroke-width="2"
           fill="white"
           @mouseover="mouseIsHovering = true"
-          @mouseleave="mouseIsHovering = false"
+          @mouseleave="delayMouseHovering"
           ></rect>
 
     <!-- this is the plus/minus sign on the right side -->
@@ -63,22 +63,13 @@
     </svg>
 
     <template v-if="showComments">
-
-      <!-- TODO: think about refactoring this
-                 should all showCommentsAdder logic be inside the comments component?
-
-                 eg.
-
-                 component always shows the adder if its comment count === 0 or if localShowAdder === true
-                 => new comments would be added by clicking inside the component itself
-      -->
-
       <comments
+        @mouseHoverStarts="commentsMouseHoverChange(true)"
+        @mouseHoverEnds="commentsMouseHoverChange(false)"
         :parent-id="id"
         :parent-vertical-middle-point="10 + contentHeightPlusMargin / 2"
         :leftSidePos="leftMargin + 285">
       </comments>
-
     </template>
 
     <template v-if="showNewNodeAdder">
@@ -158,6 +149,7 @@ export default {
       hideComments: false,
       showNewNodeAdder: false,
       mouseIsHovering: false,
+      mouseIsHoveringComments: false,
     };
   },
   mounted() {
@@ -251,6 +243,26 @@ export default {
     },
   },
   methods: {
+
+    commentsMouseHoverChange(val) {
+      if (val) {
+        this.mouseIsHovering = true;
+        this.mouseIsHoveringComments = true;
+      } else {
+        this.mouseIsHovering = false;
+        this.mouseIsHoveringComments = false;
+      }
+    },
+
+    delayMouseHovering() {
+      const check = () => {
+        if (!this.mouseIsHoveringComments) {
+          this.mouseIsHovering = false;
+        }
+      }
+      // in one second hide comments if not hovered over
+      setTimeout(check, 1000);
+    },
 
     addComment() {
       this.$store.commit('ADD_COMMENTS', this.id);
