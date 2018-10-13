@@ -23,3 +23,19 @@ Hoverilla nodejen yhdistäminen linkki-ikonista
 Overlay on geneerinen -> kysyy eka, mitä tekee ellei avattu kälistä
 
 Tähti, joka täyttyy
+
+
+
+******
+
+Tähteen yksi väri -> valittu tai ei valittu
+
+Emoticonsit
+
+Oikean yläkulman ja vasemman alakulman siistimiset
+
+Kommentin poistamisen katoaminen, kun hover menee
+
+TODO-tekstit pois
+
+Overlay kivemmaksi

@@ -3,24 +3,38 @@
     :x="nodeX - 30"
     :y="nodeY + parentVerticalMiddlePoint - 12.5"
     width="25px"
-    height="25px">
+    height="25px"
+    style="cursor:pointer;"
+    @click="iconClicked">
+
+  <template v-if="chosenIcon !== 'unclicked'">
+
+    <component :is="chosenIcon"></component>
+
+  </template>
+  <template v-else>
+
    <font-awesome-layers
-      class="icon"
-      :class="{ 'clicked': clicked,
-                'red': chosenIcon.type === 'frown',
-                'orange': chosenIcon.type === 'meh',
-                'green': chosenIcon.type === 'smile'}">
+     class="icon">
       <font-awesome-icon
         ref="icon"
-        :icon="chosenIcon.icon"
-        @click="iconClicked">
+        :icon="unclickedIcon">
       </font-awesome-icon>
    </font-awesome-layers>
+
+  </template>
+
   </foreignObject>
 </template>
 
 <script>
-import { faFrown, faSmile, faMeh } from '@fortawesome/free-regular-svg-icons'
+import { faMeh } from '@fortawesome/free-regular-svg-icons'
+
+import Excited from '../assets/smiley-excited.svg';
+import Relaxed from '../assets/smiley-relaxed.svg';
+import Bored from '../assets/smiley-bored.svg';
+import Anxious from '../assets/smiley-anxious.svg';
+import Meh from '../assets/smiley-bored.svg';
 
 export default {
   name: 'smiley-clicker',
@@ -34,28 +48,29 @@ export default {
       required: true,
     }
   },
-  components: {},
+  components: {
+    excited: Excited,
+    relaxed: Relaxed,
+    bored: Bored,
+    anxious: Anxious,
+    unclicked: Meh,
+  },
   data() {
     return {
       localClicked: false,
       iconHeight: 0,
       icons: [
-        { type: 'meh_unclicked',
-          icon: faMeh },
-        { type: 'frown',
-          icon: faFrown },
-        { type: 'meh',
-          icon: faMeh },
-        { type: 'smile',
-          icon: faSmile }
-      ]
+        'unclicked',
+        'excited',
+        'relaxed',
+        'bored',
+        'anxious',
+      ],
+      unclickedIcon: faMeh,
     };
   },
   created() {},
-  mounted() {
-    const icon = this.$refs['icon'];
-    this.iconHeight = icon.clientHeight;
-  },
+  mounted() {},
   computed: {
     nodeX() {
       return this.$store.getters.posById(this.parentId).x;
@@ -93,8 +108,7 @@ export default {
 <style scoped>
 
   .icon {
-    cursor: pointer;
-    color: grey;
+    color: #aaaaaa;
     font-size: 25px;
   }
 
