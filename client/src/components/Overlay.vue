@@ -1,8 +1,6 @@
 
 <template>
   <div class="overlay-outer-container">
-    <h1><center>You're adding new {{ type }}</center></h1>
-
     <template v-if="type === 'COMMENTS'">
       <commentAdder></commentAdder>
     </template>
@@ -45,7 +43,24 @@ export default {
 }
 </script>
 <style scoped>
-
+.overlay-outer-container >>> .outer-container {
+  position:fixed;
+  top: 60px;
+  right: 120px;
+  bottom: 60px;
+  left: 120px;
+  border: 3px solid black;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 2px 2px #9e9e9e;
+  background: white;
+  opacity: 0.9;
+}
+.overlay-outer-container >>> .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
 .overlay-outer-container {
   position: fixed;
   top: 0;
@@ -53,8 +68,7 @@ export default {
   bottom: 0;
   left: 0;
   z-index: 9999;
-  opacity: 0.95;
-  background: #9e9e9e;
+  background: #bcbcbc40;
 }
 
 .close-button {

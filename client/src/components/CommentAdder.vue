@@ -1,7 +1,12 @@
 <template>
   <div ref="container"
-       class="comments-outer-container">
+       class="outer-container">
 
+    <h1 style="text-align:center;">New comment</h1>
+    <button @click="cancel" class="close">X</button>
+    <hr></hr>
+    <br><br>
+    <div class="content">
     <div class="left-panel">
 
       <template v-if="node">
@@ -107,6 +112,7 @@
 
 
   </div>
+  </div>
 </template>
 <script>
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -200,19 +206,6 @@ export default {
 }
 </script>
 <style scoped>
-.comments-outer-container {
-  border: 1px solid #9e9e9e;
-  width: 95%;
-  height: 90%;
-  margin: 0 auto;
-  border-radius: 5px;
-  box-shadow: 2px 2px #00bcd44d;
-  padding: 25px 5px;
-  background: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
 
 .left-panel {
   width: 40%;
@@ -271,6 +264,11 @@ export default {
 .add {
   color: green;
   margin-left: 0.1rem;
+}
+.close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
 }
 
 </style>
