@@ -1,5 +1,5 @@
-
 <template>
+  <transition name="modal">
   <div class="overlay-outer-container">
     <template v-if="type === 'COMMENTS'">
       <commentAdder></commentAdder>
@@ -8,7 +8,7 @@
       <linkAdder></linkAdder>
     </template>
   </div>
-
+  </transition>
 </template>
 <script>
 import CommentAdder from './CommentAdder';
@@ -55,6 +55,8 @@ export default {
   box-shadow: 2px 2px #9e9e9e;
   background: white;
   opacity: 0.9;
+  transition: all .3s ease;
+
 }
 .overlay-outer-container >>> .content {
   display: flex;
@@ -69,6 +71,7 @@ export default {
   left: 0;
   z-index: 9999;
   background: #bcbcbc40;
+  transition: opacity .3s ease;
 }
 
 .close-button {
@@ -76,6 +79,20 @@ export default {
   position: fixed;
   top: 20px;
   right: 20px;
+}
+
+.modal-enter {
+  opacity: 0;
+}
+
+.modal-leave-active {
+  opacity: 0;
+}
+
+.modal-enter .modal-container,
+.modal-leave-active .modal-container {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 </style>
