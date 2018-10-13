@@ -6,10 +6,7 @@
     width="28px">
     <font-awesome-layers
       class="icon"
-      :class="{ 'clicked': clicked,
-                'red': chosenIcon.type === 'empty',
-                'orange': chosenIcon.type === 'half',
-                'green': chosenIcon.type === 'full'}">
+      :class="{ 'unclicked': chosenIcon.type === 'empty_unclicked' }">
       <font-awesome-icon
         ref="icon"
         :icon="chosenIcon.icon"
@@ -97,6 +94,10 @@ export default {
     cursor: pointer;
     color: grey;
     font-size: 25px;
+  }
+
+  .unclicked {
+    color: #aaaaaa;
   }
 
   .red {
