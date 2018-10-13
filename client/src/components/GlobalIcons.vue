@@ -37,7 +37,7 @@
         @click="toggleDeleteMode">
       </font-awesome-icon>
       <template slot="text">
-        Erase connection or node TODO IMPLEMENT THIS
+        Erase connection added by you
       </template>
     </tooltip>
 

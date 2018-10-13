@@ -25,6 +25,7 @@
 
       <br><br>
 
+      <!--
       <button @click="resetState">
         Reset state
       </button>
@@ -34,7 +35,7 @@
       <button @click="organize">
         Organize
       </button>
-
+      -->
     </div>
 
     <debug-form></debug-form>
