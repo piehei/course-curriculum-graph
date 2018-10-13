@@ -22,7 +22,7 @@
           :stroke=" type === 'PARENT' ? 'blue' : 'orange'"
           stroke-width="2"
           fill="white"
-          @mouseover="mouseIsHovering = true"
+          @mouseover="mouseHovers"
           @mouseleave="delayMouseHovering"
           ></rect>
 
@@ -147,9 +147,9 @@ export default {
       contentHeightPlusMargin: 250,
       newNodeName: '',
       showWarning: false,
-      isMoving: false,
       hideComments: false,
       showNewNodeAdder: false,
+      isBeingDragged: true,
       mouseIsHovering: false,
       mouseIsHoveringComments: false,
     };
@@ -184,6 +184,9 @@ export default {
     const that = this;
     var dragSelection = select(dragHandle);
     const started = () => {
+      this.isBeingDragged = true;
+      this.mouseIsHovering = false;
+      this.mouseIsHoveringComments = false;
       dragSelection.classed("dragging", true);
 
       event.on("drag", dragged).on("end", ended);
@@ -205,6 +208,7 @@ export default {
           x: that.x,
           y: that.y,
         });
+        that.isBeingDragged = false;
       }
     };
 
@@ -255,7 +259,11 @@ export default {
         this.mouseIsHoveringComments = false;
       }
     },
-
+    mouseHovers() {
+      if (!this.isBeingDragged) {
+        this.mouseIsHovering = true;
+      }
+    },
     delayMouseHovering() {
       const check = () => {
         if (!this.mouseIsHoveringComments) {
