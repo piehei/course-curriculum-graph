@@ -5,7 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="shortcut icon" href="<%= webpackConfig.output.publicPath %>favicon.ico">
-    <title>cc</title>
+    <title>Concept Map</title>
+
+    <script src="https://browser.sentry-cdn.com/4.1.1/bundle.min.js" crossorigin="anonymous"></script>
+    <script>
+      if (window.location.hostname === 'ccgraph.surge.sh') {
+        Sentry.init({ dsn: 'https://34a85e8ce27249e29605f9a14426fca8@sentry.io/1300688' });
+      }
+    </script>
+
+    <!-- Google Analytics -->
+    <script>
+      if (window.location.hostname === 'ccgraph.surge.sh') {
+        window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview');
+      }
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
+
   </head>
   <body>
     <noscript>
