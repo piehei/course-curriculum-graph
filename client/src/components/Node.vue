@@ -149,7 +149,7 @@ export default {
       showWarning: false,
       hideComments: false,
       showNewNodeAdder: false,
-      isBeingDragged: true,
+      isBeingDragged: false,
       mouseIsHovering: false,
       mouseIsHoveringComments: false,
     };
