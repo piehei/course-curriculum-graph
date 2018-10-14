@@ -386,31 +386,37 @@
     "type": "CHILD",
     "parent": "EDUK8311"
   },
+  {
     "id": "EDUK8311-02",
     "name": "fysiikan ja kemian keskeiset ilmiöt ja käsitteet",
     "type": "CHILD",
     "parent": "EDUK8311"
   },
+  {
     "id": "EDUK8311-03",
     "name": "oppilaiden käsityksiä fysiikan ja kemian sisältöihin liittyen",
     "type": "CHILD",
     "parent": "EDUK8311"
   },
+  {
     "id": "EDUK8311-04",
     "name": "fysiikan ja kemian opiskeluun liittyvät tunteet ja asenteet",
     "type": "CHILD",
     "parent": "EDUK8311"
   },
+  {
     "id": "EDUK8311-05",
     "name": "oppiaineeseen liittyvät sukupuolikysymykset",
     "type": "CHILD",
     "parent": "EDUK8311"
   },
+  {
     "id": "EDUK8311-06",
     "name": "työtavat, erityisesti demonstraatio ja oppilastyö",
     "type": "CHILD",
     "parent": "EDUK8311"
   },
+  {
     "id": "EDUK8311-07",
     "name": "tieto- ja viestintätekniikan hyödyntäminen",
     "type": "CHILD",
