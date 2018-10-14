@@ -1,0 +1,43 @@
+[
+  {
+    "id": "1000",
+    "name": "WSD",
+    "type": "PARENT"
+  },
+  {
+    "id": "1001",
+    "name": "CSS",
+    "type": "CHILD",
+    "parent": "1000"
+  },
+  {
+    "id": "1002",
+    "name": "JavaScript",
+    "type": "CHILD",
+    "parent": "1000"
+  },
+  {
+    "id": "1003",
+    "name": "HTML templates",
+    "type": "CHILD",
+    "parent": "1000"
+  },
+  {
+    "id": "2000",
+    "name": "Programming 1",
+    "type": "PARENT"
+  },
+  {
+    "id": "2001",
+    "name": "What is programming...",
+    "type": "CHILD",
+    "parent": "2000"
+  },
+  {
+    "id": "2002",
+    "name": "Monoid is not a monad, but what is a functor?",
+    "type": "CHILD",
+    "parent": "2000"
+  }
+]
+

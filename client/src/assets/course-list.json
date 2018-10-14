@@ -1,43 +1,419 @@
 [
   {
-    "id": "1000",
-    "name": "WSD",
+    "id": "EDUK001",
+    "name": "Kohti tutkivaa työtapaa",
     "type": "PARENT"
   },
   {
-    "id": "1001",
-    "name": "CSS",
+    "id": "EDUK001-01",
+    "name": "kasvatustiede monitieteisenä järjestelmänä",
     "type": "CHILD",
-    "parent": "1000"
+    "parent": "EDUK001"
   },
   {
-    "id": "1002",
-    "name": "JavaScript",
+    "id": "EDUK001-02",
+    "name": "kasvatustieteellisen tiedon metodologiset perusteet",
     "type": "CHILD",
-    "parent": "1000"
+    "parent": "EDUK001"
   },
   {
-    "id": "1003",
-    "name": "HTML templates",
+    "id": "EDUK001-03",
+    "name": "tiedon luonteeseen, merkitykseen ja tuottamiseen liittyvät periaatteet",
     "type": "CHILD",
-    "parent": "1000"
+    "parent": "EDUK001"
   },
   {
-    "id": "2000",
-    "name": "Programming 1",
+    "id": "EDUK001-04",
+    "name": "kasvatustieteellinen tutkimustyö käytännössä",
+    "type": "CHILD",
+    "parent": "EDUK001"
+  },
+  {
+    "id": "EDUK001-05",
+    "name": "kasvatustieteellisen tutkimuksen lähestymistavat ja tiedeyhteisöt käytännössä",
+    "type": "CHILD",
+    "parent": "EDUK001"
+  },
+  {
+    "id": "PED001",
+    "name": "Kasvatuksen yhteiskunnalliset, kulttuuriset ja filosofiset perusteet",
     "type": "PARENT"
   },
   {
-    "id": "2001",
-    "name": "What is programming...",
+    "id": "PED001-01",
+    "name": "suomalaisen kasvatus- ja sivistyshistorian pääpiirteet",
     "type": "CHILD",
-    "parent": "2000"
+    "parent": "PED001"
   },
   {
-    "id": "2002",
-    "name": "Monoid is not a monad, but what is a functor?",
+    "id": "PED001-02",
+    "name": "koulutuspolitiikan viimeaikaiset keskeiset muutokset",
     "type": "CHILD",
-    "parent": "2000"
+    "parent": "PED001"
+  },
+  {
+    "id": "PED001-03",
+    "name": "kasvatusinstituutioiden toimintaan, muutokseen ja jatkuvuuteen vaikuttavat tekijät",
+    "type": "CHILD",
+    "parent": "PED001"
+  },
+  {
+    "id": "PED001-04",
+    "name": "kasvatusfilosofian perusteet",
+    "type": "CHILD",
+    "parent": "PED001"
+  },
+  {
+    "id": "PED001-05",
+    "name": "arvojen ja asenteiden syntyminen ja kulttuuritaustan vaikutus ajatteluun ja toimintaan",
+    "type": "CHILD",
+    "parent": "PED001"
+  },
+  {
+    "id": "PED001-06",
+    "name": "kriittisen monikultuurisuuskasvatuksen perusperiaatteet ja niiden yhteys kasvatuksen käytänteisiin",
+    "type": "CHILD",
+    "parent": "PED001"
+  },
+  {
+    "id": "PED001-07",
+    "name": "kasvatuksen sosiaaliset ja (inter-)kultuuriset näkökulmat uudistavista ja postmoderneista lähestymistavoista tarkasteltuna",
+    "type": "CHILD",
+    "parent": "PED001"
+  },
+  {
+    "id": "PED002",
+    "name": "Oppimisen psykologia",
+    "type": "PARENT"
+  },
+  {
+    "id": "PED002-01",
+    "name": "oppiminen kasvatuspsykologian ja oppimistutkimuksen näkökulmasta",
+    "type": "CHILD",
+    "parent": "PED002"
+  },
+  {
+    "id": "PED002-02",
+    "name": "oppimisen ja kehityksen kokonaisvaltaisuus ja merkitys kasvatuksen ja koulutuksen viitekehyksessä",
+    "type": "CHILD",
+    "parent": "PED002"
+  },
+  {
+    "id": "PED002-03",
+    "name": "aivojen kehitys ja muovautuvuus sekä niiden riippuvuus sosiaalisista ja kulttuurisista tekijöistä",
+    "type": "CHILD",
+    "parent": "PED002"
+  },
+  {
+    "id": "PED002-04",
+    "name": "kehitys- ja oppimisprosessit toisiinsa kietoutuvina tapahtumina",
+    "type": "CHILD",
+    "parent": "PED002"
+  },
+  {
+    "id": "PED002-05",
+    "name": "vuorovaikutuksen dynamiikka",
+    "type": "CHILD",
+    "parent": "PED002"
+  },
+  {
+    "id": "PED002-06",
+    "name": "opettajan oma toiminta ja kehittyminen osana pedagogista vuorovaikutusta",
+    "type": "CHILD",
+    "parent": "PED002"
+  },
+  {
+    "id": "PED002-07",
+    "name": "oivaltava oppiminen ja motivaation rakentuminen aktivoivien ja tutkivien työtapojen avulla",
+    "type": "CHILD",
+    "parent": "PED002"
+  },
+  {
+    "id": "PED003",
+    "name": "Opetuksen suunnittelu, toteutus ja arviointi I",
+    "type": "PARENT"
+  },
+  {
+    "id": "PED003-01",
+    "name": "opetuksen peruskäsitteet",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-02",
+    "name": "opetuksen teorian ja käytännön suhteet",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-03",
+    "name": "itsenäinen pedagoginen ajattelu",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-04",
+    "name": "opetuksen ja opiskelun suunnittelu, toteutus ja arviointi",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-05",
+    "name": "erilaisten oppijoiden opettaminen",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-06",
+    "name": "oppiaineksen eheyttäminen",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-07",
+    "name": "moniammatillinen yhteistyö",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-08",
+    "name": "opiskelijan omien lähtökohtien ja käsitysten reflektointi",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "PED003-09",
+    "name": "opetus-opiskelu-oppimisprosessin tavoitteisuus ja vuorovaikutus",
+    "type": "CHILD",
+    "parent": "PED003"
+  },
+  {
+    "id": "EDUK801",
+    "name": "Pedagoginen vuorovaikutus",
+    "type": "PARENT"
+  },
+  {
+    "id": "EDUK801-01",
+    "name": "vuorovaikutus tieteellisenä tutkimuskohteena",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK801-02",
+    "name": "avoin ja turvallinen ryhmäkulttuuri",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK801-03",
+    "name": "oman toiminnan tarkastelu vuorovaikutustutkimuksen käsitteellisillä välineillä",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK801-04",
+    "name": "ryhmäilmiöiden tunnistaminen ja käsitteellistäminen",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK801-05",
+    "name": "vuorovaikutuksen ongelmien rakentava käsittely",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK801-06",
+    "name": "itsetuntemus ja oman toiminnan tiedostaminen vuorovaikutustilanteissa",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK801-07",
+    "name": "vuorovaikutuksen laatu ja ryhmätyöskentelyn arviointi",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK801-08",
+    "name": "OTR-työskentely ja sen kehittäminen",
+    "type": "CHILD",
+    "parent": "EDUK801"
+  },
+  {
+    "id": "EDUK8309",
+    "name": "Katsomusaineiden didaktiikka",
+    "type": "PARENT"
+  },
+  {
+    "id": "EDUK8309-01",
+    "name": "katsomusopetuksen yleinen luonne",
+    "type": "CHILD",
+    "parent": "EDUK8309"
+  },
+  {
+    "id": "EDUK8309-02",
+    "name": "uskonto ja elämänkatsomustieto oppiaineina",
+    "type": "CHILD",
+    "parent": "EDUK8309"
+  },
+  {
+    "id": "EDUK8309-03",
+    "name": "oppilaiden oman katsomuksellisen ja eettisen ajattelun edistäminen",
+    "type": "CHILD",
+    "parent": "EDUK8309"
+  },
+  {
+    "id": "EDUK8309-04",
+    "name": "moraalisen herkkyyden kehittyminen",
+    "type": "CHILD",
+    "parent": "EDUK8309"
+  },
+  {
+    "id": "EDUK8309-05",
+    "name": "ihmisoikeuksien ja katsomusvapauden toteutuminen koulussa",
+    "type": "CHILD",
+    "parent": "EDUK8309"
+  },
+  {
+    "id": "EDUK8309-06",
+    "name": "opetuksen suunnittelu, toteuttaminen ja arviointi",
+    "type": "CHILD",
+    "parent": "EDUK8309"
+  },
+  {
+    "id": "EDUK8309-07",
+    "name": "uskonnon ja elämänkatsomustiedon ainedidaktiset sovellukset",
+    "type": "CHILD",
+    "parent": "EDUK8309"
+  },
+  {
+    "id": "EDUK8306",
+    "name": "Liikunnan didaktiikka",
+    "type": "PARENT"
+  },
+ {
+    "id": "EDUK8306-01",
+    "name": "oppiaineen historialliset ja teoreettiset lähtökohdat",
+    "type": "CHILD",
+    "parent": "EDUK8306"
+  },
+ {
+    "id": "EDUK8306-02",
+    "name": "oppiaineen ainedidaktiset periaatteet",
+    "type": "CHILD",
+    "parent": "EDUK8306"
+  },
+ {
+    "id": "EDUK8306-03",
+    "name": "fyysis-motorinen toiminta ja kehollisuus",
+    "type": "CHILD",
+    "parent": "EDUK8306"
+  },
+ {
+    "id": "EDUK8306-04",
+    "name": "yhdenvertaisuuden ja yhteisöllisyyden merkitys koululiikunnassa",
+    "type": "CHILD",
+    "parent": "EDUK8306"
+  },
+   {
+    "id": "EDUK8310",
+    "name": "Biologian ja maantieteen didaktiikka",
+    "type": "PARENT"
+  },
+ {
+    "id": "EDUK8310-01",
+    "name": "biologian tiedonalan rakenne ja käsitteistö",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-02",
+    "name": "biologian merkitys osana luonnontieteiden oppimista",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-03",
+    "name": "biologian olennaiset teemat",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-04",
+    "name": "biologian opetukselle ominaiset opetusmenetelmät",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-05",
+    "name": "erilaiset oppimisympäristöt biologian opetuksessa",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-06",
+    "name": "ihmisen ja ympäristön suhde",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-07",
+    "name": "ympäristön tutkimisen tavat maantieteen opetuksessa",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-08",
+    "name": "ympäristön sosiaaliset merkitykset",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+ {
+    "id": "EDUK8310-09",
+    "name": "alueellinen tieto ja aluemaantiede",
+    "type": "CHILD",
+    "parent": "EDUK8310"
+  },
+  {
+    "id": "EDUK8311",
+    "name": "Fysiikan ja kemian didaktiikka",
+    "type": "PARENT"
+  },
+ {
+    "id": "EDUK8311-01",
+    "name": "turvallinen työskentely fysiikan ja kemian opiskelussa",
+    "type": "CHILD",
+    "parent": "EDUK8311"
+  },
+    "id": "EDUK8311-02",
+    "name": "fysiikan ja kemian keskeiset ilmiöt ja käsitteet",
+    "type": "CHILD",
+    "parent": "EDUK8311"
+  },
+    "id": "EDUK8311-03",
+    "name": "oppilaiden käsityksiä fysiikan ja kemian sisältöihin liittyen",
+    "type": "CHILD",
+    "parent": "EDUK8311"
+  },
+    "id": "EDUK8311-04",
+    "name": "fysiikan ja kemian opiskeluun liittyvät tunteet ja asenteet",
+    "type": "CHILD",
+    "parent": "EDUK8311"
+  },
+    "id": "EDUK8311-05",
+    "name": "oppiaineeseen liittyvät sukupuolikysymykset",
+    "type": "CHILD",
+    "parent": "EDUK8311"
+  },
+    "id": "EDUK8311-06",
+    "name": "työtavat, erityisesti demonstraatio ja oppilastyö",
+    "type": "CHILD",
+    "parent": "EDUK8311"
+  },
+    "id": "EDUK8311-07",
+    "name": "tieto- ja viestintätekniikan hyödyntäminen",
+    "type": "CHILD",
+    "parent": "EDUK8311"
   }
 ]
-
