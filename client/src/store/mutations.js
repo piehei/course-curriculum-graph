@@ -43,7 +43,7 @@ export const ORGANIZE_OBJECTS = (state) => {
     const children = CHILDREN_BY_PARENT_ID(state, node.id);
     children.forEach((child, index) => {
 
-       Vue.set(child, 'x', node.x + 300);
+       Vue.set(child, 'x', node.x + 400);
        Vue.set(child, 'y', node.y + index * 100);
        lastChildY = child.y;
        verticalChildSpace = index * 100;
