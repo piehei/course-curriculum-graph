@@ -17,6 +17,10 @@ Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('font-awesome-layers', FontAwesomeLayers);
 Vue.component('tooltip', Tooltip);
 
+if (window.location.protocol !== "https:" && window.location.hostname !== "localhost") {
+  window.location.href = "https://ccgraph.surge.sh";
+}
+
 new Vue({
   render: h => h(App),
   store: store,
