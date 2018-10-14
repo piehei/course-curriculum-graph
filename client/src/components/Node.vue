@@ -111,10 +111,6 @@ import StarClicker from './StarClicker.vue';
 export default {
   name: 'Box',
   props: {
-    pageMargins: {
-      type: Number,
-      required: true,
-    },
     id: {
       type: String,
       required: true,
@@ -190,14 +186,29 @@ export default {
       dragSelection.classed("dragging", true);
 
       event.on("drag", dragged).on("end", ended);
+      //console.log('START DRAGGING')
+      //console.log(`orig: ${this.x} ${this.y}`);
+
+      const mx = event.sourceEvent.clientX - this.$store.state.UI.marginX;
+      const my = event.sourceEvent.clientY - this.$store.state.UI.marginY;
+      //console.log(`mouse: ${mx} ${my}`);
+      const delta = {
+        x: this.x - mx,
+        y: this.y - my,
+      };
 
       function dragged() {
         const x = event.sourceEvent.clientX;
         const y = event.sourceEvent.clientY;
+
+        //console.log(`mouse: ${x} ${y}`);
+        //console.log(that.x, that.y)
+        //console.log(that.containerWidth, that.containerHeight);
+
         that.$store.commit('MOVE_OBJECT_TO', {
           objectId: that.id,
-          newX: x,
-          newY: y,
+          newX: x + delta.x,
+          newY: y + delta.y,
         });
       }
 
@@ -205,8 +216,8 @@ export default {
         dragSelection.classed("dragging", false);
         that.$store.dispatch('USERLOG_SAVE_NODE_LOCATION', {
           id: that.id,
-          x: that.x,
-          y: that.y,
+          x: that.x, // current computed property
+          y: that.y, // DONT TOUCH
         });
         that.isBeingDragged = false;
       }

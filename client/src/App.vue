@@ -85,7 +85,6 @@
         <node :key="c.id"
               :id="c.id"
               :name="c.name"
-              :pageMargins="pageMargins"
               :type="c.type"
                 ></node>
       </template>
@@ -124,7 +123,6 @@ export default {
       debugMode: false,
       svgWidth: 0,
       svgHeight: 0,
-      pageMargins: 35,
       showNewNodeAdder: false,
       newNode: {
         x: 0,
@@ -163,7 +161,10 @@ export default {
     // attach d3 zoom and pan listeners to outer-svg and transform the g elem
     // at zoom events
 
-    this.$store.commit('SET_APP_MARGINS', svg.getBoundingClientRect());
+
+    this.$nextTick(() => { // this is needed in order to have everything drawn
+      this.$store.commit('SET_APP_MARGINS', svg.getBoundingClientRect());
+    })
 
     const onZoomEvent = () => {
       outergSelection.attr('transform', event.transform)
@@ -202,16 +203,6 @@ export default {
     this.appZoom = zoomBehaviour;
     this.zoomListenerElement = svgSelection;
 
-    // if the user clicks the page with CTRL down,
-    // an empty node with editable text field will be added
-    // --> pressing enter will add the node
-    // this.$refs['outer-page'].addEventListener('click', (evt) => {
-    //   evt.stopPropagation();
-    //   if (!evt.ctrlKey) return;
-    //   this.showNewNodeAdder = true;
-    //   this.newNode.x = evt.clientX - this.pageMargins - 65;
-    //   this.newNode.y = evt.clientY - this.pageMargins - 70;
-    // })
   },
   computed: {
 

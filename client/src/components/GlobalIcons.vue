@@ -139,7 +139,7 @@ export default {
         this.$store.commit('ADD_COMMENTS', undefined);
       }
       if (type === 'link') {
-        this.$store.commit('ADD_LINKS', undefined);
+        this.$store.commit('ADD_LINKS');
       }
     },
 

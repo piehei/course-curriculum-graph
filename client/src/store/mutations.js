@@ -148,7 +148,7 @@ export const ADD_COMMENTS = (state, id) => {
   state.overlay.commentNodeId = id;
 }
 
-export const ADD_LINKS = (state, id) => {
+export const ADD_LINKS = (state) => {
   state.overlay.type = 'LINKS';
 }
 

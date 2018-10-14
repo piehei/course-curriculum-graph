@@ -1,6 +1,7 @@
 
 
 const post = (user_id, payload) => {
+  if (window.location.hostname === 'localhost') return;
   console.log(`POST: ${user_id}`);
   console.log(payload);
 
