@@ -108,6 +108,8 @@ import Comments from './Comments.vue';
 import SmileyClicker from './SmileyClicker.vue';
 import StarClicker from './StarClicker.vue';
 
+import { SCALE_X_Y } from '../store/mutations';
+
 export default {
   name: 'Box',
   props: {
@@ -192,9 +194,12 @@ export default {
       const mx = event.sourceEvent.clientX - this.$store.state.UI.marginX;
       const my = event.sourceEvent.clientY - this.$store.state.UI.marginY;
       //console.log(`mouse: ${mx} ${my}`);
+      //const xy = SCALE_X_Y(this.$store.state, {x: this.x - mx, y: this.y - my });
+      //const delta = { x: xy.x, y: xy.y };
+
       const delta = {
         x: this.x - mx,
-        y: this.y - my,
+        y: this.y -my,
       };
 
       function dragged() {
@@ -207,8 +212,10 @@ export default {
 
         that.$store.commit('MOVE_OBJECT_TO', {
           objectId: that.id,
-          newX: x + delta.x,
-          newY: y + delta.y,
+          //newX: x + delta.x,
+          //newY: y + delta.y,
+          newX: x,// + delta.x,
+          newY: y,// + delta.y,
         });
       }
 

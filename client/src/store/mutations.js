@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import { CHILDREN_BY_PARENT_ID } from './getters';
 
-const SCALE_X_Y = (state, { x, y }) => {
+export const SCALE_X_Y = (state, { x, y }) => {
   // this properly scales mouse event client{X,Y} to current zoom
   // if you don't do this, dragged items move strangely on non-default zoom levels
   return {
