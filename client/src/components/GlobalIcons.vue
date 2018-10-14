@@ -43,38 +43,51 @@
 
     <br><br>
 
-    <tooltip direction="right" :width="200">
+    <tooltip direction="right" :width="260">
       <font-awesome-icon
         :icon="icons.star"
         size="2x">
       </font-awesome-icon>
       <template slot="text">
-        Star indicates how well you learned the topic
-        <br>
-        <font-awesome-icon
-          :icon="icons.star1"
-          size="2x"
-          style="margin:5px 10px;color:#ff5722;"
-          class="fix-horizontal-position">
-        </font-awesome-icon>
-        <font-awesome-icon
-          :icon="icons.star2"
-          size="2x"
-          style="margin:5px 10px;color:orange;"
-          class="fix-horizontal-position">
-        </font-awesome-icon>
-        <font-awesome-icon
-          :icon="icons.star3"
-          size="2x"
-          style="margin:5px 10px;color:green;"
-          class="fix-horizontal-position">
-        </font-awesome-icon>
+        <b><i>I think my competence in this topic is</i></b>
+        <div style="display:flex;justify-content:center;">
+        <div>
+          <font-awesome-icon
+            :icon="icons.star1"
+            size="2x"
+            style="margin:5px 10px;color:grey;"
+            class="fix-horizontal-position">
+          </font-awesome-icon>
+          <br>
+          Low
+        </div>
+        <div>
+          <font-awesome-icon
+            :icon="icons.star2"
+            size="2x"
+            style="margin:5px 10px;color:grey;"
+            class="fix-horizontal-position">
+          </font-awesome-icon>
+          <br>
+          Medium
+        </div>
+        <div>
+          <font-awesome-icon
+            :icon="icons.star3"
+            size="2x"
+            style="margin:5px 10px;color:grey;"
+            class="fix-horizontal-position">
+          </font-awesome-icon>
+          <br>
+          High
+        </div>
+        </div>
       </template>
     </tooltip>
 
     <br><br>
 
-    <tooltip direction="right" :width="200">
+    <tooltip direction="right" :width="250">
       <font-awesome-icon
         :icon="icons.smile3"
         size="2x"
@@ -83,26 +96,37 @@
       </font-awesome-icon>
 
       <template slot="text">
-        Smiley indicates how interesting you found the topic
+        <b><i>While studying this topic, I felt</i></b>
         <br>
-        <font-awesome-icon
-          :icon="icons.smile1"
-          size="2x"
-          style="margin:5px 10px;color:#ff5722;"
-          class="fix-horizontal-position">
-        </font-awesome-icon>
-        <font-awesome-icon
-          :icon="icons.smile2"
-          size="2x"
-          style="margin:5px 10px;color:orange;"
-          class="fix-horizontal-position">
-        </font-awesome-icon>
-        <font-awesome-icon
-          :icon="icons.smile3"
-          size="2x"
-          style="margin:5px 10px;color:green;"
-          class="fix-horizontal-position">
-        </font-awesome-icon>
+
+        <div style="display:flex;justify-content:center;">
+          <div class="smiley-outer-cont">
+            <div class="smiley-cont">
+              <excited />
+            </div>
+            Excited
+          </div>
+          <div class="smiley-outer-cont">
+            <div class="smiley-cont">
+              <relaxed />
+            </div>
+            Relaxed
+          </div>
+          <div class="smiley-outer-cont">
+            <div class="smiley-cont">
+            <bored />
+            </div>
+            Bored
+          </div>
+          <div class="smiley-outer-cont">
+            <div class="smiley-cont">
+            <anxious />
+            </div>
+            Anxious
+          </div>
+        </div>
+
+
       </template>
 
     </tooltip>
@@ -114,6 +138,10 @@
 import { faLink, faStarHalfAlt, faStar as faStarSolid, faEraser } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faMeh, faFrown, faSmile, faStar } from '@fortawesome/free-regular-svg-icons';
 
+import Excited from '../assets/smiley-excited.svg';
+import Relaxed from '../assets/smiley-relaxed.svg';
+import Bored from '../assets/smiley-bored.svg';
+import Anxious from '../assets/smiley-anxious.svg';
 
 export default {
   name: 'global-icons',
@@ -132,6 +160,12 @@ export default {
         eraser: faEraser,
       },
     };
+  },
+  components: {
+    excited: Excited,
+    relaxed: Relaxed,
+    bored: Bored,
+    anxious: Anxious,
   },
   methods: {
     add(type) {
@@ -175,6 +209,16 @@ export default {
 
 .delete-mode {
   color: red;
+}
+.smiley-outer-cont {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.smiley-cont {
+  width: 2.5em;
+  height: 2.5em;
 }
 
 </style>
