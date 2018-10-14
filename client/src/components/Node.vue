@@ -7,7 +7,7 @@
     <text id="course-name"
           :x="leftMargin + 25"
           y="0"
-          font-size="12">{{ nodeTitle }}</text>
+          font-size="12"> </text>
 
     <!-- 10 px from top -->
     <!-- this is the background of the course -->
