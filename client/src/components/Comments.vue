@@ -2,7 +2,7 @@
   <foreignObject
     :x="leftSidePos"
     :y="y"
-    width="200px"
+    width="350px"
     :height="height"
     @mouseover="$emit('mouseHoverStarts')"
     @mouseleave="$emit('mouseHoverEnds')">
