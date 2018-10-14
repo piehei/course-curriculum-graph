@@ -1,16 +1,10 @@
 <template>
-
     <div id="add-instructions">
+      <label for="username">Username</label><br>
       <input id="username" v-model="username" type="text">
-      <label for="username">Username</label>
       <br>
-      <!--
-        <input id="date" v-model="date" type="date">
-        <label for="date">Date</label>
-      -->
-      <button @click="saveDebugForm">Save debug</button>
+      <button @click="saveDebugForm">Update username</button>
     </div>
-
 </template>
 <script>
 export default {
@@ -56,7 +50,7 @@ export default {
   #add-instructions {
     position: absolute;
     top: 10px;
-    right: 120px;
+    right: 10px;
     font-size: 12px;
   }
 </style>
