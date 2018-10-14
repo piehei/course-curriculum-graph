@@ -4,14 +4,7 @@
        :style="scrollingStyles"
        ref="outer-page">
 
-    <div style="position:absolute;bottom:10px;right:10px;">
-      <a href="https://github.com/piehei/course-curriculum-graph" target="_BLANK">Source code</a>
-    </div>
-
-
     <global-icons></global-icons>
-
-
 
     <template v-if="showOverlay">
       <overlay></overlay>
