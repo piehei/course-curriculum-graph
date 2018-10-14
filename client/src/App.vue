@@ -25,7 +25,7 @@
 
       <br><br>
 
-      <!--
+      <template v-if="debugMode">
       <button @click="resetState">
         Reset state
       </button>
@@ -35,12 +35,13 @@
       <button @click="organize">
         Organize
       </button>
-      -->
+      </template>
     </div>
 
     <debug-form></debug-form>
 
-    <div id="traveler">
+
+    <div v-if="debugMode" id="traveler">
       Time travel {{ ttPosIndicator }}
       <br>
       <button @click="travel(-1)">←</button>
@@ -127,6 +128,7 @@ export default {
   },
   data() {
     return {
+      debugMode: false,
       svgWidth: 0,
       svgHeight: 0,
       pageMargins: 35,
@@ -152,6 +154,10 @@ export default {
     }
   },
   mounted() {
+
+    if (window.location.search.indexOf("debug=true") !== -1) {
+      this.debugMode = true;
+    }
 
     const svg = this.$refs['outer-svg'];
     const outerg = this.$refs['outer-g'];
@@ -215,6 +221,7 @@ export default {
     // })
   },
   computed: {
+
     viewBox() {
       // TODO: not needed as of now...
       const x = 0;
