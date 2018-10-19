@@ -47,11 +47,20 @@ export default {
 };
 </script>
 <style>
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(200%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
   #add-instructions {
     position: absolute;
     top: 10px;
     right: 10px;
     font-size: 12px;
+    animation: 1s ease-out 0s 1 slideInFromRight;
   }
 </style>
 

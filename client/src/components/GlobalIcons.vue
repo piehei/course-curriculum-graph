@@ -190,10 +190,21 @@ export default {
 }
 </script>
 <style scoped>
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-200%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 #top-buttons {
   position: absolute;
   top: 10px;
   left: 10px;
+  animation: 1s ease-out 0s 1 slideInFromLeft;
 }
 
 #top-buttons svg {

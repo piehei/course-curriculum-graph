@@ -47,6 +47,8 @@
          id="outer-svg"
          width="100%" height="100%"
          style="border:0px solid blue;"
+         class="hidden"
+         :class="{ 'visible': organized }"
          xmlns="http://www.w3.org/2000/svg">
       <g ref="outer-g">
 
@@ -205,7 +207,9 @@ export default {
 
   },
   computed: {
-
+    organized() {
+      return this.$store.state.stateTouched;
+    },
     viewBox() {
       // TODO: not needed as of now...
       const x = 0;
@@ -294,6 +298,16 @@ export default {
 </script>
 <style scoped>
 
+  .visible {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .hidden {
+    opacity: 0;
+    transition: .5s opacity;
+  }
+
   #page-outer-container {
     position: absolute;
     top: 10px;
@@ -304,10 +318,20 @@ export default {
     overflow: hidden;
   }
 
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-200%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+
   #buttons {
     position: absolute;
     bottom: 10px;
     left: 10px;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
   }
 
   #traveler {
