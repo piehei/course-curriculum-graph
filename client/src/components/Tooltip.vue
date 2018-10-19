@@ -55,7 +55,9 @@ export default {
 
 /* Tooltip text */
 .tooltip .tooltiptext {
-    visibility: hidden;
+    /* visibility: hidden;
+    opacity: 0; */
+    display: none;
     position: absolute;
     width: 140px;
     background-color: white;
@@ -65,7 +67,6 @@ export default {
     padding: 5px 5px;
     border-radius: 6px;
     z-index: 1;
-    opacity: 0;
 }
 
 /* Tooltip arrow
@@ -83,8 +84,9 @@ export default {
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+    /* visibility: visible;
+    opacity: 1; */
+    display: block;
 }
 
 .tooltip-top {
