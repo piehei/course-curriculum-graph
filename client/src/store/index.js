@@ -22,7 +22,7 @@ if (!localStorage['USERLOG_API_USERNAME']) {
 export default new Vuex.Store({
 
   state: {
-    nodeList: window.location.hostname === 'localhost' ? courseList.slice(0, 5) : courseList,
+    nodeList: window.location.hostname === 'localhost' ? courseList.slice(0, 100) : courseList,
     meta: {},
     stateTouched: false,
     lowestPoint: 0,

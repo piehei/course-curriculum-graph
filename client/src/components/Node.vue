@@ -108,8 +108,6 @@ import Comments from './Comments.vue';
 import SmileyClicker from './SmileyClicker.vue';
 import StarClicker from './StarClicker.vue';
 
-import { SCALE_X_Y } from '../store/mutations';
-
 export default {
   name: 'Box',
   props: {
@@ -187,28 +185,49 @@ export default {
       this.mouseIsHoveringComments = false;
       dragSelection.classed("dragging", true);
 
+      // const OLD_POSITION = {
+      //   x: this.x,
+      //   y: this.y,
+      // };
+
       event.on("drag", dragged).on("end", ended);
-      //console.log('START DRAGGING')
-      //console.log(`orig: ${this.x} ${this.y}`);
 
-      const mx = event.sourceEvent.clientX - this.$store.state.UI.marginX;
-      const my = event.sourceEvent.clientY - this.$store.state.UI.marginY;
-      //console.log(`mouse: ${mx} ${my}`);
-      //const xy = SCALE_X_Y(this.$store.state, {x: this.x - mx, y: this.y - my });
-      //const delta = { x: xy.x, y: xy.y };
+      // console.log('START DRAGGING')
+      // console.log(`orig: ${this.x} ${this.y}`);
+      // const mx = event.sourceEvent.clientX - this.$store.state.UI.marginX;
+      // const my = event.sourceEvent.clientY - this.$store.state.UI.marginY;
+      // console.log(`mouse: ${mx} ${my}`);
+      // const xy = SCALE_X_Y(this.$store.state, {x: this.x - mx, y: this.y - my });
+      // const delta = { x: xy.x, y: xy.y };
+      // const delta = {
+      //   x: this.x - mx,
+      //   y: this.y -my,
+      // };
 
-      const delta = {
-        x: this.x - mx,
-        y: this.y -my,
-      };
+      let lastCommitTime = new Date();
 
       function dragged() {
+
+        // throttle movement commits a bit
+        const now = new Date();
+        if (now - lastCommitTime < 20) {
+          return;
+        }
+
+        lastCommitTime = now;
+
         const x = event.sourceEvent.clientX;
         const y = event.sourceEvent.clientY;
 
         //console.log(`mouse: ${x} ${y}`);
         //console.log(that.x, that.y)
         //console.log(that.containerWidth, that.containerHeight);
+
+        // const all = selectAll(".CHILD");
+        // all.each(function() {
+        //   console.log(this);
+        // })
+
 
         that.$store.commit('MOVE_OBJECT_TO', {
           objectId: that.id,
