@@ -96,7 +96,6 @@ export const CONTAINER_MIDDLE_POINT_BY_ID = (state, getters) => (id) => {
 
 
 export const POS_BY_ID = (state) => (objectId) => {
-
   // if this node is currently being dragged to a new location
   // return the position from movingNode
   // --> this ensures the connections that touch the node
@@ -109,11 +108,43 @@ export const POS_BY_ID = (state) => (objectId) => {
     };
   }
 
-  // history is a list that starts with the teacher defined original
-  // nodes and connections and ends with the whole userlog
-  // --> finding the first element from the end is the last committed pos
-  const history = state.nodeList.concat(state.userLog.slice(0, state.userLogIndex));
-  const node = history[history.map(elem => elem.id).lastIndexOf(objectId)];
+
+  const s = (id) => {
+    // history is a list that starts with the teacher defined original
+    // nodes and connections and ends with the whole userlog
+    // --> finding the first element from the end is the last committed pos
+    const history = state.nodeList.concat(state.userLog.slice(0, state.userLogIndex));
+    const node = history[history.map(elem => elem.id).lastIndexOf(id)];
+    const origNode = state.nodeList.find(elem => elem.id === id);
+    if (origNode.parent) {
+      node.parent = origNode.parent;
+    }
+    return node;
+  }
+
+  const node = s(objectId);
+
+
+
+  if (node.parent) {
+    const parent = s(node.parent);
+    //console.log(`${parent.id} + ${node.id}`);
+    //console.log(`${parent.x} + ${node.x}`)
+
+    if (state.movingNode.id === parent.id) {
+      //console.log('parent moving')
+      return {
+        x: state.movingNode.x + node.x,
+        y: state.movingNode.y + node.y,
+      };
+    }
+
+    return {
+      x: parent.x + node.x,
+      y: parent.y + node.y,
+    };
+  }
+
   return {
     x: node.x,
     y: node.y

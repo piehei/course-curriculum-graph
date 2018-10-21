@@ -28,15 +28,31 @@ export const USERLOG_ADD_NEW_NODE = ({ commit }, { parentId, name, x, y }) => {
 };
 
 
-export const USERLOG_SAVE_NODE_LOCATION = ({ commit, state }, { id, x, y }) => {
+export const USERLOG_SAVE_NODE_LOCATION = ({ commit, state, getters }, { id, x, y }) => {
+
+
+  // if this node has a parent, it is a child
+  // if it is a child, the location is a relative location to its parent
+  const node = state.nodeList.find(elem => elem.id === id);
+  const parentPos = {
+    x: 0,
+    y: 0,
+  };
+
+  if (node.parent) {
+    let pxy = getters.posById(node.parent);
+    parentPos.x = pxy.x;
+    parentPos.y = pxy.y;
+  }
 
   const posChange = {
     type: 'location',
     id: id,
-    x: x,
-    y: y,
+    x: x - parentPos.x,
+    y: y - parentPos.y,
     timestamp: (new Date()).getTime(),
   };
+
   commit('USERLOG_APPEND', posChange);
   state.movingNode.id = undefined;
 };

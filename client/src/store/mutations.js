@@ -25,34 +25,64 @@ export const ORGANIZE = (state) => {
   ORGANIZE_OBJECTS(state);
 };
 
+const container_size_by_id = (state, id) => {
+  if (id in state.meta) {
+    return state.meta[id];
+  }
+  return { width: 0, height: 0, top: 0 };
+};
+
 export const ORGANIZE_OBJECTS = (state) => {
+  console.log('ORGANIZE');
+  let lastChildY = 0;
+  const childMargin = 15;
+  let actualCalc = false;
 
-  let lastChildY= -125;
+  state.nodeList.filter(node => node.type === 'PARENT').forEach(parent => {
 
-  state.nodeList.forEach(node => {
+    const children = CHILDREN_BY_PARENT_ID(state, parent.id);
 
-    if ('parent' in node) return;
+    const sizes = children.map(c => container_size_by_id(state, c.id).height);
+    let actualVertical = sizes.reduce((acc, curr) => acc + curr, 0);
 
-    // have to use Vue.set since the properties x an y
-    // don't yet exist on the node itself (original json
-    // doesn't include any positional stuff)
-    Vue.set(node, 'x', 100);
-    Vue.set(node, 'y', lastChildY + 150);
+    if (actualVertical === 0) {
+      const childrenVSpace = children.length * 85;
+      const parentY = lastChildY + childrenVSpace / 2;
+      Vue.set(parent, 'x', 100);
+      Vue.set(parent, 'y', parentY);
+      children.forEach((child, index) => {
+         Vue.set(child, 'x', parent.x + 400);
+         Vue.set(child, 'y', lastChildY + index * 85 - parentY);
+       });
+      lastChildY = lastChildY + childrenVSpace + 150;
+    } else {
+      actualCalc = true;
 
-    let verticalChildSpace = 0;
-    const children = CHILDREN_BY_PARENT_ID(state, node.id);
-    children.forEach((child, index) => {
+      actualVertical += childMargin * sizes.length;
 
-       Vue.set(child, 'x', node.x + 400);
-       Vue.set(child, 'y', node.y + index * 100);
-       lastChildY = child.y;
-       verticalChildSpace = index * 100;
+      // Y is the top most coordinate of the SVG box
+      const parentY = lastChildY +
+                      (actualVertical / 2) -
+                      container_size_by_id(state, parent.id).height/2;
 
-     });
+      Vue.set(parent, 'x', 100);
+      Vue.set(parent, 'y', parentY);
 
-    node.y += verticalChildSpace / 2 - 5;
+      let currLastChildBottom = lastChildY;
+      children.forEach((child, index) => {
+        Vue.set(child, 'x', parent.x + 400);
+        const currH = index === 0 ? 0 : sizes[index - 1];
+        Vue.set(child, 'y', currLastChildBottom + currH + childMargin - parentY);
+        currLastChildBottom += currH + childMargin;
+       });
 
+      lastChildY = lastChildY + actualVertical + 150;
+    }
   });
+
+  if (actualCalc) {
+    state.stateTouched = true;
+  }
 };
 
 

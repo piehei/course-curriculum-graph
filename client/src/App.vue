@@ -135,9 +135,18 @@ export default {
     }
   },
   created() {
+
+    // this is a "hack":
+    // first draw everything on screen to get the
+    // sizes of nodes /getBoundingClientRect/ and
+    // then actually organize them
     if (!this.$store.state.stateTouched) {
-      this.$store.commit('ORGANIZE_OBJECTS');
+        this.$store.commit('ORGANIZE_OBJECTS');
+      setTimeout(() => {
+        this.$store.commit('ORGANIZE_OBJECTS');
+      }, 0)
     }
+
     this.$store.commit('RESET_USERLOG_TRAVEL');
 
     // if deleteMode was ON when the page was loaded
