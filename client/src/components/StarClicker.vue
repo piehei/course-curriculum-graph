@@ -92,7 +92,7 @@ export default {
 
   .icon {
     cursor: pointer;
-    color: grey;
+    color: rgb(255, 204, 77);
     font-size: 25px;
   }
 
