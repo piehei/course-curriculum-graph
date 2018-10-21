@@ -1,6 +1,6 @@
 <template>
   <div id="page-outer-container"
-       :class="{ 'delete-mode': deleteMode }"
+       :class="{ 'delete-mode': deleteMode, 'visible': organized }"
        :style="scrollingStyles"
        ref="outer-page">
 
