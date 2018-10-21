@@ -73,6 +73,7 @@
 
       <template v-for="type in types">
         <div class="choice"
+             :class="{ 'selected': type === newCommentType }"
              :key="type">
           <label class="type-label"
                  :for="`type-${type}`"
@@ -86,6 +87,11 @@
                    v-model="newCommentType">
             {{ type }}
           </label>
+          <ul>
+            <li v-for="ex in examples[type]" :key="ex">
+              {{ ex }}
+            </li>
+          </ul>
         </div>
       </template>
 
@@ -126,9 +132,20 @@ export default {
     return {
       height: 0,
       newCommentText: '',
-      newCommentType: '',
+      newCommentType: 'note',
       trash: faTrash,
       types: [ "expectation", "note", "reflection" ],
+      examples: {
+        'expectation': [
+          'I would like to ask about this topic,...',
+          'I expect this topic to...'],
+        'note': [
+          'I evaluated my competence as high/low, because...',
+          'I felt excited/relaxed/bored/anxious, because...'],
+        'reflection': [
+          `This topic's significance for me personally is that...`,
+          'I could apply this knowledge...'],
+      },
       errorMsg: undefined,
       nodeId: undefined,
       success: false,
@@ -225,10 +242,17 @@ export default {
 
 .choice {
   margin: 15px;
+  border: 1px dashed grey;
+  padding-top: 5px;
+}
+
+.selected {
+  border: 1px solid black;
 }
 
 .type-label {
   padding: 5px;
+  margin-left: 20px;
 }
 
 .type-radio {
