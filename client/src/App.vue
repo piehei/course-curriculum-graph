@@ -187,6 +187,9 @@ export default {
     const svgSelection = select(svg);
     const outergSelection = select(outerg);
 
+    const factor = 0.5;
+    zoomBehaviour.translateBy(svgSelection, -400, -300)
+    zoomBehaviour.scaleTo(svgSelection, factor);
 
     // user can cancel adding a connection between nodes by clicking "on blank"
     outergSelection.on('click', () => {
