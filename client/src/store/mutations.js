@@ -33,11 +33,11 @@ const container_size_by_id = (state, id) => {
 };
 
 export const ORGANIZE_OBJECTS = (state) => {
-  console.log('ORGANIZE');
   let lastChildY = 0;
   const childMargin = 15;
   let actualCalc = false;
 
+  let leftCount = 0;
   state.nodeList.filter(node => node.type === 'PARENT').forEach(parent => {
 
     const children = CHILDREN_BY_PARENT_ID(state, parent.id);
@@ -56,27 +56,41 @@ export const ORGANIZE_OBJECTS = (state) => {
        });
       lastChildY = lastChildY + childrenVSpace + 150;
     } else {
+      console.log(`${leftCount}`)
       actualCalc = true;
+      const leftColumn = leftCount < 5;
 
-      actualVertical += childMargin * sizes.length;
-
+      const parentX = leftColumn ? 100 : 1700;
       // Y is the top most coordinate of the SVG box
       const parentY = lastChildY +
                       (actualVertical / 2) -
                       container_size_by_id(state, parent.id).height/2;
 
-      Vue.set(parent, 'x', 100);
+      actualVertical += childMargin * sizes.length;
+
+      Vue.set(parent, 'x', parentX);
       Vue.set(parent, 'y', parentY);
 
       let currLastChildBottom = lastChildY;
+
       children.forEach((child, index) => {
-        Vue.set(child, 'x', parent.x + 400);
+
+        // REMEMBER: child x/y *RELATIVE TO* parent, not absolute
+
+        const childX = leftColumn ? 400 : -400;
+        Vue.set(child, 'x', childX);
         const currH = index === 0 ? 0 : sizes[index - 1];
         Vue.set(child, 'y', currLastChildBottom + currH + childMargin - parentY);
         currLastChildBottom += currH + childMargin;
+
        });
 
-      lastChildY = lastChildY + actualVertical + 150;
+      lastChildY = lastChildY + actualVertical + 100;
+
+      leftCount += 1;
+      if (leftCount === 5) {
+        lastChildY = 0;
+      }
     }
   });
 
