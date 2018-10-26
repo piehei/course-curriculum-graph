@@ -4,7 +4,7 @@
 
     <h1 style="text-align:center;">New comment</h1>
     <button @click="cancel" class="close">X</button>
-    <hr></hr>
+    <hr />
     <br><br>
     <div class="content">
     <div class="left-panel">
@@ -238,6 +238,7 @@ export default {
 
 .right-panel {
   width: 40%;
+  padding-bottom: 20px;
 }
 
 .choice {

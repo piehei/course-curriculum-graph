@@ -56,8 +56,22 @@ export default {
   background: white;
   opacity: 0.9;
   transition: all .3s ease;
-
 }
+
+@media screen and (max-height: 799px) {
+  .overlay-outer-container >>> .outer-container {
+    top: 20px;
+    right: 80px;
+    bottom: 20px;
+    left: 80px;
+  }
+}
+@media screen and (max-height: 710px) {
+  .overlay-outer-container >>> .outer-container {
+    overflow: auto;
+  }
+}
+
 .overlay-outer-container >>> .content {
   display: flex;
   flex-direction: row;
