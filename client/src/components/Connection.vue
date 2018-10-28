@@ -1,20 +1,28 @@
 <template>
   <g>
   <path :d="pathString"
-        :class="{ 'delete-mode': deleteMode }"
-        fill="transparent"
-        :stroke="userAdded ? 'green' : '#9e9e9e'"
-        stroke-width="3px"
-        :stroke-dasharray="dashParams"
+        class="connection"
+        :class="{
+                  'user-added': userAdded,
+                  'delete-hover': deleteMode && mouseIsHovering
+                }"
+        :stroke-dasharray="dashParams">
+  </path>
+
+  <path v-if="userAdded"
+        :d="pathString"
+        class="fat-path user-added"
         @click="clicked"
         @mouseover="mouseIsHovering = true"
         @mouseleave="mouseIsHovering = false">
   </path>
+
   <template v-if="!connectionAddingMode && userAdded && mouseIsHovering">
     <foreignObject :x="commentPos.x"
                    :y="commentPos.y"
                    :width="400"
-                   :height="100">
+                   :height="100"
+                   style="pointer-events:none;">
       <div class="comment-container">
         {{ comment }}
       </div>
@@ -135,10 +143,25 @@ export default {
 };
 </script>
 <style scoped>
-
-.delete-mode:hover {
+.connection {
+  pointer-events: none;
+  stroke: #9e9e9e;
+  fill: transparent;
+  stroke-width: 3px;
+}
+.fat-path {
+  stroke-width: 12px;
+  stroke: black;
+  opacity: 0;
+}
+.user-added {
+  pointer-events: all;
+  stroke: green;
+}
+.delete-hover {
   stroke: red;
   stroke-width: 4px;
+  pointer-events: all;
 }
 .comment-container {
   border: 1px solid grey;
