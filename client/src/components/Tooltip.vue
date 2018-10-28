@@ -51,6 +51,7 @@ export default {
 .tooltip {
     position: relative;
     display: inline-block;
+    pointer-events: all;
 }
 
 /* Tooltip text */

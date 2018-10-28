@@ -34,7 +34,7 @@
          height="20px"
          style="overflow:visible;">
 
-      <foreignObject width="200" height="50" x="0" y="0" style="overflow:visible;">
+      <foreignObject width="200" height="50" x="0" y="0" style="overflow:visible;pointer-events:none;">
         <tooltip direction="right" size="small">
           <font-awesome-icon
             :icon="commentIcon"
